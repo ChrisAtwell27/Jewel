@@ -61,6 +61,25 @@ public class JewelCharms {
         event.enqueueWork(() -> {
             // Register screens
             MenuScreens.register(ModMenuTypes.JEWEL_CREATION_STATION.get(), JewelCreationStationScreen::new);
+
+            // Register item colors
+            registerItemColors();
         });
+    }
+
+    private void registerItemColors() {
+        net.minecraft.client.color.item.ItemColors itemColors =
+            net.minecraft.client.Minecraft.getInstance().getItemColors();
+
+        itemColors.register((stack, tintIndex) -> {
+            if (tintIndex == 0) {
+                com.jewelcharms.util.JewelData jewelData =
+                    com.jewelcharms.util.JewelData.fromItemStack(stack);
+                if (jewelData != null) {
+                    return jewelData.getColor();
+                }
+            }
+            return 0xFFFFFF; // White default
+        }, ModItems.JEWEL.get());
     }
 }
