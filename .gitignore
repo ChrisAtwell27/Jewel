@@ -1,0 +1,39 @@
+# Gradle
+.gradle/
+build/
+out/
+classes/
+
+# Eclipse
+*.launch
+.settings/
+.metadata/
+.classpath
+.project
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# VS Code
+.vscode/
+
+# Mac
+.DS_Store
+
+# Minecraft run directories
+run/
+run-data/
+
+# Logs
+logs/
+*.log
+
+# Generated resources
+src/generated/
+
+# Mod JAR
+*.jar
+!gradle/wrapper/gradle-wrapper.jar

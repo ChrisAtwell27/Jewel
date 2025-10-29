@@ -1,0 +1,15 @@
+{
+  "itemGroup.jewelcharms": "Jewel Charms",
+
+  "block.jewelcharms.jewel_creation_station": "Jewel Creation Station",
+
+  "item.jewelcharms.jewel": "Jewel",
+  "item.jewelcharms.jewel_socket_template": "Jewel Socket Template",
+
+  "container.jewelcharms.jewel_creation_station": "Jewel Creation Station",
+
+  "tooltip.jewelcharms.jewel.materials": "Materials: %s",
+  "tooltip.jewelcharms.jewel.effects": "Effects:",
+  "tooltip.jewelcharms.tool.jewels": "Jewels:",
+  "tooltip.jewelcharms.jewel_socket_template.desc": "Used to attach jewels to tools at a Smithing Table"
+}
