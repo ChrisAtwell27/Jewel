@@ -5,7 +5,13 @@
       "Bash(powershell.exe -Command \".\\gradlew.bat clean build\")",
       "Bash(git init:*)",
       "Bash(git add:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(powershell.exe -Command \".\\gradlew.bat clean --refresh-dependencies\")",
+      "Bash(ping:*)",
+      "Bash(powershell.exe -Command \".\\gradlew.bat build --offline\")",
+      "Bash(ipconfig:*)",
+      "Bash(findstr:*)",
+      "Bash(nslookup:*)"
     ],
     "deny": [],
     "ask": []
