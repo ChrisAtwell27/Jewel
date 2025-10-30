@@ -14,7 +14,14 @@
       "Bash(nslookup:*)",
       "Bash(powershell.exe -Command \".\\gradlew.bat compileJava 2>&1 | Select-String ''assemble''\")",
       "Bash(powershell.exe -Command \".\\gradlew.bat build\")",
-      "Bash(powershell.exe -Command \".\\gradlew.bat runClient\")"
+      "Bash(powershell.exe -Command \".\\gradlew.bat runClient\")",
+      "Bash(del \"D:\\_My Projects\\Jewel\\src\\main\\java\\com\\jewelcharms\\client\\screen\\JewelPuzzleScreen.java\")",
+      "Bash(powershell.exe -Command \"Remove-Item ''D:\\_My Projects\\Jewel\\src\\main\\java\\com\\jewelcharms\\client\\screen\\JewelPuzzleScreen.java''\")",
+      "Bash(powershell.exe -Command \".\\gradlew.bat compileJava\")",
+      "Bash(powershell.exe -Command \"Test-Path ''D:\\_My Projects\\Jewel\\src\\main\\resources\\assets\\jewelcharms\\textures\\block\\polish_station.png''\")",
+      "Bash(powershell.exe -Command \"Test-Path ''d:\\_My Projects\\Jewel\\src\\main\\resources\\assets\\jewelcharms\\textures\\block\\polish_station.png''\")",
+      "Bash(powershell.exe:*)",
+      "Bash(python -c:*)"
     ],
     "deny": [],
     "ask": []

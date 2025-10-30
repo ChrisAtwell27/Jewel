@@ -25,3 +25,17 @@ displayURL="https://github.com/jewelcharms"
     versionRange="${minecraft_version_range}"
     ordering="NONE"
     side="BOTH"
+
+[[dependencies.jewelcharms]]
+    modId="resourcefullib"
+    mandatory=true
+    versionRange="[2.1.25,)"
+    ordering="AFTER"
+    side="BOTH"
+
+[[dependencies.jewelcharms]]
+    modId="cloth_config"
+    mandatory=true
+    versionRange="[11.1.118,)"
+    ordering="AFTER"
+    side="BOTH"

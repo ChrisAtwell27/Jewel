@@ -10,9 +10,13 @@ import net.minecraft.world.level.Level;
 
 import java.util.List;
 
-public class JewelItem extends Item {
+/**
+ * Rough Jewel item created after completing the slide puzzle.
+ * Must be polished at a Polish Station to become a usable jewel.
+ */
+public class RoughJewelItem extends Item {
 
-    public JewelItem() {
+    public RoughJewelItem() {
         super(new Properties().stacksTo(16));
     }
 
@@ -22,8 +26,11 @@ public class JewelItem extends Item {
 
         if (jewelData != null) {
             // Display rarity
-            tooltip.add(Component.literal(jewelData.getRarity().getDisplayName())
+            tooltip.add(Component.literal(jewelData.getRarity().getDisplayName() + " (Rough)")
                 .withStyle(jewelData.getRarity().getChatFormatting()));
+
+            tooltip.add(Component.literal("Requires polishing before use")
+                .withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
 
             // Display materials used
             if (!jewelData.getMaterials().isEmpty()) {
@@ -31,13 +38,13 @@ public class JewelItem extends Item {
                     jewelData.getMaterialsString()).withStyle(ChatFormatting.YELLOW));
             }
 
-            // Display effects
+            // Display effects (grayed out since unusable)
             if (!jewelData.getEffects().isEmpty()) {
                 tooltip.add(Component.translatable("tooltip.jewelcharms.jewel.effects")
-                    .withStyle(ChatFormatting.AQUA));
+                    .withStyle(ChatFormatting.DARK_GRAY));
                 jewelData.getEffects().forEach((effect, strength) -> {
                     tooltip.add(Component.literal("  • " + effect.getDisplayName() + " " +
-                        strength).withStyle(ChatFormatting.GRAY));
+                        strength).withStyle(ChatFormatting.DARK_GRAY));
                 });
             }
         }
@@ -47,14 +54,25 @@ public class JewelItem extends Item {
     public int getBarColor(ItemStack stack) {
         JewelData jewelData = JewelData.fromItemStack(stack);
         if (jewelData != null) {
-            return jewelData.getColor();
+            // Darken the color to indicate it's rough/unfinished
+            int color = jewelData.getColor();
+            int r = ((color >> 16) & 0xFF) / 2;
+            int g = ((color >> 8) & 0xFF) / 2;
+            int b = (color & 0xFF) / 2;
+            return (r << 16) | (g << 8) | b;
         }
         return super.getBarColor(stack);
     }
 
     @Override
     public boolean isBarVisible(ItemStack stack) {
-        // Don't show durability bar for jewels
+        // Don't show durability bar for rough jewels
+        return false;
+    }
+
+    @Override
+    public boolean isFoil(ItemStack stack) {
+        // Disable enchantment glint for rough jewels
         return false;
     }
 }

@@ -38,6 +38,24 @@ public class ModNetwork {
                 .consumerMainThread(MinigameCompletePacket::handle)
                 .add();
 
+        CHANNEL.messageBuilder(PuzzleCompletePacket.class, packetId++, NetworkDirection.PLAY_TO_SERVER)
+                .encoder(PuzzleCompletePacket::encode)
+                .decoder(PuzzleCompletePacket::decode)
+                .consumerMainThread(PuzzleCompletePacket::handle)
+                .add();
+
+        CHANNEL.messageBuilder(PuzzleSkipPacket.class, packetId++, NetworkDirection.PLAY_TO_SERVER)
+                .encoder(PuzzleSkipPacket::encode)
+                .decoder(PuzzleSkipPacket::decode)
+                .consumerMainThread(PuzzleSkipPacket::handle)
+                .add();
+
+        CHANNEL.messageBuilder(JewelRemovalPacket.class, packetId++, NetworkDirection.PLAY_TO_SERVER)
+                .encoder(JewelRemovalPacket::encode)
+                .decoder(JewelRemovalPacket::decode)
+                .consumerMainThread(JewelRemovalPacket::handle)
+                .add();
+
         JewelCharms.LOGGER.info("Registered network packets");
     }
 

@@ -36,31 +36,31 @@ public class JewelCreationStationMenu extends AbstractContainerMenu {
         this.container = new SimpleContainer(9);
         this.pos = pos;
 
-        // Material input slots (5 slots)
-        for (int i = 0; i < MATERIAL_SLOTS; i++) {
-            this.addSlot(new MaterialSlot(container, i, 30 + i * 18, 35));
+        // Material input slots (3 slots for now - centered)
+        for (int i = 0; i < 3; i++) {
+            this.addSlot(new MaterialSlot(container, i, 44 + i * 22, 27));
         }
 
-        // Jewel output slot
-        this.addSlot(new OutputSlot(container, OUTPUT_SLOT, 120, 75));
+        // Jewel output slot (rough jewel)
+        this.addSlot(new OutputSlot(container, OUTPUT_SLOT, 80, 57));
 
-        // Jewel removal input slot
-        this.addSlot(new RemovalInputSlot(container, REMOVAL_INPUT_SLOT, 30, 130));
+        // Jewel removal input slot (for tools with attached jewels)
+        this.addSlot(new RemovalInputSlot(container, REMOVAL_INPUT_SLOT, 35, 95));
 
-        // Jewel removal output slots (for the 2 jewels)
-        this.addSlot(new OutputSlot(container, REMOVAL_OUTPUT_1, 80, 130));
-        this.addSlot(new OutputSlot(container, REMOVAL_OUTPUT_2, 110, 130));
+        // Jewel removal output slots (for the extracted jewels)
+        this.addSlot(new OutputSlot(container, REMOVAL_OUTPUT_1, 80, 95));
+        this.addSlot(new OutputSlot(container, REMOVAL_OUTPUT_2, 107, 95));
 
-        // Player inventory
+        // Player inventory (3 rows) - moved down to make room for removal slots
         for (int row = 0; row < 3; ++row) {
             for (int col = 0; col < 9; ++col) {
-                this.addSlot(new Slot(playerInventory, col + row * 9 + 9, 8 + col * 18, 166 + row * 18));
+                this.addSlot(new Slot(playerInventory, col + row * 9 + 9, 8 + col * 18, 124 + row * 18));
             }
         }
 
         // Player hotbar
         for (int col = 0; col < 9; ++col) {
-            this.addSlot(new Slot(playerInventory, col, 8 + col * 18, 224));
+            this.addSlot(new Slot(playerInventory, col, 8 + col * 18, 182));
         }
     }
 
@@ -119,6 +119,10 @@ public class JewelCreationStationMenu extends AbstractContainerMenu {
 
     public void setOutputJewel(ItemStack jewel) {
         container.setItem(OUTPUT_SLOT, jewel);
+    }
+
+    public Slot getOutputSlot() {
+        return this.slots.get(OUTPUT_SLOT);
     }
 
     public void clearMaterialSlots() {

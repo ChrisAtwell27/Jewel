@@ -25,11 +25,7 @@ public class MinigameStartPacket {
     public static void handle(MinigameStartPacket packet, Supplier<NetworkEvent.Context> contextSupplier) {
         NetworkEvent.Context context = contextSupplier.get();
         context.enqueueWork(() -> {
-            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
-                if (Minecraft.getInstance().screen instanceof JewelCreationStationScreen screen) {
-                    screen.startMinigame();
-                }
-            });
+            // Legacy packet - no longer used (puzzle is now triggered by button in GUI)
         });
         context.setPacketHandled(true);
     }

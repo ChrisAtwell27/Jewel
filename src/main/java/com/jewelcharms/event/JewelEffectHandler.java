@@ -18,6 +18,7 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -25,9 +26,20 @@ import net.minecraft.world.phys.AABB;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.entity.player.PlayerXpEvent;
+import net.minecraftforge.event.entity.item.ItemTossEvent;
 import net.minecraftforge.event.level.BlockEvent;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.entity.ExperienceOrb;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraftforge.common.ForgeMod;
 
 import java.util.*;
 
@@ -35,6 +47,7 @@ import java.util.*;
 public class JewelEffectHandler {
 
     private static final Random RANDOM = new Random();
+    private static final UUID REACH_MODIFIER_UUID = UUID.fromString("6b5e7a3c-8f9d-4e2a-b1c3-5d6e7f8a9b0c");
 
     // ========== UTILITY METHODS ==========
 
@@ -47,6 +60,20 @@ public class JewelEffectHandler {
     private static boolean isWeapon(ItemStack stack) {
         Item item = stack.getItem();
         return item instanceof SwordItem || item instanceof TridentItem || item instanceof BowItem;
+    }
+
+    private static void damageToolWithUnbreaking(ItemStack tool, Player player, Map<JewelEffect, Integer> effects) {
+        // Check for Unbreaking effect
+        if (effects.containsKey(JewelEffect.DURABILITY)) {
+            int unbreakingLevel = effects.get(JewelEffect.DURABILITY);
+            // Chance to NOT damage: (unbreakingLevel / (unbreakingLevel + 1))
+            // Level 1: 50% chance, Level 2: 66% chance, Level 3: 75% chance
+            float chance = 1.0f - (1.0f / (unbreakingLevel + 1));
+            if (RANDOM.nextFloat() < chance) {
+                return; // Don't damage the tool
+            }
+        }
+        tool.hurtAndBreak(1, player, (p) -> p.broadcastBreakEvent(net.minecraft.world.entity.EquipmentSlot.MAINHAND));
     }
 
     private static Map<JewelEffect, Integer> getApplicableEffects(ItemStack stack) {
@@ -118,6 +145,28 @@ public class JewelEffectHandler {
             return;
         }
 
+        // Silk Touch - drop the block itself
+        if (effects.containsKey(JewelEffect.SILK_TOUCH)) {
+            event.setCanceled(true);
+            level.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
+            Block.popResource(level, pos, new ItemStack(state.getBlock()));
+            tool.hurtAndBreak(1, player, (p) -> p.broadcastBreakEvent(net.minecraft.world.entity.EquipmentSlot.MAINHAND));
+            return; // Don't apply other effects if silk touch is active
+        }
+
+        // Void Touch (destroys blocks, no drops)
+        if (effects.containsKey(JewelEffect.VOID_TOUCH)) {
+            event.setCanceled(true);
+            level.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
+            return;
+        }
+
+        // Fortune - multiply drops (handled via Block.getExpDrop modification)
+        if (effects.containsKey(JewelEffect.FORTUNE)) {
+            int fortuneLevel = effects.get(JewelEffect.FORTUNE);
+            handleFortune(level, pos, state, player, fortuneLevel);
+        }
+
         // Auto-Smelt
         if (effects.containsKey(JewelEffect.AUTO_SMELT)) {
             handleAutoSmelt(level, pos, state, player);
@@ -148,12 +197,6 @@ public class JewelEffectHandler {
         // Teleport Drops (Ender Pocket)
         if (effects.containsKey(JewelEffect.TELEPORT_DROPS)) {
             handleTeleportDrops(level, pos, player);
-        }
-
-        // Void Touch (destroys blocks, no drops)
-        if (effects.containsKey(JewelEffect.VOID_TOUCH)) {
-            event.setCanceled(true);
-            level.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
         }
     }
 
@@ -222,6 +265,29 @@ public class JewelEffectHandler {
             target.knockback(level * 0.5f, player.getX() - target.getX(), player.getZ() - target.getZ());
         }
 
+        // Sweeping Edge - enhance sweep attack damage
+        if (effects.containsKey(JewelEffect.SWEEPING) && weapon.getItem() instanceof SwordItem) {
+            int sweepLevel = effects.get(JewelEffect.SWEEPING);
+            // Check if this is a sweep attack (player on ground, not sprinting, has attacked recently)
+            if (player.onGround() && !player.isSprinting()) {
+                // Add extra damage for sweep attacks
+                float sweepBonus = sweepLevel * 1.0f; // +1 damage per level
+                damage += sweepBonus;
+
+                // Apply damage to nearby entities (sweep radius)
+                double sweepRadius = 1.0 + (sweepLevel * 0.5); // Increase radius with level
+                AABB sweepArea = target.getBoundingBox().inflate(sweepRadius, 0.25, sweepRadius);
+                java.util.List<LivingEntity> nearbyEntities = player.level().getEntitiesOfClass(
+                    LivingEntity.class, sweepArea,
+                    entity -> entity != target && entity != player && !entity.isAlliedTo(player)
+                );
+
+                for (LivingEntity nearbyEntity : nearbyEntities) {
+                    nearbyEntity.hurt(player.damageSources().playerAttack(player), sweepBonus);
+                }
+            }
+        }
+
         // Poison
         if (effects.containsKey(JewelEffect.POISON)) {
             int level = effects.get(JewelEffect.POISON);
@@ -255,12 +321,86 @@ public class JewelEffectHandler {
 
         LivingEntity target = event.getEntity();
 
+        // Looting (extra mob drops)
+        if (effects.containsKey(JewelEffect.LOOTING)) {
+            int lootingLevel = effects.get(JewelEffect.LOOTING);
+            handleLooting(target, lootingLevel);
+        }
+
         // Beheading (increased head drop chance)
         if (effects.containsKey(JewelEffect.BEHEADING)) {
             int level = effects.get(JewelEffect.BEHEADING);
             float headChance = level * 0.05f; // 5% per level
             if (RANDOM.nextFloat() < headChance) {
                 handleBeheading(target);
+            }
+        }
+    }
+
+    // ========== XP BOOST ==========
+
+    @SubscribeEvent
+    public static void onXpPickup(PlayerXpEvent.PickupXp event) {
+        Player player = event.getEntity();
+        ItemStack heldItem = player.getMainHandItem();
+
+        if (heldItem.isEmpty()) {
+            return;
+        }
+
+        Map<JewelEffect, Integer> effects = getApplicableEffects(heldItem);
+        if (effects.containsKey(JewelEffect.EXPERIENCE_BOOST)) {
+            int level = effects.get(JewelEffect.EXPERIENCE_BOOST);
+            ExperienceOrb orb = event.getOrb();
+            int originalXp = orb.value;
+            int bonusXp = originalXp * level; // Multiply XP by level
+            orb.value = originalXp + bonusXp;
+        }
+    }
+
+    // ========== CURSE OF BINDING (Prevent Item Removal) ==========
+
+    @SubscribeEvent
+    public static void onItemToss(ItemTossEvent event) {
+        ItemStack tossedItem = event.getEntity().getItem();
+        if (tossedItem.isEmpty()) {
+            return;
+        }
+
+        Map<JewelEffect, Integer> effects = getApplicableEffects(tossedItem);
+        if (effects.containsKey(JewelEffect.CURSE_BINDING)) {
+            // Cancel the toss event
+            event.setCanceled(true);
+
+            // Send message to player
+            Player player = event.getPlayer();
+            if (player != null) {
+                player.displayClientMessage(
+                    Component.literal("This item is cursed and cannot be dropped!").withStyle(net.minecraft.ChatFormatting.RED),
+                    true // Action bar
+                );
+            }
+        }
+    }
+
+    // ========== SOULBOUND (Keep Items on Death) ==========
+
+    @SubscribeEvent
+    public static void onPlayerClone(PlayerEvent.Clone event) {
+        if (event.isWasDeath()) {
+            Player oldPlayer = event.getOriginal();
+            Player newPlayer = event.getEntity();
+
+            // Copy soulbound items to new player
+            for (int i = 0; i < oldPlayer.getInventory().getContainerSize(); i++) {
+                ItemStack stack = oldPlayer.getInventory().getItem(i);
+                if (!stack.isEmpty()) {
+                    Map<JewelEffect, Integer> effects = getApplicableEffects(stack);
+                    if (effects.containsKey(JewelEffect.SOULBOUND)) {
+                        // Keep this item
+                        newPlayer.getInventory().setItem(i, stack.copy());
+                    }
+                }
             }
         }
     }
@@ -342,9 +482,62 @@ public class JewelEffectHandler {
                 heldItem.setDamageValue(Math.max(0, heldItem.getDamageValue() - repairAmount));
             }
         }
+
+        // Extended Reach - apply attribute modifiers
+        AttributeInstance blockReach = player.getAttribute(ForgeMod.BLOCK_REACH.get());
+        AttributeInstance entityReach = player.getAttribute(ForgeMod.ENTITY_REACH.get());
+
+        if (effects.containsKey(JewelEffect.REACH)) {
+            int level = effects.get(JewelEffect.REACH);
+            double reachBonus = level * 1.0; // +1 block per level
+
+            // Add or update reach modifier
+            if (blockReach != null && blockReach.getModifier(REACH_MODIFIER_UUID) == null) {
+                blockReach.addTransientModifier(new AttributeModifier(REACH_MODIFIER_UUID, "Jewel Reach Bonus", reachBonus, AttributeModifier.Operation.ADDITION));
+            }
+            if (entityReach != null && entityReach.getModifier(REACH_MODIFIER_UUID) == null) {
+                entityReach.addTransientModifier(new AttributeModifier(REACH_MODIFIER_UUID, "Jewel Reach Bonus", reachBonus, AttributeModifier.Operation.ADDITION));
+            }
+        } else {
+            // Remove reach modifier if effect is no longer present
+            if (blockReach != null && blockReach.getModifier(REACH_MODIFIER_UUID) != null) {
+                blockReach.removeModifier(REACH_MODIFIER_UUID);
+            }
+            if (entityReach != null && entityReach.getModifier(REACH_MODIFIER_UUID) != null) {
+                entityReach.removeModifier(REACH_MODIFIER_UUID);
+            }
+        }
     }
 
     // ========== HELPER METHODS FOR SPECIAL EFFECTS ==========
+
+    private static void handleFortune(Level level, BlockPos pos, BlockState state, Player player, int fortuneLevel) {
+        // Fortune multiplies drops for certain blocks
+        Block block = state.getBlock();
+
+        // Blocks that benefit from fortune
+        Map<Block, Item> fortuneBlocks = Map.ofEntries(
+            Map.entry(Blocks.COAL_ORE, Items.COAL),
+            Map.entry(Blocks.DEEPSLATE_COAL_ORE, Items.COAL),
+            Map.entry(Blocks.DIAMOND_ORE, Items.DIAMOND),
+            Map.entry(Blocks.DEEPSLATE_DIAMOND_ORE, Items.DIAMOND),
+            Map.entry(Blocks.EMERALD_ORE, Items.EMERALD),
+            Map.entry(Blocks.DEEPSLATE_EMERALD_ORE, Items.EMERALD),
+            Map.entry(Blocks.LAPIS_ORE, Items.LAPIS_LAZULI),
+            Map.entry(Blocks.DEEPSLATE_LAPIS_ORE, Items.LAPIS_LAZULI),
+            Map.entry(Blocks.REDSTONE_ORE, Items.REDSTONE),
+            Map.entry(Blocks.DEEPSLATE_REDSTONE_ORE, Items.REDSTONE),
+            Map.entry(Blocks.NETHER_QUARTZ_ORE, Items.QUARTZ)
+        );
+
+        if (fortuneBlocks.containsKey(block)) {
+            // Add extra drops based on fortune level
+            int extraDrops = RANDOM.nextInt(fortuneLevel + 1);
+            for (int i = 0; i < extraDrops; i++) {
+                Block.popResource(level, pos, new ItemStack(fortuneBlocks.get(block)));
+            }
+        }
+    }
 
     private static void handleAutoSmelt(Level level, BlockPos pos, BlockState state, Player player) {
         // This is a simplified version - would need proper furnace recipe lookup
@@ -386,9 +579,10 @@ public class JewelEffectHandler {
             }
         }
 
+        Map<JewelEffect, Integer> effects = getApplicableEffects(tool);
         for (BlockPos minePos : toMine) {
             level.destroyBlock(minePos, true, player);
-            tool.hurtAndBreak(1, player, (p) -> {});
+            damageToolWithUnbreaking(tool, player, effects);
         }
     }
 
@@ -417,10 +611,11 @@ public class JewelEffectHandler {
             }
         }
 
+        Map<JewelEffect, Integer> effects = getApplicableEffects(tool);
         for (BlockPos logPos : logs) {
             if (!logPos.equals(pos)) {
                 level.destroyBlock(logPos, true, player);
-                tool.hurtAndBreak(1, player, (p) -> {});
+                damageToolWithUnbreaking(tool, player, effects);
             }
         }
     }
@@ -448,6 +643,30 @@ public class JewelEffectHandler {
         for (ItemEntity item : items) {
             player.getInventory().add(item.getItem());
             item.discard();
+        }
+    }
+
+    private static void handleLooting(LivingEntity target, int lootingLevel) {
+        // Spawn extra common drops from mobs based on looting level
+        Level level = target.level();
+        Map<String, Item> mobDrops = Map.of(
+            "zombie", Items.ROTTEN_FLESH,
+            "skeleton", Items.BONE,
+            "spider", Items.STRING,
+            "enderman", Items.ENDER_PEARL,
+            "blaze", Items.BLAZE_ROD,
+            "creeper", Items.GUNPOWDER
+        );
+
+        String mobType = target.getType().toString();
+        if (mobDrops.containsKey(mobType)) {
+            // Add 0-lootingLevel extra drops
+            int extraDrops = RANDOM.nextInt(lootingLevel + 1);
+            for (int i = 0; i < extraDrops; i++) {
+                ItemEntity drop = new ItemEntity(level, target.getX(), target.getY(), target.getZ(),
+                    new ItemStack(mobDrops.get(mobType)));
+                level.addFreshEntity(drop);
+            }
         }
     }
 

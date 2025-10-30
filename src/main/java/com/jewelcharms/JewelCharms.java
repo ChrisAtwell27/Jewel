@@ -2,6 +2,7 @@ package com.jewelcharms;
 
 import com.jewelcharms.client.screen.JewelCreationStationScreen;
 import com.jewelcharms.config.MaterialEffectConfig;
+import com.jewelcharms.config.RarityConfig;
 import com.jewelcharms.init.ModBlocks;
 import com.jewelcharms.init.ModItems;
 import com.jewelcharms.init.ModMenuTypes;
@@ -49,9 +50,12 @@ public class JewelCharms {
         event.enqueueWork(() -> {
             ModNetwork.register();
 
-            // Load material effect config
+            // Load configs
             MaterialEffectConfig config = MaterialEffectConfig.load();
             JewelCreationHelper.setConfig(config);
+
+            RarityConfig rarityConfig = RarityConfig.load();
+            JewelCreationHelper.setRarityConfig(rarityConfig);
         });
     }
 
@@ -61,8 +65,9 @@ public class JewelCharms {
         event.enqueueWork(() -> {
             // Register screens
             MenuScreens.register(ModMenuTypes.JEWEL_CREATION_STATION.get(), JewelCreationStationScreen::new);
+            MenuScreens.register(ModMenuTypes.POLISH_STATION.get(), com.jewelcharms.client.screen.PolishStationScreen::new);
 
-            // Register item colors
+            // Register item colors for jewels
             registerItemColors();
         });
     }
@@ -71,6 +76,7 @@ public class JewelCharms {
         net.minecraft.client.color.item.ItemColors itemColors =
             net.minecraft.client.Minecraft.getInstance().getItemColors();
 
+        // Register polished jewel colors
         itemColors.register((stack, tintIndex) -> {
             if (tintIndex == 0) {
                 com.jewelcharms.util.JewelData jewelData =
@@ -81,5 +87,22 @@ public class JewelCharms {
             }
             return 0xFFFFFF; // White default
         }, ModItems.JEWEL.get());
+
+        // Register rough jewel colors (darkened version)
+        itemColors.register((stack, tintIndex) -> {
+            if (tintIndex == 0) {
+                com.jewelcharms.util.JewelData jewelData =
+                    com.jewelcharms.util.JewelData.fromItemStack(stack);
+                if (jewelData != null) {
+                    int color = jewelData.getColor();
+                    // Darken the color to indicate rough/unpolished state
+                    int r = ((color >> 16) & 0xFF) / 2;
+                    int g = ((color >> 8) & 0xFF) / 2;
+                    int b = (color & 0xFF) / 2;
+                    return (r << 16) | (g << 8) | b;
+                }
+            }
+            return 0x808080; // Gray default
+        }, ModItems.ROUGH_JEWEL.get());
     }
 }

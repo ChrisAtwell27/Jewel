@@ -56,10 +56,24 @@ repositories {
     maven {
         url "https://libraries.minecraft.net/"
     }
+    maven {
+        name = "Resourceful Bees Maven"
+        url = "https://maven.resourcefulbees.com/repository/maven-public/"
+    }
+    maven {
+        name = "Shedaniel Maven"
+        url = "https://maven.shedaniel.me/"
+    }
 }
 
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+
+    // Resourceful Lib - Modern UI framework for Forge
+    implementation fg.deobf("com.teamresourceful.resourcefullib:resourcefullib-forge-1.20.1:2.1.25")
+
+    // Cloth Config - Config screens
+    implementation fg.deobf("me.shedaniel.cloth:cloth-config-forge:11.1.118")
 }
 
 tasks.named('processResources', ProcessResources).configure {
