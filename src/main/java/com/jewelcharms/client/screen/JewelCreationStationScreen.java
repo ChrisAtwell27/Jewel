@@ -98,11 +98,18 @@ public class JewelCreationStationScreen extends AbstractContainerScreen<JewelCre
                 int scrambleCount = gridSize * gridSize * 3;
                 puzzleState.scramble(minecraft.level.random, scrambleCount);
 
-                // Calculate tile size and position
-                this.tileSize = Math.min(300 / gridSize, 50);
+                // Calculate tile size and position - scale to fit screen better
+                int maxPuzzleHeight = height - 120; // Leave space for title, info, and skip button
+                int maxPuzzleWidth = width - 60; // Leave side margins
+
+                // Calculate the largest tile size that fits
+                int maxTileSizeForHeight = maxPuzzleHeight / gridSize;
+                int maxTileSizeForWidth = maxPuzzleWidth / gridSize;
+                this.tileSize = Math.min(Math.min(maxTileSizeForHeight, maxTileSizeForWidth), 40); // Cap at 40px max
+
                 int puzzleSize = gridSize * tileSize;
                 puzzleStartX = (width - puzzleSize) / 2;
-                puzzleStartY = (height - puzzleSize) / 2 - 20;
+                puzzleStartY = (height - puzzleSize) / 2;
 
                 puzzleActive = true;
                 moveCount = 0;
@@ -189,10 +196,11 @@ public class JewelCreationStationScreen extends AbstractContainerScreen<JewelCre
                 if (pendingJewelData != null) {
                     int skipCost = pendingJewelData.getRarity().getSkipCost();
                     int gridSize = puzzleState.getGridSize();
+                    int puzzleBottomY = puzzleStartY + gridSize * tileSize;
                     int skipButtonWidth = 100;
                     int skipButtonHeight = 20;
                     int skipButtonX = (width - skipButtonWidth) / 2;
-                    int skipButtonY = puzzleStartY + gridSize * tileSize + 20;
+                    int skipButtonY = Math.min(height - 30, puzzleBottomY + 10);
 
                     if (mouseX >= skipButtonX && mouseX < skipButtonX + skipButtonWidth &&
                         mouseY >= skipButtonY && mouseY < skipButtonY + skipButtonHeight) {
@@ -264,20 +272,22 @@ public class JewelCreationStationScreen extends AbstractContainerScreen<JewelCre
         graphics.fill(0, 0, width, height, 0xC0000000);
 
         int gridSize = puzzleState.getGridSize();
+        int puzzleBottomY = puzzleStartY + gridSize * tileSize;
 
-        // Draw title and info
-        graphics.drawCenteredString(font, "Solve the Puzzle!", width / 2, puzzleStartY - 40, 0xFFFFFF);
-        graphics.drawCenteredString(font, "Moves: " + moveCount, width / 2, puzzleStartY - 25, 0xAAAAAA);
-        graphics.drawCenteredString(font, "Get all colored tiles into the center!", width / 2, puzzleStartY - 10, 0xAAAAAA);
+        // Draw title and info above puzzle
+        int titleY = Math.max(10, puzzleStartY - 50);
+        graphics.drawCenteredString(font, "Solve the Puzzle!", width / 2, titleY, 0xFFFFFF);
+        graphics.drawCenteredString(font, "Moves: " + moveCount, width / 2, titleY + 15, 0xAAAAAA);
+        graphics.drawCenteredString(font, "Get all colored tiles into the center!", width / 2, titleY + 30, 0xAAAAAA);
 
-        // Draw skip button
+        // Draw skip button below puzzle
         if (pendingJewelData != null) {
             int skipCost = pendingJewelData.getRarity().getSkipCost();
             String skipText = "Skip (" + skipCost + " XP)";
             int skipButtonWidth = 100;
             int skipButtonHeight = 20;
             int skipButtonX = (width - skipButtonWidth) / 2;
-            int skipButtonY = puzzleStartY + gridSize * tileSize + 20;
+            int skipButtonY = Math.min(height - 30, puzzleBottomY + 10);
 
             boolean canAfford = minecraft.player.experienceLevel >= skipCost;
             boolean skipHovered = mouseX >= skipButtonX && mouseX < skipButtonX + skipButtonWidth &&
