@@ -142,48 +142,49 @@ public class JewelCreationStationScreen extends AbstractContainerScreen<JewelCre
 
     @Override
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
+        // When puzzle is active, only render the puzzle overlay (no inventory/slots)
+        if (puzzleActive && puzzleState != null) {
+            renderBackground(graphics);
+            renderPuzzleOverlay(graphics, mouseX, mouseY);
+            return; // Skip all other rendering
+        }
+
+        // Normal rendering when puzzle is not active
         renderBackground(graphics);
         super.render(graphics, mouseX, mouseY, partialTick);
         renderTooltip(graphics, mouseX, mouseY);
 
-        // Render custom widgets when puzzle is not active
-        if (!puzzleActive) {
-            if (statusLabel != null) {
-                // Update status text
-                int materialCount = menu.getMaterialStacks().size();
-                if (materialCount == 0) {
-                    statusLabel.setText(Component.literal("Insert Materials"));
-                } else {
-                    statusLabel.setText(Component.literal(materialCount + " Material" + (materialCount > 1 ? "s" : "") + " Ready"));
-                }
-                statusLabel.render(graphics, mouseX, mouseY, partialTick);
+        // Render custom widgets
+        if (statusLabel != null) {
+            // Update status text
+            int materialCount = menu.getMaterialStacks().size();
+            if (materialCount == 0) {
+                statusLabel.setText(Component.literal("Insert Materials"));
+            } else {
+                statusLabel.setText(Component.literal(materialCount + " Material" + (materialCount > 1 ? "s" : "") + " Ready"));
             }
-
-            if (createButton != null) {
-                createButton.setEnabled(menu.getMaterialStacks().size() > 0);
-                createButton.render(graphics, mouseX, mouseY, partialTick);
-            }
-
-            // Render removal section
-            if (removalLabel != null) {
-                removalLabel.render(graphics, mouseX, mouseY, partialTick);
-            }
-
-            if (removeButton != null) {
-                // Enable button only if there's a tool with jewels in the removal input slot
-                // Slot indices: 0-2 materials, 3 output, 4 removal input, 5-6 removal outputs
-                ItemStack removalInput = menu.slots.get(4).getItem(); // REMOVAL_INPUT_SLOT is at index 4
-                boolean hasJeweledTool = !removalInput.isEmpty() &&
-                                        removalInput.getTag() != null &&
-                                        removalInput.getTag().contains("JewelCharms");
-                removeButton.setEnabled(hasJeweledTool);
-                removeButton.render(graphics, mouseX, mouseY, partialTick);
-            }
+            statusLabel.render(graphics, mouseX, mouseY, partialTick);
         }
 
-        // Render puzzle overlay if active
-        if (puzzleActive && puzzleState != null) {
-            renderPuzzleOverlay(graphics, mouseX, mouseY);
+        if (createButton != null) {
+            createButton.setEnabled(menu.getMaterialStacks().size() > 0);
+            createButton.render(graphics, mouseX, mouseY, partialTick);
+        }
+
+        // Render removal section
+        if (removalLabel != null) {
+            removalLabel.render(graphics, mouseX, mouseY, partialTick);
+        }
+
+        if (removeButton != null) {
+            // Enable button only if there's a tool with jewels in the removal input slot
+            // Slot indices: 0-2 materials, 3 output, 4 removal input, 5-6 removal outputs
+            ItemStack removalInput = menu.slots.get(4).getItem(); // REMOVAL_INPUT_SLOT is at index 4
+            boolean hasJeweledTool = !removalInput.isEmpty() &&
+                                    removalInput.getTag() != null &&
+                                    removalInput.getTag().contains("JewelCharms");
+            removeButton.setEnabled(hasJeweledTool);
+            removeButton.render(graphics, mouseX, mouseY, partialTick);
         }
     }
 
