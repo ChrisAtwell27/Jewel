@@ -50,6 +50,7 @@ public class JewelItem extends Item {
 
     @Override
     public boolean isBarVisible(ItemStack stack) {
-        return JewelData.fromItemStack(stack) != null;
+        // Don't show durability bar for jewels
+        return false;
     }
 }

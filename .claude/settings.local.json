@@ -11,7 +11,10 @@
       "Bash(powershell.exe -Command \".\\gradlew.bat build --offline\")",
       "Bash(ipconfig:*)",
       "Bash(findstr:*)",
-      "Bash(nslookup:*)"
+      "Bash(nslookup:*)",
+      "Bash(powershell.exe -Command \".\\gradlew.bat compileJava 2>&1 | Select-String ''assemble''\")",
+      "Bash(powershell.exe -Command \".\\gradlew.bat build\")",
+      "Bash(powershell.exe -Command \".\\gradlew.bat runClient\")"
     ],
     "deny": [],
     "ask": []

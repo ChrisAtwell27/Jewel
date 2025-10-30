@@ -52,40 +52,12 @@ public class JewelCreationHelper {
             return ItemStack.EMPTY; // No valid materials
         }
 
-        // Calculate blended color
-        int blendedColor = blendColors(colors);
-
-        // Create jewel item
+        // Create jewel item with individual colors (no averaging)
         ItemStack jewel = new ItemStack(ModItems.JEWEL.get());
-        JewelData jewelData = new JewelData(materialNames, combinedEffects, blendedColor);
+        JewelData jewelData = new JewelData(materialNames, combinedEffects, colors);
         jewelData.saveToItemStack(jewel);
 
         return jewel;
-    }
-
-    private static int blendColors(List<Integer> colors) {
-        if (colors.isEmpty()) {
-            return 0xFFFFFF; // Default white
-        }
-
-        int totalR = 0, totalG = 0, totalB = 0;
-
-        for (int color : colors) {
-            int r = (color >> 16) & 0xFF;
-            int g = (color >> 8) & 0xFF;
-            int b = color & 0xFF;
-
-            totalR += r;
-            totalG += g;
-            totalB += b;
-        }
-
-        int count = colors.size();
-        int avgR = totalR / count;
-        int avgG = totalG / count;
-        int avgB = totalB / count;
-
-        return (avgR << 16) | (avgG << 8) | avgB;
     }
 
     public static boolean isValidMaterial(Item item) {
