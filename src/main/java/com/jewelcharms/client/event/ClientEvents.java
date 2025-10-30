@@ -13,9 +13,17 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderItemInFrameEvent;
+import net.minecraftforge.client.event.RenderHandEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraft.client.renderer.entity.ItemRenderer;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.world.item.*;
+import com.mojang.math.Axis;
+import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 
 @Mod.EventBusSubscriber(modid = JewelCharms.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
 public class ClientEvents {
@@ -37,6 +45,32 @@ public class ClientEvents {
             event.getPackedLight(),
             0
         );
+    }
+
+    @SubscribeEvent
+    public static void onRenderHand(RenderHandEvent event) {
+        ItemStack stack = event.getItemStack();
+
+        if (stack.isEmpty() || ToolJewelData.getJewelCount(stack) == 0) {
+            return;
+        }
+
+        // Render jewel overlays on held items
+        PoseStack poseStack = event.getPoseStack();
+        poseStack.pushPose();
+
+        // Position the overlay on the item
+        poseStack.translate(0.5, 0.5, 0.0);
+
+        ToolJewelRenderer.renderJewelOverlays(
+            stack,
+            poseStack,
+            event.getMultiBufferSource(),
+            event.getPackedLight(),
+            net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY
+        );
+
+        poseStack.popPose();
     }
 
     @SubscribeEvent

@@ -35,20 +35,28 @@ public class ToolJewelRenderer {
         float r = ((color >> 16) & 0xFF) / 255.0f;
         float g = ((color >> 8) & 0xFF) / 255.0f;
         float b = (color & 0xFF) / 255.0f;
-        float a = 0.6f; // Semi-transparent
+        float a = 0.8f; // More opaque for better visibility
 
         VertexConsumer vertexConsumer = buffer.getBuffer(RenderType.translucent());
         Matrix4f matrix = poseStack.last().pose();
 
-        // Render a small quad as the jewel overlay
-        float size = 0.05f;
+        // Render a larger, more visible gem overlay
+        float size = 0.08f; // Increased size
         float y = 0.5f;
-        float z = 0.01f;
+        float z = 0.02f; // Slightly more forward
 
-        // Front face
+        // Front face - main gem
         vertexConsumer.vertex(matrix, offsetX - size, y - size, z).color(r, g, b, a).uv(0, 0).overlayCoords(combinedOverlay).uv2(combinedLight).normal(0, 0, 1).endVertex();
         vertexConsumer.vertex(matrix, offsetX + size, y - size, z).color(r, g, b, a).uv(1, 0).overlayCoords(combinedOverlay).uv2(combinedLight).normal(0, 0, 1).endVertex();
         vertexConsumer.vertex(matrix, offsetX + size, y + size, z).color(r, g, b, a).uv(1, 1).overlayCoords(combinedOverlay).uv2(combinedLight).normal(0, 0, 1).endVertex();
         vertexConsumer.vertex(matrix, offsetX - size, y + size, z).color(r, g, b, a).uv(0, 1).overlayCoords(combinedOverlay).uv2(combinedLight).normal(0, 0, 1).endVertex();
+
+        // Add a bright center highlight for sparkle effect
+        float centerSize = size * 0.3f;
+        float centerZ = z + 0.001f;
+        vertexConsumer.vertex(matrix, offsetX - centerSize, y - centerSize, centerZ).color(1.0f, 1.0f, 1.0f, a * 0.8f).uv(0, 0).overlayCoords(combinedOverlay).uv2(15728880).normal(0, 0, 1).endVertex();
+        vertexConsumer.vertex(matrix, offsetX + centerSize, y - centerSize, centerZ).color(1.0f, 1.0f, 1.0f, a * 0.8f).uv(1, 0).overlayCoords(combinedOverlay).uv2(15728880).normal(0, 0, 1).endVertex();
+        vertexConsumer.vertex(matrix, offsetX + centerSize, y + centerSize, centerZ).color(1.0f, 1.0f, 1.0f, a * 0.8f).uv(1, 1).overlayCoords(combinedOverlay).uv2(15728880).normal(0, 0, 1).endVertex();
+        vertexConsumer.vertex(matrix, offsetX - centerSize, y + centerSize, centerZ).color(1.0f, 1.0f, 1.0f, a * 0.8f).uv(0, 1).overlayCoords(combinedOverlay).uv2(15728880).normal(0, 0, 1).endVertex();
     }
 }
