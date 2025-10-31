@@ -3,6 +3,7 @@ plugins {
     id 'idea'
     id 'maven-publish'
     id 'net.minecraftforge.gradle' version '[6.0,6.2)'
+    id 'org.parchmentmc.librarian.forgegradle' version '1.+'
 }
 
 version = mod_version
@@ -22,6 +23,10 @@ minecraft {
             workingDirectory project.file('run')
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
+
+            // Fix for Patchouli mixin refmap remapping in dev
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
 
             mods {
                 "${mod_id}" {
@@ -54,6 +59,9 @@ repositories {
         url "https://maven.minecraftforge.net/"
     }
     maven {
+        url = "https://maven.parchmentmc.org"
+    }
+    maven {
         url "https://libraries.minecraft.net/"
     }
     maven {
@@ -74,6 +82,9 @@ dependencies {
 
     // Cloth Config - Config screens
     implementation fg.deobf("me.shedaniel.cloth:cloth-config-forge:11.1.118")
+
+    // Patchouli - In-game guidebook (now using parchment mappings for compatibility!)
+    implementation fg.deobf("vazkii.patchouli:Patchouli:1.20.1-84-FORGE")
 }
 
 tasks.named('processResources', ProcessResources).configure {

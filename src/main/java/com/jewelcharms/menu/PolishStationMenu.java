@@ -12,10 +12,12 @@ import net.minecraft.world.item.ItemStack;
 
 public class PolishStationMenu extends AbstractContainerMenu {
     private static final int INPUT_SLOT = 0;
-    private static final int OUTPUT_SLOT = 1;
 
     private final Container container;
     private final BlockPos pos;
+    public final net.minecraft.world.level.Level world;
+    public final int x, y, z;
+    public final net.minecraft.world.entity.player.Player entity;
 
     public PolishStationMenu(int id, Inventory playerInventory) {
         this(id, playerInventory, BlockPos.ZERO);
@@ -23,14 +25,17 @@ public class PolishStationMenu extends AbstractContainerMenu {
 
     public PolishStationMenu(int id, Inventory playerInventory, BlockPos pos) {
         super(ModMenuTypes.POLISH_STATION.get(), id);
-        this.container = new SimpleContainer(2);
+        this.container = new SimpleContainer(1);
         this.pos = pos;
+        this.world = playerInventory.player.level();
+        this.x = pos.getX();
+        this.y = pos.getY();
+        this.z = pos.getZ();
+        this.entity = playerInventory.player;
 
-        // Input slot (rough jewel) - top
-        this.addSlot(new InputSlot(container, INPUT_SLOT, 80, 27));
-
-        // Output slot (polished jewel) - bottom
-        this.addSlot(new OutputSlot(container, OUTPUT_SLOT, 80, 57));
+        // Input slot (rough jewel) - center top, aligned with 5th inventory column
+        // 5th column = 8 + 18*4 = 80
+        this.addSlot(new InputSlot(container, INPUT_SLOT, 80, 14));
 
         // Player inventory (3 rows)
         for (int row = 0; row < 3; ++row) {
@@ -54,9 +59,10 @@ public class PolishStationMenu extends AbstractContainerMenu {
             ItemStack slotStack = slot.getItem();
             itemstack = slotStack.copy();
 
-            if (index < 2) {
+            // Container has 1 slot (0), player inventory starts at index 1
+            if (index < 1) {
                 // Moving from container to player inventory
-                if (!this.moveItemStackTo(slotStack, 2, this.slots.size(), true)) {
+                if (!this.moveItemStackTo(slotStack, 1, this.slots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
             } else {
@@ -91,10 +97,6 @@ public class PolishStationMenu extends AbstractContainerMenu {
         return container.getItem(INPUT_SLOT);
     }
 
-    public void setOutputItem(ItemStack stack) {
-        container.setItem(OUTPUT_SLOT, stack);
-    }
-
     public void clearInputSlot() {
         container.setItem(INPUT_SLOT, ItemStack.EMPTY);
     }
@@ -113,17 +115,6 @@ public class PolishStationMenu extends AbstractContainerMenu {
         public boolean mayPlace(ItemStack stack) {
             // Only allow rough jewels
             return stack.getItem().toString().contains("rough_jewel");
-        }
-    }
-
-    private static class OutputSlot extends Slot {
-        public OutputSlot(Container container, int slot, int x, int y) {
-            super(container, slot, x, y);
-        }
-
-        @Override
-        public boolean mayPlace(ItemStack stack) {
-            return false; // Output slot, no placing allowed
         }
     }
 }

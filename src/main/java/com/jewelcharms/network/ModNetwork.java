@@ -56,6 +56,12 @@ public class ModNetwork {
                 .consumerMainThread(JewelRemovalPacket::handle)
                 .add();
 
+        CHANNEL.messageBuilder(GravityTetherCollectPacket.class, packetId++, NetworkDirection.PLAY_TO_SERVER)
+                .encoder(GravityTetherCollectPacket::encode)
+                .decoder(GravityTetherCollectPacket::decode)
+                .consumerMainThread(GravityTetherCollectPacket::handle)
+                .add();
+
         JewelCharms.LOGGER.info("Registered network packets");
     }
 

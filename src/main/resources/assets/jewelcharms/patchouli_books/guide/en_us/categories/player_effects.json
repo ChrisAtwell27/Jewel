@@ -1,0 +1,6 @@
+{
+  "name": "Player Effects",
+  "description": "Passive bonuses granted to you while holding a jeweled item.",
+  "icon": "minecraft:golden_apple",
+  "sortnum": 4
+}

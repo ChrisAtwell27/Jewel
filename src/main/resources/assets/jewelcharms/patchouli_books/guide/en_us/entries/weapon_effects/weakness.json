@@ -1,0 +1,28 @@
+{
+  "name": "Enfeebling Strike",
+  "icon": "minecraft:fermented_spider_eye",
+  "category": "jewelcharms:weapon_effects",
+  "sortnum": 9,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(weapon)Enfeebling Strike$() (Weakness) inflicts the Weakness status effect on struck enemies!$(br2)Weakness $(important)reduces their attack damage$(), making them less dangerous in combat."
+    },
+    {
+      "type": "spotlight",
+      "item": "minecraft:fermented_spider_eye",
+      "title": "Primary Material",
+      "text": "$(4B0082)Fermented Spider Eye$() grants $(weapon)Enfeebling Strike +2$()$(br2)Sap their strength!"
+    },
+    {
+      "type": "text",
+      "title": "Weakness Effects",
+      "text": "$(li)Level 1: Weakness I for 4 seconds$(li)Level 2: Weakness II for 6 seconds$(li)Reduces enemy damage by -4 per level$(br2)Makes powerful enemies much more manageable!"
+    },
+    {
+      "type": "text",
+      "title": "Best Uses",
+      "text": "$(li)Survive against strong mobs$(li)Tank multiple enemies safely$(li)Reduce boss damage$(li)Great defensive weapon effect$(li)Combine with armor for maximum tankiness$(br2)$(o)The best offense is a good defense!$()"
+    }
+  ]
+}

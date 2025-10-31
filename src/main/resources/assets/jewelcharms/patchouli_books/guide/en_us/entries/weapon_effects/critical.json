@@ -1,0 +1,28 @@
+{
+  "name": "Critical Strike",
+  "icon": "minecraft:ender_eye",
+  "category": "jewelcharms:weapon_effects",
+  "sortnum": 5,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(weapon)Critical Strike$() gives you a chance to deal $(important)bonus critical damage$() on each hit!$(br2)When you land a critical strike, you deal significantly more damage with a satisfying visual effect."
+    },
+    {
+      "type": "spotlight",
+      "item": "minecraft:ender_eye",
+      "title": "Primary Material",
+      "text": "$(2E8B57)Eye of Ender$() grants $(weapon)Critical Strike +2$()$(br2)See through your enemies' defenses!"
+    },
+    {
+      "type": "text",
+      "title": "How It Works",
+      "text": "Each level adds $(important)+10% crit chance$()$(li)Level 1: 10% crit chance$(li)Level 2: 20% crit chance$(li)Level 3: 30% crit chance$(br2)Critical hits deal $(important)1.5x damage$() (50% bonus damage). Crits stack with vanilla jump-attack crits!"
+    },
+    {
+      "type": "text",
+      "title": "Synergies",
+      "text": "$(li)Combine with $(weapon)Sharpness$() for devastating crits$(li)Pair with $(weapon)Lifesteal$() for big heals$(li)Use $(weapon)Execute$() to finish survivors$(li)Stack multiple jewels for higher crit chance$(br2)$(o)Feel the rush of RNG!$()"
+    }
+  ]
+}

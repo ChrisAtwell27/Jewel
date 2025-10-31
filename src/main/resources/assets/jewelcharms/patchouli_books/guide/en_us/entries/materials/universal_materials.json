@@ -1,0 +1,48 @@
+{
+  "name": "Universal Materials",
+  "icon": "minecraft:nether_star",
+  "category": "jewelcharms:materials",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "text",
+      "title": "Universal Materials",
+      "text": "These materials grant effects that work on both tools and weapons, making them incredibly versatile!"
+    },
+    {
+      "type": "text",
+      "title": "Gold Ingot",
+      "text": "$(bold)Effect:$() XP Boost (Experience Boost) +2$(br)$(bold)Color:$() Gold$(br)$(bold)Best For:$() Everything!$(br2)Doubles your XP gain from all sources!"
+    },
+    {
+      "type": "text",
+      "title": "Ghast Tear",
+      "text": "$(bold)Effect:$() Mending (Self-Repair) +2$(br)$(bold)Color:$() White$(br)$(bold)Best For:$() Valuable items$(br2)Repairs your item using XP orbs!"
+    },
+    {
+      "type": "text",
+      "title": "Netherite Ingot",
+      "text": "$(bold)Effects:$() Unbreaking (Durability) +5, Mining Speed +2, Sharpness +2$(br)$(bold)Color:$() Dark Gray$(br)$(bold)Best For:$() Everything!$(br2)$(important)Triple effect!$() The ultimate material!"
+    },
+    {
+      "type": "text",
+      "title": "Ender Pearl",
+      "text": "$(bold)Effect:$() Extended Reach +2$(br)$(bold)Color:$() Teal$(br)$(bold)Best For:$() All items$(br2)Increases your block/entity interaction range by 2 blocks!"
+    },
+    {
+      "type": "text",
+      "title": "Spore Blossom",
+      "text": "$(bold)Effect:$() Biome Resonance +1$(br)$(bold)Color:$() Pink$(br)$(bold)Best For:$() All items$(br2)Grants bonuses based on the biome you're in! Adapts to your environment."
+    },
+    {
+      "type": "text",
+      "title": "Phantom Membrane",
+      "text": "$(bold)Effect:$() Moon Phase Sensitivity +1$(br)$(bold)Color:$() Light Blue$(br)$(bold)Best For:$() All items$(br2)Power waxes and wanes with the phases of the moon!"
+    },
+    {
+      "type": "text",
+      "title": "Lightning Rod",
+      "text": "$(bold)Effect:$() Weather Siphon +1$(br)$(bold)Color:$() Copper$(br)$(bold)Best For:$() All items$(br2)Draws power from weather conditions - rain, thunder, and storms!"
+    }
+  ]
+}

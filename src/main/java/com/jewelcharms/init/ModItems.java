@@ -1,6 +1,7 @@
 package com.jewelcharms.init;
 
 import com.jewelcharms.JewelCharms;
+import com.jewelcharms.item.GuidebookItem;
 import com.jewelcharms.item.JewelItem;
 import com.jewelcharms.item.JewelSocketTemplateItem;
 import com.jewelcharms.item.RoughJewelItem;
@@ -29,4 +30,7 @@ public class ModItems {
 
     public static final RegistryObject<Item> JEWEL_SOCKET_TEMPLATE = ITEMS.register("jewel_socket_template",
             JewelSocketTemplateItem::new);
+
+    public static final RegistryObject<Item> GUIDEBOOK = ITEMS.register("guidebook",
+            GuidebookItem::new);
 }

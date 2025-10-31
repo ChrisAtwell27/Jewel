@@ -1,0 +1,22 @@
+{
+  "name": "Special Effects",
+  "icon": "minecraft:ender_pearl",
+  "category": "jewelcharms:special_effects",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(special)Special Effects$() are unique, powerful, and sometimes dangerous abilities that don't fit into other categories!$(br2)These effects provide $(important)extraordinary powers$() with unique mechanics."
+    },
+    {
+      "type": "text",
+      "title": "Available Effects",
+      "text": "$(l:special_effects/void_touch)$(FF0000)Void Touch$()$() - Destroy blocks instantly$(br2)$(l:special_effects/absorption)Absorption$() - Bonus yellow hearts$(br2)$(l:special_effects/teleport_drops)Ender Pocket$() - Teleport drops to inventory$(br2)$(l:special_effects/soulbound)Soulbound$() - Keep item on death$(br2)$(l:special_effects/curse_binding)$(8B0000)Curse of Binding$()$() - Cannot remove"
+    },
+    {
+      "type": "text",
+      "title": "Power & Responsibility",
+      "text": "Special effects are $(important)game-changing$()!$(br2)Some require rare materials.$(br)Some have drawbacks.$(br)Some are just plain cool.$(br2)$(o)Use them wisely!$()"
+    }
+  ]
+}

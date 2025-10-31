@@ -18,14 +18,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JewelCreationStationMenu extends AbstractContainerMenu {
-    private static final int MATERIAL_SLOTS = 5;
-    private static final int OUTPUT_SLOT = 5;
-    private static final int REMOVAL_INPUT_SLOT = 6;
-    private static final int REMOVAL_OUTPUT_1 = 7;
-    private static final int REMOVAL_OUTPUT_2 = 8;
+    private static final int MATERIAL_SLOTS = 3;
+    private static final int OUTPUT_SLOT = 3;
+    private static final int REMOVAL_INPUT_SLOT = 4;
+    private static final int REMOVAL_OUTPUT_1 = 5;
+    private static final int REMOVAL_OUTPUT_2 = 6;
 
     private final Container container;
     private final BlockPos pos;
+    public final net.minecraft.world.level.Level world;
+    public final int x, y, z;
+    public final net.minecraft.world.entity.player.Player entity;
 
     public JewelCreationStationMenu(int id, Inventory playerInventory) {
         this(id, playerInventory, BlockPos.ZERO);
@@ -33,34 +36,43 @@ public class JewelCreationStationMenu extends AbstractContainerMenu {
 
     public JewelCreationStationMenu(int id, Inventory playerInventory, BlockPos pos) {
         super(ModMenuTypes.JEWEL_CREATION_STATION.get(), id);
-        this.container = new SimpleContainer(9);
+        this.container = new SimpleContainer(7);
         this.pos = pos;
+        this.world = playerInventory.player.level();
+        this.x = pos.getX();
+        this.y = pos.getY();
+        this.z = pos.getZ();
+        this.entity = playerInventory.player;
 
-        // Material input slots (3 slots for now - centered)
-        for (int i = 0; i < 3; i++) {
-            this.addSlot(new MaterialSlot(container, i, 44 + i * 22, 27));
-        }
+        // Material input slots (slots 0-2) - aligned with 2nd, 4th, and 6th inventory columns
+        // Column positions: 2nd = 8+18 = 26, 4th = 8+18*3 = 62, 6th = 8+18*5 = 98
+        // Y position: 16
+        this.addSlot(new MaterialSlot(container, 0, 26, 16));
+        this.addSlot(new MaterialSlot(container, 1, 62, 16));
+        this.addSlot(new MaterialSlot(container, 2, 98, 16));
 
-        // Jewel output slot (rough jewel)
-        this.addSlot(new OutputSlot(container, OUTPUT_SLOT, 80, 57));
+        // Rough jewel output slot (slot 3) - aligned with 4th column = 62
+        // Y position: 50
+        this.addSlot(new OutputSlot(container, OUTPUT_SLOT, 62, 50));
 
-        // Jewel removal input slot (for tools with attached jewels)
-        this.addSlot(new RemovalInputSlot(container, REMOVAL_INPUT_SLOT, 35, 95));
+        // Jewel removal input slot (slot 4) - aligned with 8th column = 8+18*7 = 134
+        this.addSlot(new RemovalInputSlot(container, REMOVAL_INPUT_SLOT, 134, 16));
 
-        // Jewel removal output slots (for the extracted jewels)
-        this.addSlot(new OutputSlot(container, REMOVAL_OUTPUT_1, 80, 95));
-        this.addSlot(new OutputSlot(container, REMOVAL_OUTPUT_2, 107, 95));
+        // Jewel removal output slots (slots 5-6) - aligned with 7th and 9th columns
+        // 7th column = 8+18*6 = 116, 9th column = 8+18*8 = 152
+        this.addSlot(new OutputSlot(container, REMOVAL_OUTPUT_1, 116, 50));
+        this.addSlot(new OutputSlot(container, REMOVAL_OUTPUT_2, 152, 50));
 
-        // Player inventory (3 rows) - moved down to make room for removal slots
+        // Player inventory (3 rows)
         for (int row = 0; row < 3; ++row) {
             for (int col = 0; col < 9; ++col) {
-                this.addSlot(new Slot(playerInventory, col + row * 9 + 9, 8 + col * 18, 124 + row * 18));
+                this.addSlot(new Slot(playerInventory, col + row * 9 + 9, 8 + col * 18, 84 + row * 18));
             }
         }
 
         // Player hotbar
         for (int col = 0; col < 9; ++col) {
-            this.addSlot(new Slot(playerInventory, col, 8 + col * 18, 182));
+            this.addSlot(new Slot(playerInventory, col, 8 + col * 18, 142));
         }
     }
 
@@ -73,9 +85,10 @@ public class JewelCreationStationMenu extends AbstractContainerMenu {
             ItemStack slotStack = slot.getItem();
             itemstack = slotStack.copy();
 
-            if (index < 9) {
+            // Container has 7 slots (0-6), player inventory starts at index 7
+            if (index < 7) {
                 // Moving from container to player inventory
-                if (!this.moveItemStackTo(slotStack, 9, this.slots.size(), true)) {
+                if (!this.moveItemStackTo(slotStack, 7, this.slots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
             } else {

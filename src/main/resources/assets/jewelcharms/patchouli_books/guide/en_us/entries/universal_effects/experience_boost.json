@@ -1,0 +1,28 @@
+{
+  "name": "XP Boost",
+  "icon": "minecraft:gold_ingot",
+  "category": "jewelcharms:universal_effects",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(bold)XP Boost$() increases the amount of $(important)experience orbs$() you receive from all sources!$(br2)Level up faster and fuel your $(bold)Mending$() items with abundance."
+    },
+    {
+      "type": "spotlight",
+      "item": "minecraft:gold_ingot",
+      "title": "Primary Material",
+      "text": "$(FFD700)Gold Ingot$() grants $(bold)XP Boost +2$()$(br2)Golden fortune smiles upon you!"
+    },
+    {
+      "type": "text",
+      "title": "Experience Gain",
+      "text": "$(li)Level 1: +100% XP (double!)$(li)Level 2: +200% XP (triple!) - Gold Ingot$(li)Level 3: +300% XP (quadruple!)$(br2)Each level multiplies your XP gain!$(br2)Works on:$(li)Mob kills$(li)Mining ores$(li)Smelting$(li)Breeding$(li)Fishing"
+    },
+    {
+      "type": "text",
+      "title": "Synergies",
+      "text": "$(li)Combine with $(bold)Mending$() for turbo repairs$(li)Use with $(weapon)Looting$() mob farms$(li)Pair with $(tool)Fortune$() mining$(li)Stack multiple for insane XP$(li)Great for enchanting$(br2)$(o)Level 30 in minutes!$()"
+    }
+  ]
+}

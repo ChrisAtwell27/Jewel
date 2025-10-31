@@ -1,0 +1,28 @@
+{
+  "name": "Extended Reach",
+  "icon": "minecraft:ender_pearl",
+  "category": "jewelcharms:universal_effects",
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(bold)Extended Reach$() increases the distance at which you can $(important)break blocks and attack entities$()!$(br2)Feel like you have longer arms!"
+    },
+    {
+      "type": "spotlight",
+      "item": "minecraft:ender_pearl",
+      "title": "Primary Material",
+      "text": "$(008080)Ender Pearl$() grants $(bold)Extended Reach +2$()$(br2)Reach across dimensions!"
+    },
+    {
+      "type": "text",
+      "title": "Reach Distance",
+      "text": "$(li)Normal reach: ~4.5 blocks$(li)Level 1: +1 block reach$(li)Level 2: +2 blocks reach$(li)Level 4: +4 blocks reach!$(br2)Mine, place, and fight from much farther away!"
+    },
+    {
+      "type": "text",
+      "title": "Uses",
+      "text": "$(li)Mine dangerous blocks safely$(li)Attack from greater distance$(li)Place blocks farther away$(li)Build more easily$(li)PvP advantage$(li)Harvest crops without moving$(br2)$(o)Become Mr. Fantastic!$()"
+    }
+  ]
+}

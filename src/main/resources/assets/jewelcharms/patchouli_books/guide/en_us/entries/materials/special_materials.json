@@ -1,0 +1,38 @@
+{
+  "name": "Special Materials",
+  "icon": "minecraft:nether_star",
+  "category": "jewelcharms:materials",
+  "sortnum": 5,
+  "pages": [
+    {
+      "type": "text",
+      "title": "Special Materials",
+      "text": "These rare materials grant unique, powerful effects that don't fit other categories!"
+    },
+    {
+      "type": "text",
+      "title": "Chorus Fruit",
+      "text": "$(bold)Effect:$() Ender Pocket (Teleport Drops) +1$(br)$(bold)Color:$() Medium Purple$(br)$(bold)Best For:$() Mining tools$(br2)Drops teleport directly to your inventory!"
+    },
+    {
+      "type": "text",
+      "title": "Nether Star",
+      "text": "$(bold)Effect:$() Absorption +3$(br)$(bold)Color:$() White$(br)$(bold)Best For:$() Combat weapons$(br2)Grants 6 bonus absorption hearts!"
+    },
+    {
+      "type": "text",
+      "title": "Barrier",
+      "text": "$(bold)Effect:$() Void Touch +1$(br)$(bold)Color:$() Red$(br)$(bold)Best For:$() Creative clearing$(br2)$(bold)WARNING:$() Destroys blocks without dropping them!"
+    },
+    {
+      "type": "text",
+      "title": "Totem of Undying",
+      "text": "$(bold)Effect:$() Soulbound +1$(br)$(bold)Color:$() Gold$(br)$(bold)Best For:$() Your best gear$(br2)Keep this item when you die!"
+    },
+    {
+      "type": "text",
+      "title": "Quick Reference",
+      "text": "$(important)Pro tips:$()$(br)$(li)Netherite = Best overall$(li)Gold = Best for XP$(li)Ghast Tear = Best for repair$(li)Nether Star = Best for survival$(li)Totem = Best for safety$(br2)$(o)Experiment and discover your favorites!$()"
+    }
+  ]
+}

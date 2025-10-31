@@ -48,7 +48,16 @@ public enum JewelEffect {
     ABSORPTION("absorption", "Absorption", EffectCategory.SPECIAL),
     TELEPORT_DROPS("teleport_drops", "Ender Pocket", EffectCategory.SPECIAL),
     SOULBOUND("soulbound", "Soulbound", EffectCategory.SPECIAL),
-    CURSE_BINDING("curse_binding", "Curse of Binding", EffectCategory.SPECIAL);
+    CURSE_BINDING("curse_binding", "Curse of Binding", EffectCategory.SPECIAL),
+
+    // New Unique Abilities
+    QUANTUM_HARVEST("quantum_harvest", "Quantum Harvest", EffectCategory.TOOL),
+    BIOME_RESONANCE("biome_resonance", "Biome Resonance", EffectCategory.UNIVERSAL),
+    MOON_PHASE_SENSITIVITY("moon_phase_sensitivity", "Moon Phase Sensitivity", EffectCategory.UNIVERSAL),
+    WEATHER_SIPHON("weather_siphon", "Weather Siphon", EffectCategory.UNIVERSAL),
+    DOMINO_EFFECT("domino_effect", "Domino Effect", EffectCategory.TOOL),
+    GRAVITY_TETHER("gravity_tether", "Gravity Tether", EffectCategory.WEAPON),
+    SOUND_HARVESTING("sound_harvesting", "Sound Harvesting", EffectCategory.TOOL);
 
     public enum EffectCategory {
         TOOL,      // Only works on tools (pickaxe, axe, shovel, hoe)

@@ -16,8 +16,11 @@ public class ModCreativeTabs {
                     .title(Component.translatable("itemGroup.jewelcharms"))
                     .icon(() -> new ItemStack(ModItems.JEWEL.get()))
                     .displayItems((parameters, output) -> {
+                        output.accept(ModItems.GUIDEBOOK.get());
                         output.accept(ModItems.JEWEL_CREATION_STATION_ITEM.get());
+                        output.accept(ModItems.POLISH_STATION_ITEM.get());
                         output.accept(ModItems.JEWEL.get());
+                        output.accept(ModItems.ROUGH_JEWEL.get());
                         output.accept(ModItems.JEWEL_SOCKET_TEMPLATE.get());
                     })
                     .build());

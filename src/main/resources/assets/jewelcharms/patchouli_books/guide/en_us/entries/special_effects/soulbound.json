@@ -1,0 +1,28 @@
+{
+  "name": "Soulbound",
+  "icon": "minecraft:totem_of_undying",
+  "category": "jewelcharms:special_effects",
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(special)Soulbound$() ensures you $(important)keep this item when you die$()!$(br2)Your most precious tools will never be lost to lava, void, or creeper explosions."
+    },
+    {
+      "type": "spotlight",
+      "item": "minecraft:totem_of_undying",
+      "title": "Primary Material",
+      "text": "$(FFD700)Totem of Undying$() grants Soulbound +1$(br2)Bound to your very soul!"
+    },
+    {
+      "type": "text",
+      "title": "Death Insurance",
+      "text": "When you die:$(br2)$(li)Soulbound items $(important)stay in your inventory$()$(li)All other items drop normally$(li)Works in lava, void, and PvP$(li)Multiple items can be soulbound$(br2)$(important)Note:$() Check server rules - some ban soulbound items in PvP!"
+    },
+    {
+      "type": "text",
+      "title": "Best Applied To",
+      "text": "$(li)Fully enchanted tools$(li)Rare/expensive weapons$(li)Your main pickaxe$(li)Elytra (if tools can have jewels)$(li)Items with many jewels$(br2)$(o)Peace of mind is priceless!$()"
+    }
+  ]
+}

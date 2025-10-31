@@ -78,6 +78,9 @@ public class PuzzleCompletePacket {
                             jewelData.saveToItemStack(roughJewel);
                             menu.setOutputJewel(roughJewel);
 
+                            // Consume the materials on server side
+                            menu.clearMaterialSlots();
+
                             JewelCharms.LOGGER.info("SUCCESS: Player {} completed puzzle and created rough jewel!",
                                 player.getName().getString());
                         } else {
@@ -101,14 +104,19 @@ public class PuzzleCompletePacket {
                     JewelCharms.LOGGER.info("Jewel data received: {}", jewelData != null ? "valid" : "null");
 
                     if (jewelData != null) {
-                        JewelCharms.LOGGER.info("Creating polished jewel in output slot...");
-                        // Create polished jewel and place in output slot
+                        JewelCharms.LOGGER.info("Creating polished jewel...");
+                        // Create polished jewel and give to player
                         ItemStack polishedJewel = new ItemStack(ModItems.JEWEL.get());
                         jewelData.saveToItemStack(polishedJewel);
-                        menu.setOutputItem(polishedJewel);
 
                         // Clear the input slot
                         menu.clearInputSlot();
+
+                        // Give polished jewel to player
+                        if (!player.getInventory().add(polishedJewel)) {
+                            // If inventory is full, drop it
+                            player.drop(polishedJewel, false);
+                        }
 
                         JewelCharms.LOGGER.info("SUCCESS: Player {} completed polish and created jewel!",
                             player.getName().getString());

@@ -1,0 +1,28 @@
+{
+  "name": "Absorption",
+  "icon": "minecraft:nether_star",
+  "category": "jewelcharms:special_effects",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(special)Absorption$() grants you $(important)bonus yellow hearts$() while holding the jeweled item!$(br2)These absorption hearts act as a shield, protecting your actual health."
+    },
+    {
+      "type": "spotlight",
+      "item": "minecraft:nether_star",
+      "title": "Primary Material",
+      "text": "$(FFFFFF)Nether Star$() grants $(special)Absorption +3$()$(br2)The power of a Wither, harnessed!"
+    },
+    {
+      "type": "text",
+      "title": "Absorption Hearts",
+      "text": "$(li)Level 1: +2 absorption hearts$(li)Level 2: +4 absorption hearts$(li)Level 3: +6 absorption hearts (Nether Star)$(br2)Yellow hearts appear above your normal health bar and absorb damage first!"
+    },
+    {
+      "type": "text",
+      "title": "Combat Uses",
+      "text": "$(li)Extra health buffer in fights$(li)Survive surprise attacks$(li)Boss fight survival$(li)PvP advantage$(li)Exploration safety$(br2)$(o)A shield fit for a champion!$()"
+    }
+  ]
+}

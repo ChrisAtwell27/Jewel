@@ -2,14 +2,53 @@
   "itemGroup.jewelcharms": "Jewel Charms",
 
   "block.jewelcharms.jewel_creation_station": "Jewel Creation Station",
+  "block.jewelcharms.polish_station": "Polish Station",
 
   "item.jewelcharms.jewel": "Jewel",
+  "item.jewelcharms.rough_jewel": "Rough Jewel",
   "item.jewelcharms.jewel_socket_template": "Jewel Socket Template",
+  "item.jewelcharms.guidebook": "Jewel Charms Guide",
 
   "container.jewelcharms.jewel_creation_station": "Jewel Creation Station",
+  "container.jewelcharms.polish_station": "Polish Station",
 
   "tooltip.jewelcharms.jewel.materials": "Materials: %s",
   "tooltip.jewelcharms.jewel.effects": "Effects:",
   "tooltip.jewelcharms.tool.jewels": "Jewels:",
-  "tooltip.jewelcharms.jewel_socket_template.desc": "Used to attach jewels to tools at a Smithing Table"
+  "tooltip.jewelcharms.jewel_socket_template.desc": "Used to attach jewels to tools at a Smithing Table",
+  "tooltip.jewelcharms.guidebook.desc": "Right-click to open the guide",
+
+  "gui.jewelcharms.creation_station.button_create": "Create",
+  "gui.jewelcharms.creation_station.button_remove": "Remove",
+  "gui.jewelcharms.creation_station.tooltip_material_1": "Input jewel materials",
+  "gui.jewelcharms.creation_station.tooltip_material_2": "Input jewel materials",
+  "gui.jewelcharms.creation_station.tooltip_material_3": "Input jewel materials",
+  "gui.jewelcharms.creation_station.tooltip_output": "Rough Jewel Output",
+  "gui.jewelcharms.creation_station.tooltip_remove_input": "Place tool to extract jewels",
+  "gui.jewelcharms.creation_station.tooltip_removal_output_1": "Extracted jewel",
+  "gui.jewelcharms.creation_station.tooltip_removal_output_2": "Extracted jewel",
+
+  "gui.jewelcharms.polish_station.button_polish": "Hold to Polish",
+  "gui.jewelcharms.polish_station.tooltip_input": "Place rough jewel here",
+
+  "patchouli.book.jewelcharms.name": "Jewel Charms Guide",
+  "patchouli.book.jewelcharms.landing_text": "Welcome to the enchanting world of Jewel Charms! This comprehensive guide will teach you everything about crafting powerful jewels, attaching them to your tools and weapons, and mastering the art of material combinations. May your tools shine with brilliance!",
+
+  "jewel_effect.quantum_harvest": "Quantum Harvest",
+  "jewel_effect.quantum_harvest.desc": "Breaking crops swaps them with other crops in the world",
+  "jewel_effect.biome_resonance": "Biome Resonance",
+  "jewel_effect.biome_resonance.desc": "Tool behavior changes based on biome - ice in tundra, fire in desert",
+  "jewel_effect.moon_phase_sensitivity": "Moon Phase Sensitivity",
+  "jewel_effect.moon_phase_sensitivity.desc": "Power waxes and wanes with moon phases - strongest at full moon",
+  "jewel_effect.weather_siphon": "Weather Siphon",
+  "jewel_effect.weather_siphon.desc": "Tool charges in rain/thunder, depletes in sunshine, provides bonuses when charged",
+  "jewel_effect.domino_effect": "Domino Effect",
+  "jewel_effect.domino_effect.desc": "Progressive drop multiplier - 1x, 2x, 3x... Resets when breaking different blocks",
+  "jewel_effect.gravity_tether": "Gravity Tether",
+  "jewel_effect.gravity_tether.desc": "Mob drops orbit you instead of falling - press key to collect all",
+  "jewel_effect.sound_harvesting": "Sound Harvesting",
+  "jewel_effect.sound_harvesting.desc": "Breaking blocks generates musical notes - completing melodies grants bonus loot",
+
+  "key.jewelcharms.category": "Jewel Charms",
+  "key.jewelcharms.collect_gravity_tether": "Collect Orbiting Items"
 }

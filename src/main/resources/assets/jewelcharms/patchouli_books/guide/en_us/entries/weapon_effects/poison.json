@@ -1,0 +1,28 @@
+{
+  "name": "Venomous",
+  "icon": "minecraft:spider_eye",
+  "category": "jewelcharms:weapon_effects",
+  "sortnum": 8,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(weapon)Venomous$() (Poison) inflicts the Poison status effect on enemies you strike!$(br2)Poison deals $(important)damage over time$(), slowly whittling down even the toughest foes."
+    },
+    {
+      "type": "spotlight",
+      "item": "minecraft:spider_eye",
+      "title": "Primary Material",
+      "text": "$(8B008B)Spider Eye$() grants $(weapon)Venomous +2$()$(br2)Inject venom with every strike!"
+    },
+    {
+      "type": "text",
+      "title": "Poison Effects",
+      "text": "$(li)Level 1: Poison I for 5 seconds$(li)Level 2: Poison II for 5 seconds$(li)Higher levels: Stronger poison (intensity increases)$(br2)$(important)All levels last exactly 5 seconds$() - only the poison intensity changes. Poison brings enemies down to half a heart but cannot kill them."
+    },
+    {
+      "type": "text",
+      "title": "Strategy",
+      "text": "$(li)Great for tanky enemies$(li)Hit and run tactics$(li)Pair with $(weapon)Execute$() to finish poisoned foes$(li)$(important)Doesn't work$() on undead or poison-immune mobs$(li)Useful in PvP$(br2)$(o)Death by a thousand bites!$()"
+    }
+  ]
+}

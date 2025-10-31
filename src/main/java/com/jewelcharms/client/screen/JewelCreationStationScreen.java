@@ -1,30 +1,32 @@
 package com.jewelcharms.client.screen;
 
 import com.jewelcharms.JewelCharms;
-import com.jewelcharms.client.ui.*;
 import com.jewelcharms.menu.JewelCreationStationMenu;
 import com.jewelcharms.network.ModNetwork;
 import com.jewelcharms.network.PuzzleCompletePacket;
 import com.jewelcharms.util.JewelCreationHelper;
 import com.jewelcharms.util.JewelData;
 import com.jewelcharms.util.PuzzleState;
-import net.minecraft.client.Minecraft;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 import java.util.List;
 
 public class JewelCreationStationScreen extends AbstractContainerScreen<JewelCreationStationMenu> {
-    private static final ResourceLocation CONTAINER_BACKGROUND = new ResourceLocation(JewelCharms.MOD_ID, "textures/gui/container/jewel_creation_station.png");
-    // UI widgets
-    private ButtonWidget createButton;
-    private ButtonWidget removeButton;
-    private LabelWidget statusLabel;
-    private LabelWidget removalLabel;
+    private final Level world;
+    private final int x, y, z;
+    private final Player entity;
+
+    Button button_create;
+    Button button_remove;
 
     // Puzzle state
     private boolean puzzleActive = false;
@@ -35,43 +37,113 @@ public class JewelCreationStationScreen extends AbstractContainerScreen<JewelCre
     private int tileSize = 0;
     private int moveCount = 0;
 
-    public JewelCreationStationScreen(JewelCreationStationMenu menu, Inventory inventory, Component title) {
-        super(menu, inventory, title);
-        this.imageHeight = 206; // Increased to accommodate removal section
+    public JewelCreationStationScreen(JewelCreationStationMenu container, Inventory inventory, Component text) {
+        super(container, inventory, text);
+        this.world = container.world;
+        this.x = container.x;
+        this.y = container.y;
+        this.z = container.z;
+        this.entity = container.entity;
         this.imageWidth = 176;
-        this.inventoryLabelY = 113; // Adjusted for new inventory position
-        this.titleLabelY = 6;
+        this.imageHeight = 166;
+        this.inventoryLabelY = this.imageHeight - 94; // Standard position for inventory label
+    }
+
+    private static final ResourceLocation texture = new ResourceLocation(JewelCharms.MOD_ID, "textures/gui/creation_station.png");
+
+    @Override
+    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
+        // When puzzle is active, only render the puzzle overlay (no inventory/slots)
+        if (puzzleActive && puzzleState != null) {
+            this.renderBackground(guiGraphics);
+            renderPuzzleOverlay(guiGraphics, mouseX, mouseY);
+            return; // Skip all other rendering
+        }
+
+        // Normal rendering when puzzle is not active
+        this.renderBackground(guiGraphics);
+        super.render(guiGraphics, mouseX, mouseY, partialTicks);
+
+        // Custom tooltips for slots
+        boolean customTooltipShown = false;
+
+        // Material slots tooltips (aligned with 2nd, 4th, and 6th inventory columns)
+        int[] materialX = {26, 62, 98};
+        int materialY = 16;
+        for (int i = 0; i < 3; i++) {
+            if (mouseX > leftPos + materialX[i] && mouseX < leftPos + materialX[i] + 16
+                && mouseY > topPos + materialY && mouseY < topPos + materialY + 16) {
+                guiGraphics.renderTooltip(font, Component.translatable("gui.jewelcharms.creation_station.tooltip_material_" + (i + 1)), mouseX, mouseY);
+                customTooltipShown = true;
+            }
+        }
+
+        // Removal input slot tooltip (aligned with 8th column at 134, 16)
+        if (mouseX > leftPos + 134 && mouseX < leftPos + 134 + 16 && mouseY > topPos + 16 && mouseY < topPos + 16 + 16) {
+            guiGraphics.renderTooltip(font, Component.translatable("gui.jewelcharms.creation_station.tooltip_remove_input"), mouseX, mouseY);
+            customTooltipShown = true;
+        }
+
+        // Output slot tooltip (aligned with 4th column at 62, 50)
+        if (mouseX > leftPos + 62 && mouseX < leftPos + 62 + 16 && mouseY > topPos + 50 && mouseY < topPos + 50 + 16) {
+            guiGraphics.renderTooltip(font, Component.translatable("gui.jewelcharms.creation_station.tooltip_output"), mouseX, mouseY);
+            customTooltipShown = true;
+        }
+
+        // Removal output slots tooltips (aligned with 7th and 9th columns)
+        int[] removalOutputX = {116, 152};
+        int removalOutputY = 50;
+        for (int i = 0; i < 2; i++) {
+            if (mouseX > leftPos + removalOutputX[i] && mouseX < leftPos + removalOutputX[i] + 16
+                && mouseY > topPos + removalOutputY && mouseY < topPos + removalOutputY + 16) {
+                guiGraphics.renderTooltip(font, Component.translatable("gui.jewelcharms.creation_station.tooltip_removal_output_" + (i + 1)), mouseX, mouseY);
+                customTooltipShown = true;
+            }
+        }
+
+        if (!customTooltipShown)
+            this.renderTooltip(guiGraphics, mouseX, mouseY);
     }
 
     @Override
-    protected void init() {
+    protected void renderBg(GuiGraphics guiGraphics, float partialTicks, int mouseX, int mouseY) {
+        if (puzzleActive) {
+            return; // Don't render background when puzzle is active
+        }
+
+        RenderSystem.setShaderColor(1, 1, 1, 1);
+        RenderSystem.enableBlend();
+        RenderSystem.defaultBlendFunc();
+        guiGraphics.blit(texture, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight);
+        RenderSystem.disableBlend();
+    }
+
+    @Override
+    public boolean keyPressed(int key, int b, int c) {
+        if (key == 256) {
+            this.minecraft.player.closeContainer();
+            return true;
+        }
+        return super.keyPressed(key, b, c);
+    }
+
+    @Override
+    protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+        // Don't render labels when puzzle is active
+    }
+
+    @Override
+    public void init() {
         super.init();
+        button_create = Button.builder(Component.translatable("gui.jewelcharms.creation_station.button_create"), e -> {
+            startPuzzle();
+        }).bounds(this.leftPos + -60, this.topPos + 48, 56, 20).build();
+        this.addRenderableWidget(button_create);
 
-        int centerX = leftPos + imageWidth / 2;
-
-        // Status label
-        statusLabel = new LabelWidget(Component.literal("Insert Materials"), 0xFF404040);
-        statusLabel.setAlignment(LabelWidget.Alignment.CENTER);
-        statusLabel.setPosition(centerX - 70, topPos + 20);
-        statusLabel.setWidth(140);
-
-        // Create button (below material slots)
-        createButton = new ButtonWidget(120, 20, Component.literal("Create Jewel"), this::startPuzzle);
-        createButton.setPosition(leftPos + (imageWidth - 120) / 2, topPos + 68);
-        createButton.setColors(0xFF5A5A5A, 0xFF7A7A7A, 0xFF3A3A3A);
-        createButton.setTextColor(0xFFFFFFFF);
-
-        // Removal section label
-        removalLabel = new LabelWidget(Component.literal("Remove Jewels"), 0xFF404040);
-        removalLabel.setAlignment(LabelWidget.Alignment.CENTER);
-        removalLabel.setPosition(centerX - 70, topPos + 80);
-        removalLabel.setWidth(140);
-
-        // Remove button
-        removeButton = new ButtonWidget(120, 20, Component.literal("Extract Jewels"), this::handleRemoval);
-        removeButton.setPosition(leftPos + (imageWidth - 120) / 2, topPos + 100);
-        removeButton.setColors(0xFF5A5A5A, 0xFF7A7A7A, 0xFF3A3A3A);
-        removeButton.setTextColor(0xFFFFFFFF);
+        button_remove = Button.builder(Component.translatable("gui.jewelcharms.creation_station.button_remove"), e -> {
+            handleRemoval();
+        }).bounds(this.leftPos + 181, this.topPos + 48, 56, 20).build();
+        this.addRenderableWidget(button_remove);
     }
 
     private void startPuzzle() {
@@ -128,64 +200,6 @@ public class JewelCreationStationScreen extends AbstractContainerScreen<JewelCre
             net.minecraft.sounds.SoundEvents.ANVIL_USE,
             0.8f, 1.2f
         );
-    }
-
-    @Override
-    protected void renderBg(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
-        if (puzzleActive) {
-            return; // Don't render background when puzzle is active
-        }
-
-        // Render standard container background
-        graphics.blit(CONTAINER_BACKGROUND, leftPos, topPos, 0, 0, this.imageWidth, this.imageHeight);
-    }
-
-    @Override
-    public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
-        // When puzzle is active, only render the puzzle overlay (no inventory/slots)
-        if (puzzleActive && puzzleState != null) {
-            renderBackground(graphics);
-            renderPuzzleOverlay(graphics, mouseX, mouseY);
-            return; // Skip all other rendering
-        }
-
-        // Normal rendering when puzzle is not active
-        renderBackground(graphics);
-        super.render(graphics, mouseX, mouseY, partialTick);
-        renderTooltip(graphics, mouseX, mouseY);
-
-        // Render custom widgets
-        if (statusLabel != null) {
-            // Update status text
-            int materialCount = menu.getMaterialStacks().size();
-            if (materialCount == 0) {
-                statusLabel.setText(Component.literal("Insert Materials"));
-            } else {
-                statusLabel.setText(Component.literal(materialCount + " Material" + (materialCount > 1 ? "s" : "") + " Ready"));
-            }
-            statusLabel.render(graphics, mouseX, mouseY, partialTick);
-        }
-
-        if (createButton != null) {
-            createButton.setEnabled(menu.getMaterialStacks().size() > 0);
-            createButton.render(graphics, mouseX, mouseY, partialTick);
-        }
-
-        // Render removal section
-        if (removalLabel != null) {
-            removalLabel.render(graphics, mouseX, mouseY, partialTick);
-        }
-
-        if (removeButton != null) {
-            // Enable button only if there's a tool with jewels in the removal input slot
-            // Slot indices: 0-2 materials, 3 output, 4 removal input, 5-6 removal outputs
-            ItemStack removalInput = menu.slots.get(4).getItem(); // REMOVAL_INPUT_SLOT is at index 4
-            boolean hasJeweledTool = !removalInput.isEmpty() &&
-                                    removalInput.getTag() != null &&
-                                    removalInput.getTag().contains("JewelCharms");
-            removeButton.setEnabled(hasJeweledTool);
-            removeButton.render(graphics, mouseX, mouseY, partialTick);
-        }
     }
 
     @Override
@@ -253,16 +267,6 @@ public class JewelCreationStationScreen extends AbstractContainerScreen<JewelCre
 
             // Block ALL clicks when puzzle is active
             return true;
-        }
-
-        // Handle widget clicks
-        if (!puzzleActive) {
-            if (createButton != null && createButton.mouseClicked(mouseX, mouseY, button)) {
-                return true;
-            }
-            if (removeButton != null && removeButton.mouseClicked(mouseX, mouseY, button)) {
-                return true;
-            }
         }
 
         return super.mouseClicked(mouseX, mouseY, button);
@@ -388,15 +392,5 @@ public class JewelCreationStationScreen extends AbstractContainerScreen<JewelCre
         puzzleActive = false;
         puzzleState = null;
         pendingJewelData = null;
-    }
-
-    @Override
-    protected void renderLabels(GuiGraphics graphics, int mouseX, int mouseY) {
-        if (!puzzleActive) {
-            // Render title at the top
-            graphics.drawString(this.font, this.title, this.titleLabelX, this.titleLabelY, 0x404040, false);
-            // Render inventory label
-            graphics.drawString(this.font, this.playerInventoryTitle, this.inventoryLabelX, this.inventoryLabelY, 0x404040, false);
-        }
     }
 }

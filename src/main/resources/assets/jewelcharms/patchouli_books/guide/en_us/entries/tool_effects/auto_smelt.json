@@ -1,0 +1,28 @@
+{
+  "name": "Auto-Smelt",
+  "icon": "minecraft:blaze_powder",
+  "category": "jewelcharms:tool_effects",
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(tool)Auto-Smelt$() automatically smelts blocks as you mine them, giving you the smelted result instead of the raw material!$(br2)$(important)Saves time$() and inventory space by skipping the furnace entirely."
+    },
+    {
+      "type": "spotlight",
+      "item": "minecraft:blaze_powder",
+      "title": "Primary Material",
+      "text": "$(FFA500)Blaze Powder$() grants $(tool)Auto-Smelt +1$()$(br2)Harness the power of the Nether!"
+    },
+    {
+      "type": "text",
+      "title": "What It Smelts",
+      "text": "Automatically smelts:$(li)Iron Ore → Iron Ingot$(li)Gold Ore → Gold Ingot$(li)Copper Ore → Copper Ingot$(li)Sand → Glass$(li)Cobblestone → Stone$(li)Raw food → Cooked food$(li)Clay → Terracotta$(li)And more!"
+    },
+    {
+      "type": "text",
+      "title": "Pro Tips",
+      "text": "$(li)Combine with $(tool)Fortune$() for more smelted ores!$(li)Works with $(tool)Vein Miner$() to smelt entire ore veins$(li)Great for branch mining$(li)Stack levels for... well, it doesn't do much, but it's still cool!$(br2)$(o)Mining has never been hotter!$()"
+    }
+  ]
+}

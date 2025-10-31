@@ -1,27 +1,32 @@
 package com.jewelcharms.client.screen;
 
 import com.jewelcharms.JewelCharms;
-import com.jewelcharms.client.ui.*;
 import com.jewelcharms.menu.PolishStationMenu;
 import com.jewelcharms.network.ModNetwork;
 import com.jewelcharms.network.PuzzleCompletePacket;
 import com.jewelcharms.util.JewelData;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 /**
  * Polish Station screen - Standard inventory UI with polish minigame
  */
 public class PolishStationScreen extends AbstractContainerScreen<PolishStationMenu> {
-    private static final ResourceLocation CONTAINER_BACKGROUND = new ResourceLocation(JewelCharms.MOD_ID, "textures/gui/container/polish_station.png");
+    private static final ResourceLocation texture = new ResourceLocation(JewelCharms.MOD_ID, "textures/gui/polish_station.png");
 
-    private ButtonWidget startButton;
-    private ProgressBarWidget progressBar;
-    private LabelWidget statusLabel;
+    private final Level world;
+    private final int x, y, z;
+    private final Player entity;
+
+    Button button_polish;
 
     // Minigame state
     private boolean gameActive = false;
@@ -35,40 +40,25 @@ public class PolishStationScreen extends AbstractContainerScreen<PolishStationMe
     private static final float GREEN_ZONE_END = 0.60f;
     private static final float RED_ZONE_THRESHOLD = 0.25f; // Distance from green zone to be "red"
 
-    public PolishStationScreen(PolishStationMenu menu, Inventory inventory, Component title) {
-        super(menu, inventory, title);
-        this.imageHeight = 166;
+    public PolishStationScreen(PolishStationMenu container, Inventory inventory, Component text) {
+        super(container, inventory, text);
+        this.world = container.world;
+        this.x = container.x;
+        this.y = container.y;
+        this.z = container.z;
+        this.entity = container.entity;
         this.imageWidth = 176;
-        this.inventoryLabelY = 73;
-        this.titleLabelY = 6;
+        this.imageHeight = 166;
+        this.inventoryLabelY = this.imageHeight - 94; // Standard position for inventory label
     }
 
     @Override
-    protected void init() {
+    public void init() {
         super.init();
-
-        // Create UI widgets positioned relative to the GUI
-        int centerX = leftPos + imageWidth / 2;
-
-        // Status label (above slots)
-        statusLabel = new LabelWidget(Component.literal("Insert Rough Jewel"), 0xFF404040);
-        statusLabel.setAlignment(LabelWidget.Alignment.CENTER);
-        statusLabel.setPosition(centerX - 70, topPos + 20);
-        statusLabel.setWidth(140);
-
-        // Progress bar (between input and output slots)
-        progressBar = new ProgressBarWidget(120, 14);
-        progressBar.setPosition(leftPos + (imageWidth - 120) / 2, topPos + 58);
-        progressBar.setFillColor(0xFF4A90E2);
-        progressBar.setBackgroundColor(0xFF373737);
-        progressBar.setBorderColor(0xFF8B8B8B);
-        progressBar.setProgress(0.0f);
-
-        // Start button (below progress bar)
-        startButton = new ButtonWidget(120, 20, Component.literal("Hold to Polish"), this::startPolishMinigame);
-        startButton.setPosition(leftPos + (imageWidth - 120) / 2, topPos + 96);
-        startButton.setColors(0xFF5A5A5A, 0xFF7A7A7A, 0xFF3A3A3A);
-        startButton.setTextColor(0xFFFFFFFF);
+        button_polish = Button.builder(Component.translatable("gui.jewelcharms.polish_station.button_polish"), e -> {
+            startPolishMinigame();
+        }).bounds(this.leftPos + 28, this.topPos + 58, 120, 20).build();
+        this.addRenderableWidget(button_polish);
     }
 
     private void startPolishMinigame() {
@@ -77,7 +67,6 @@ public class PolishStationScreen extends AbstractContainerScreen<PolishStationMe
             buttonHeld = true;
             indicatorPosition = 0.0f;
             indicatorDirection = 1;
-            statusLabel.setText(Component.literal("Hold until green!"));
 
             // Play start sound
             minecraft.player.playSound(
@@ -88,39 +77,57 @@ public class PolishStationScreen extends AbstractContainerScreen<PolishStationMe
     }
 
     @Override
-    protected void renderBg(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
-        // Render standard container background
-        graphics.blit(CONTAINER_BACKGROUND, leftPos, topPos, 0, 0, this.imageWidth, this.imageHeight);
+    protected void renderBg(GuiGraphics guiGraphics, float partialTicks, int mouseX, int mouseY) {
+        RenderSystem.setShaderColor(1, 1, 1, 1);
+        RenderSystem.enableBlend();
+        RenderSystem.defaultBlendFunc();
+        guiGraphics.blit(texture, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight);
+        RenderSystem.disableBlend();
+    }
+
+    @Override
+    public boolean keyPressed(int key, int b, int c) {
+        if (key == 256) {
+            this.minecraft.player.closeContainer();
+            return true;
+        }
+        return super.keyPressed(key, b, c);
+    }
+
+    @Override
+    protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+        // Don't render labels
     }
 
     @Override
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
-        renderBackground(graphics);
+        this.renderBackground(graphics);
         super.render(graphics, mouseX, mouseY, partialTick);
-        renderTooltip(graphics, mouseX, mouseY);
 
-        // Render custom widgets
-        if (statusLabel != null) {
-            statusLabel.render(graphics, mouseX, mouseY, partialTick);
-        }
-        if (progressBar != null && !gameActive) {
-            progressBar.render(graphics, mouseX, mouseY, partialTick);
-        }
-        if (startButton != null) {
-            startButton.setEnabled(!menu.getInputItem().isEmpty() && !gameActive);
-            startButton.render(graphics, mouseX, mouseY, partialTick);
-        }
-
-        // Render polish minigame overlay if active
+        // Render polish minigame bar if active (between slot and button)
         if (gameActive) {
             renderPolishMinigame(graphics, mouseX, mouseY, partialTick);
         }
+
+        // Custom tooltips for slots
+        boolean customTooltipShown = false;
+
+        // Input slot tooltip (at position 80, 14)
+        if (mouseX > leftPos + 80 && mouseX < leftPos + 80 + 16 && mouseY > topPos + 14 && mouseY < topPos + 14 + 16) {
+            graphics.renderTooltip(font, Component.translatable("gui.jewelcharms.polish_station.tooltip_input"), mouseX, mouseY);
+            customTooltipShown = true;
+        }
+
+        if (!customTooltipShown)
+            this.renderTooltip(graphics, mouseX, mouseY);
     }
 
     private void renderPolishMinigame(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
-        // Calculate progress bar position
-        int barX = leftPos + (imageWidth - 120) / 2;
-        int barY = topPos + 58;
+        // Calculate progress bar position (between slot and button)
+        // Slot is at y=14, button is at y=58
+        // Position bar at y=35 (between them)
+        int barX = leftPos + 28;
+        int barY = topPos + 35;
         int barWidth = 120;
         int barHeight = 14;
 
@@ -152,10 +159,6 @@ public class PolishStationScreen extends AbstractContainerScreen<PolishStationMe
         graphics.fill(barX, barY + barHeight - 1, barX + barWidth, barY + barHeight, 0xFF8B8B8B);
         graphics.fill(barX, barY, barX + 1, barY + barHeight, 0xFF8B8B8B);
         graphics.fill(barX + barWidth - 1, barY, barX + barWidth, barY + barHeight, 0xFF8B8B8B);
-
-        // Draw instruction text
-        String instruction = buttonHeld ? "Release when GREEN!" : "Click to hold!";
-        graphics.drawCenteredString(font, instruction, leftPos + imageWidth / 2, topPos + 78, 0xFFFFFF);
     }
 
     @Override
@@ -183,13 +186,6 @@ public class PolishStationScreen extends AbstractContainerScreen<PolishStationMe
         if (gameActive && button == 0) {
             buttonHeld = true;
             return true;
-        }
-
-        // Handle main UI clicks
-        if (!gameActive) {
-            if (startButton != null && startButton.mouseClicked(mouseX, mouseY, button)) {
-                return true;
-            }
         }
 
         return super.mouseClicked(mouseX, mouseY, button);
@@ -224,7 +220,6 @@ public class PolishStationScreen extends AbstractContainerScreen<PolishStationMe
                 onPolishFailure();
             } else {
                 // PARTIAL - in yellow zone, can try again
-                statusLabel.setText(Component.literal("Try again!"));
                 buttonHeld = false;
                 // Don't reset gameActive, let them try again
             }
@@ -244,7 +239,6 @@ public class PolishStationScreen extends AbstractContainerScreen<PolishStationMe
             JewelData jewelData = JewelData.fromItemStack(roughJewel);
             if (jewelData != null) {
                 // Send polish completion packet to server
-                // Using PuzzleCompletePacket with polish=true flag
                 String jewelDataString = jewelData.serialize();
                 ModNetwork.sendToServer(new PuzzleCompletePacket(
                     menu.getBlockPos(),
@@ -260,7 +254,6 @@ public class PolishStationScreen extends AbstractContainerScreen<PolishStationMe
         // Reset state
         gameActive = false;
         buttonHeld = false;
-        statusLabel.setText(Component.literal("Success!"));
     }
 
     private void onPolishFailure() {
@@ -273,15 +266,11 @@ public class PolishStationScreen extends AbstractContainerScreen<PolishStationMe
         // Destroy the rough jewel
         menu.clearInputSlot();
 
+        // Reset state
+        gameActive = false;
+        buttonHeld = false;
+
         // Close menu immediately
         onClose();
-    }
-
-    @Override
-    protected void renderLabels(GuiGraphics graphics, int mouseX, int mouseY) {
-        // Render title at the top
-        graphics.drawString(this.font, this.title, this.titleLabelX, this.titleLabelY, 0x404040, false);
-        // Render inventory label
-        graphics.drawString(this.font, this.playerInventoryTitle, this.inventoryLabelX, this.inventoryLabelY, 0x404040, false);
     }
 }

@@ -1,0 +1,28 @@
+{
+  "name": "Vein Miner",
+  "icon": "minecraft:coal",
+  "category": "jewelcharms:tool_effects",
+  "sortnum": 5,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(tool)Vein Miner$() (AOE Mining) breaks all connected blocks of the same type when you mine one!$(br2)Perfect for clearing out entire ore veins or large patches of blocks in one action."
+    },
+    {
+      "type": "spotlight",
+      "item": "minecraft:coal",
+      "title": "Primary Material",
+      "text": "$(2F2F2F)Coal$() grants $(tool)Vein Miner +1$()$(br2)Mine veins as easily as the coal that powers it!"
+    },
+    {
+      "type": "text",
+      "title": "How It Works",
+      "text": "When you break a block with Vein Miner:$(br2)1. The mod searches for all blocks of the same type touching it$(br)2. All connected blocks break instantly$(br)3. Drops are collected normally$(br2)$(important)Respects tool durability$() - each block costs durability!"
+    },
+    {
+      "type": "text",
+      "title": "Best Uses",
+      "text": "$(li)Clear entire diamond veins$(li)Remove large tree trunks$(li)Excavate stone quickly$(li)Clear ore clusters$(li)Harvest connected crops$(br2)$(important)Pro tip:$() Combine with $(tool)Durability$() jewels to mine longer!"
+    }
+  ]
+}

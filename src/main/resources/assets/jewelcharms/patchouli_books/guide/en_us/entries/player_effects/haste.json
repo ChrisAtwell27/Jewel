@@ -1,0 +1,28 @@
+{
+  "name": "Haste",
+  "icon": "minecraft:redstone",
+  "category": "jewelcharms:player_effects",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(bold)Haste$() increases your mining and attack speed while holding the jeweled item!$(br2)$(important)Stacks with Mining Speed jewels$() for incredible breaking speeds!"
+    },
+    {
+      "type": "spotlight",
+      "item": "minecraft:redstone",
+      "title": "Primary Material",
+      "text": "$(FF0000)Redstone$() grants Haste +1$(br2)Fast as lightning!"
+    },
+    {
+      "type": "text",
+      "title": "Speed Stacking",
+      "text": "Haste stacks with:$(li)Mining Speed jewel effects$(li)Efficiency enchantments$(li)Beacon haste$(li)Other haste sources$(br2)Reach instant-mine status with enough effects!"
+    },
+    {
+      "type": "text",
+      "title": "Uses",
+      "text": "$(li)Speed mining$(li)Faster PvP attacks$(li)Quick building/clearing$(li)Essential for efficiency$(br2)$(o)Gotta go fast!$()"
+    }
+  ]
+}

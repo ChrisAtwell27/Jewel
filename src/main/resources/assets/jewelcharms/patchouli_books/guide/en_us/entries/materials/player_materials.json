@@ -1,0 +1,43 @@
+{
+  "name": "Player Buff Materials",
+  "icon": "minecraft:golden_apple",
+  "category": "jewelcharms:materials",
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "text",
+      "title": "Player Buff Materials",
+      "text": "These materials grant passive status effects while you hold the jeweled item!"
+    },
+    {
+      "type": "text",
+      "title": "Glowstone Dust",
+      "text": "$(bold)Effect:$() Night Vision +1$(br)$(bold)Color:$() Pale Yellow$(br)$(bold)Best For:$() Mining tools$(br2)See perfectly in the dark!"
+    },
+    {
+      "type": "text",
+      "title": "Prismarine Shard",
+      "text": "$(bold)Effects:$() Water Breathing (Aqua Affinity) +1, Swiftness (Speed) +1$(br)$(bold)Color:$() Cyan$(br)$(bold)Best For:$() Ocean tools$(br2)Breathe underwater and move faster!"
+    },
+    {
+      "type": "text",
+      "title": "Obsidian",
+      "text": "$(bold)Effect:$() Resistance +2$(br)$(bold)Color:$() Dark Purple$(br)$(bold)Best For:$() Combat gear$(br2)Reduces incoming damage!"
+    },
+    {
+      "type": "text",
+      "title": "Golden Apple",
+      "text": "$(bold)Effect:$() Regeneration +2$(br)$(bold)Color:$() Gold$(br)$(bold)Best For:$() Exploration tools$(br2)Slowly regenerates your health!"
+    },
+    {
+      "type": "text",
+      "title": "Rabbit Foot",
+      "text": "$(bold)Effect:$() Leaping (Jump Boost) +2$(br)$(bold)Color:$() Burlywood$(br)$(bold)Best For:$() Exploration tools$(br2)Jump much higher!"
+    },
+    {
+      "type": "text",
+      "title": "Magma Cream",
+      "text": "$(bold)Effect:$() Fire Resistance +1$(br)$(bold)Color:$() Tomato Red$(br)$(bold)Best For:$() Nether tools$(br2)Immunity to fire and lava!"
+    }
+  ]
+}

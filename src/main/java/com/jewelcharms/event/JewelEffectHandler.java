@@ -1,11 +1,13 @@
 package com.jewelcharms.event;
 
 import com.jewelcharms.JewelCharms;
-import com.jewelcharms.effect.JewelEffect;
+import com.jewelcharms.effect.*;
 import com.jewelcharms.util.ToolJewelData;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -17,6 +19,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.block.Blocks;
@@ -198,6 +201,30 @@ public class JewelEffectHandler {
         if (effects.containsKey(JewelEffect.TELEPORT_DROPS)) {
             handleTeleportDrops(level, pos, player);
         }
+
+        // === NEW UNIQUE ABILITIES ===
+
+        // Quantum Harvest - swap crop with another crop in the world
+        if (effects.containsKey(JewelEffect.QUANTUM_HARVEST) && state.getBlock() instanceof CropBlock) {
+            handleQuantumHarvest((ServerLevel) level, pos, state, player);
+        }
+
+        // Biome Resonance - apply biome-specific effects
+        if (effects.containsKey(JewelEffect.BIOME_RESONANCE)) {
+            int biomeLevel = effects.get(JewelEffect.BIOME_RESONANCE);
+            handleBiomeResonance(level, pos, player, tool, biomeLevel);
+        }
+
+        // Domino Effect - progressive drop multiplier
+        if (effects.containsKey(JewelEffect.DOMINO_EFFECT)) {
+            handleDominoEffect(level, pos, state, player);
+        }
+
+        // Sound Harvesting - generate musical notes and bonus loot
+        if (effects.containsKey(JewelEffect.SOUND_HARVESTING)) {
+            int soundLevel = effects.get(JewelEffect.SOUND_HARVESTING);
+            handleSoundHarvesting(level, pos, state, player, soundLevel);
+        }
     }
 
     // ========== COMBAT & WEAPON EFFECTS ==========
@@ -220,6 +247,27 @@ public class JewelEffectHandler {
 
         LivingEntity target = event.getEntity();
         float damage = event.getAmount();
+
+        // === NEW UNIQUE ABILITIES - COMBAT MODIFIERS ===
+
+        // Moon Phase Sensitivity - bonus damage based on moon phase
+        if (effects.containsKey(JewelEffect.MOON_PHASE_SENSITIVITY) && player.level() instanceof ServerLevel serverLevel) {
+            int moonLevel = effects.get(JewelEffect.MOON_PHASE_SENSITIVITY);
+            float moonBonus = getMoonPhaseBonus(serverLevel, moonLevel);
+            damage *= moonBonus;
+        }
+
+        // Biome Resonance - bonus damage based on biome
+        if (effects.containsKey(JewelEffect.BIOME_RESONANCE) && isWeapon(weapon)) {
+            int biomeLevel = effects.get(JewelEffect.BIOME_RESONANCE);
+            damage = applyBiomeResonanceCombat(player.level(), player.blockPosition(), damage, target, biomeLevel);
+        }
+
+        // Weather Siphon - bonus damage based on charge
+        if (effects.containsKey(JewelEffect.WEATHER_SIPHON)) {
+            float chargeMultiplier = WeatherSiphonTracker.getDamageMultiplier(weapon);
+            damage *= chargeMultiplier;
+        }
 
         // Damage / Sharpness
         if (effects.containsKey(JewelEffect.DAMAGE)) {
@@ -335,6 +383,11 @@ public class JewelEffectHandler {
                 handleBeheading(target);
             }
         }
+
+        // Gravity Tether - make drops orbit player
+        if (effects.containsKey(JewelEffect.GRAVITY_TETHER)) {
+            handleGravityTether(target, player);
+        }
     }
 
     // ========== XP BOOST ==========
@@ -414,6 +467,12 @@ public class JewelEffectHandler {
         }
 
         Player player = event.player;
+
+        // Update Gravity Tether orbiting items (regardless of held item)
+        if (!player.level().isClientSide) {
+            GravityTetherTracker.updateOrbitingItems(player);
+        }
+
         ItemStack heldItem = player.getMainHandItem();
 
         if (heldItem.isEmpty()) {
@@ -423,6 +482,18 @@ public class JewelEffectHandler {
         Map<JewelEffect, Integer> effects = getApplicableEffects(heldItem);
         if (effects.isEmpty()) {
             return;
+        }
+
+        // Weather Siphon - update charge based on weather
+        if (effects.containsKey(JewelEffect.WEATHER_SIPHON) && !player.level().isClientSide) {
+            Level level = player.level();
+            BlockPos pos = player.blockPosition();
+            boolean isRaining = level.isRaining();
+            boolean isThundering = level.isThundering();
+            boolean canSeeSky = level.canSeeSky(pos);
+            boolean isSunny = !isRaining && level.isDay() && canSeeSky;
+
+            WeatherSiphonTracker.updateCharge(heldItem, isRaining && canSeeSky, isThundering && canSeeSky, isSunny);
         }
 
         // Apply player effects every 20 ticks (1 second)
@@ -686,6 +757,294 @@ public class JewelEffectHandler {
         if (head != null) {
             ItemEntity drop = new ItemEntity(target.level(), target.getX(), target.getY(), target.getZ(), head);
             target.level().addFreshEntity(drop);
+        }
+    }
+
+    // ========== NEW UNIQUE ABILITY HELPERS ==========
+
+    /**
+     * Quantum Harvest - Swap crop with another crop elsewhere in the world
+     */
+    private static void handleQuantumHarvest(ServerLevel level, BlockPos pos, BlockState state, Player player) {
+        if (!(state.getBlock() instanceof CropBlock crop)) {
+            return;
+        }
+
+        // Find another crop within a large radius (100 blocks)
+        BlockPos searchCenter = pos;
+        List<BlockPos> cropPositions = new ArrayList<>();
+
+        // Search for other crops in a 100-block radius
+        for (int x = -50; x <= 50; x += 5) {
+            for (int z = -50; z <= 50; z += 5) {
+                for (int y = -10; y <= 10; y += 2) {
+                    BlockPos checkPos = searchCenter.offset(x, y, z);
+                    BlockState checkState = level.getBlockState(checkPos);
+
+                    if (checkState.getBlock() instanceof CropBlock && !checkPos.equals(pos)) {
+                        cropPositions.add(checkPos);
+                        if (cropPositions.size() >= 20) break; // Limit search
+                    }
+                }
+                if (cropPositions.size() >= 20) break;
+            }
+            if (cropPositions.size() >= 20) break;
+        }
+
+        if (!cropPositions.isEmpty()) {
+            // Pick a random crop to swap with
+            BlockPos swapPos = cropPositions.get(RANDOM.nextInt(cropPositions.size()));
+            BlockState swapState = level.getBlockState(swapPos);
+
+            // Harvest both crops
+            level.destroyBlock(pos, true, player);
+            level.destroyBlock(swapPos, true, player);
+
+            // Send message to player
+            player.displayClientMessage(
+                Component.literal("Quantum Harvest! Swapped crops at " + swapPos.toShortString())
+                    .withStyle(net.minecraft.ChatFormatting.LIGHT_PURPLE),
+                true
+            );
+        }
+    }
+
+    /**
+     * Biome Resonance - Apply biome-specific effects when breaking blocks
+     */
+    private static void handleBiomeResonance(Level level, BlockPos pos, Player player, ItemStack tool, int biomeLevel) {
+        Holder<Biome> biomeHolder = level.getBiome(pos);
+        Biome biome = biomeHolder.value();
+
+        // Get biome properties to determine type
+        boolean isCold = biome.coldEnoughToSnow(pos);
+        boolean isHot = biome.getBaseTemperature() > 1.0f;
+        boolean isOcean = biomeHolder.is(net.minecraft.tags.BiomeTags.IS_OCEAN);
+        boolean isForest = biomeHolder.is(net.minecraft.tags.BiomeTags.IS_FOREST);
+
+        // Apply biome-specific effects
+        if (isCold) {
+            // Cold biomes: Freeze nearby water, slowness on nearby mobs
+            freezeNearbyWater(level, pos, biomeLevel);
+            applySlownessToNearbyMobs(level, pos, player, biomeLevel);
+        } else if (isHot) {
+            // Hot biomes: Set fire to nearby blocks/mobs
+            igniteNearbyEntities(level, pos, player, biomeLevel);
+        } else if (isOcean) {
+            // Ocean biomes: Water breathing, dolphins grace
+            player.addEffect(new MobEffectInstance(MobEffects.WATER_BREATHING, 100, 0, false, false));
+            player.addEffect(new MobEffectInstance(MobEffects.DOLPHINS_GRACE, 100, 0, false, false));
+        } else if (isForest) {
+            // Forest biomes: Extra plant drops, regeneration
+            player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 60, 0, false, false));
+        }
+    }
+
+    /**
+     * Apply Biome Resonance effects to combat
+     */
+    private static float applyBiomeResonanceCombat(Level level, BlockPos pos, float damage, LivingEntity target, int biomeLevel) {
+        Holder<Biome> biomeHolder = level.getBiome(pos);
+        Biome biome = biomeHolder.value();
+
+        boolean isCold = biome.coldEnoughToSnow(pos);
+        boolean isHot = biome.getBaseTemperature() > 1.0f;
+        boolean isOcean = biomeHolder.is(net.minecraft.tags.BiomeTags.IS_OCEAN);
+
+        // Apply biome-specific combat effects
+        if (isCold) {
+            // Cold biomes: Ice damage, slowness
+            target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, biomeLevel - 1));
+            damage *= 1.0f + (biomeLevel * 0.15f); // +15% per level
+        } else if (isHot) {
+            // Hot biomes: Fire damage
+            target.setSecondsOnFire(biomeLevel * 3);
+            damage *= 1.0f + (biomeLevel * 0.2f); // +20% per level
+        } else if (isOcean) {
+            // Ocean biomes: Lightning effect (if raining)
+            if (level.isRaining() && level.canSeeSky(target.blockPosition())) {
+                damage *= 1.0f + (biomeLevel * 0.25f); // +25% per level
+            }
+        }
+
+        return damage;
+    }
+
+    /**
+     * Get moon phase bonus multiplier (0.5x to 2.0x)
+     */
+    private static float getMoonPhaseBonus(ServerLevel level, int moonLevel) {
+        int moonPhase = level.getMoonPhase(); // 0-7
+
+        // Full moon (phase 0) = 2.0x damage
+        // New moon (phase 4) = 0.5x damage
+        // Scale based on moon level
+        float baseMultiplier = switch (moonPhase) {
+            case 0 -> 2.0f;  // Full moon
+            case 1, 7 -> 1.5f; // Waning/Waxing Gibbous
+            case 2, 6 -> 1.2f; // Quarter
+            case 3, 5 -> 0.8f; // Crescent
+            case 4 -> 0.5f;  // New moon
+            default -> 1.0f;
+        };
+
+        // Scale the effect based on jewel level
+        float levelMultiplier = 1.0f + ((baseMultiplier - 1.0f) * moonLevel * 0.5f);
+        return Math.max(0.5f, Math.min(3.0f, levelMultiplier));
+    }
+
+    /**
+     * Domino Effect - Progressive drop multiplier
+     */
+    private static void handleDominoEffect(Level level, BlockPos pos, BlockState state, Player player) {
+        Block brokenBlock = state.getBlock();
+        int multiplier = DominoEffectTracker.onBlockBreak(player.getUUID(), brokenBlock);
+
+        if (multiplier > 1) {
+            // Drop extra items based on multiplier
+            List<ItemEntity> drops = new ArrayList<>();
+            AABB area = new AABB(pos).inflate(2);
+            drops.addAll(level.getEntitiesOfClass(ItemEntity.class, area));
+
+            // Duplicate drops based on multiplier
+            for (ItemEntity drop : drops) {
+                for (int i = 1; i < multiplier; i++) {
+                    ItemEntity extraDrop = new ItemEntity(level, drop.getX(), drop.getY(), drop.getZ(),
+                        drop.getItem().copy());
+                    level.addFreshEntity(extraDrop);
+                }
+            }
+
+            // Show chain count to player
+            player.displayClientMessage(
+                Component.literal("Chain x" + multiplier + "!")
+                    .withStyle(net.minecraft.ChatFormatting.GOLD),
+                true
+            );
+        }
+    }
+
+    /**
+     * Sound Harvesting - Generate musical notes and bonus loot
+     */
+    private static void handleSoundHarvesting(Level level, BlockPos pos, BlockState state, Player player, int soundLevel) {
+        Block brokenBlock = state.getBlock();
+        int note = SoundHarvestingTracker.onBlockBreak(player.getUUID(), brokenBlock);
+
+        if (note >= 0) {
+            // Play musical note
+            level.playSound(null, pos, SoundHarvestingTracker.getSoundForNote(note),
+                SoundSource.PLAYERS, 1.0f, SoundHarvestingTracker.getPitchForNote(note));
+
+            // Check for melody completion
+            int melodyIndex = SoundHarvestingTracker.checkForMelodyMatch(player.getUUID());
+            if (melodyIndex >= 0) {
+                // Melody completed! Grant bonus loot
+                int rewardMultiplier = SoundHarvestingTracker.getRewardMultiplier(melodyIndex);
+
+                // Drop bonus items based on what was mined
+                for (int i = 0; i < rewardMultiplier * soundLevel; i++) {
+                    // Drop random valuable item
+                    Item bonusItem = switch (RANDOM.nextInt(6)) {
+                        case 0 -> Items.DIAMOND;
+                        case 1 -> Items.EMERALD;
+                        case 2 -> Items.GOLD_INGOT;
+                        case 3 -> Items.IRON_INGOT;
+                        case 4 -> Items.LAPIS_LAZULI;
+                        default -> Items.COAL;
+                    };
+
+                    ItemEntity bonusDrop = new ItemEntity(level, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
+                        new ItemStack(bonusItem));
+                    level.addFreshEntity(bonusDrop);
+                }
+
+                // Notify player
+                player.displayClientMessage(
+                    Component.literal("♪ Melody Complete! ♪")
+                        .withStyle(net.minecraft.ChatFormatting.AQUA),
+                    true
+                );
+
+                // Play success sound
+                level.playSound(null, pos, net.minecraft.sounds.SoundEvents.PLAYER_LEVELUP,
+                    SoundSource.PLAYERS, 1.0f, 2.0f);
+            } else {
+                // Show current note
+                int sequenceLength = SoundHarvestingTracker.getSequenceLength(player.getUUID());
+                player.displayClientMessage(
+                    Component.literal("♪ " + SoundHarvestingTracker.getNoteName(note) + " (" + sequenceLength + "/7)")
+                        .withStyle(net.minecraft.ChatFormatting.GRAY),
+                    true
+                );
+            }
+        }
+    }
+
+    /**
+     * Gravity Tether - Make mob drops orbit the player
+     */
+    private static void handleGravityTether(LivingEntity target, Player player) {
+        // Wait a tick for drops to spawn, then capture them
+        Level level = target.level();
+        BlockPos pos = target.blockPosition();
+
+        // Use a scheduled task to capture drops after they spawn
+        if (level instanceof ServerLevel serverLevel) {
+            serverLevel.getServer().execute(() -> {
+                AABB area = new AABB(pos).inflate(5);
+                List<ItemEntity> drops = level.getEntitiesOfClass(ItemEntity.class, area);
+
+                for (ItemEntity drop : drops) {
+                    // Add to orbiting items
+                    GravityTetherTracker.addOrbitingItem(player, drop);
+                }
+
+                if (!drops.isEmpty()) {
+                    player.displayClientMessage(
+                        Component.literal("Gravity Tether: " + drops.size() + " items captured")
+                            .withStyle(net.minecraft.ChatFormatting.AQUA),
+                        true
+                    );
+                }
+            });
+        }
+    }
+
+    // Helper methods for Biome Resonance effects
+
+    private static void freezeNearbyWater(Level level, BlockPos pos, int range) {
+        for (int x = -range; x <= range; x++) {
+            for (int y = -1; y <= 1; y++) {
+                for (int z = -range; z <= range; z++) {
+                    BlockPos checkPos = pos.offset(x, y, z);
+                    BlockState checkState = level.getBlockState(checkPos);
+
+                    if (checkState.is(Blocks.WATER)) {
+                        level.setBlock(checkPos, Blocks.ICE.defaultBlockState(), 3);
+                    }
+                }
+            }
+        }
+    }
+
+    private static void applySlownessToNearbyMobs(Level level, BlockPos pos, Player player, int range) {
+        AABB area = new AABB(pos).inflate(range * 2);
+        List<LivingEntity> mobs = level.getEntitiesOfClass(LivingEntity.class, area,
+            entity -> entity != player && !entity.isAlliedTo(player));
+
+        for (LivingEntity mob : mobs) {
+            mob.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, range - 1));
+        }
+    }
+
+    private static void igniteNearbyEntities(Level level, BlockPos pos, Player player, int range) {
+        AABB area = new AABB(pos).inflate(range * 2);
+        List<LivingEntity> entities = level.getEntitiesOfClass(LivingEntity.class, area,
+            entity -> entity != player && !entity.isAlliedTo(player));
+
+        for (LivingEntity entity : entities) {
+            entity.setSecondsOnFire(range * 2);
         }
     }
 }

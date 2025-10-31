@@ -1,0 +1,28 @@
+{
+  "name": "Looting",
+  "icon": "minecraft:lapis_lazuli",
+  "category": "jewelcharms:weapon_effects",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(weapon)Looting$() increases the quantity of items dropped by mobs when you defeat them!$(br2)Each level increases the maximum drop count, giving you more loot per kill."
+    },
+    {
+      "type": "spotlight",
+      "item": "minecraft:lapis_lazuli",
+      "title": "Primary Material",
+      "text": "$(1E90FF)Lapis Lazuli$() grants $(weapon)Looting +1$()$(br2)The treasure seeker's gemstone!"
+    },
+    {
+      "type": "text",
+      "title": "What It Affects",
+      "text": "Looting increases drops from:$(li)Common items (string, feathers)$(li)Rare items (Ender pearls)$(li)Mob-specific drops$(li)Some modded mobs$(br2)$(important)Does not affect$() experience orbs or armor drops."
+    },
+    {
+      "type": "text",
+      "title": "Farming Uses",
+      "text": "$(li)Enderman farming (pearls)$(li)Blaze farming (rods)$(li)Wither skeleton farming (skulls)$(li)Zombie piglin farming (gold)$(li)General mob farms$(br2)$(o)Essential for efficient mob farms!$()"
+    }
+  ]
+}

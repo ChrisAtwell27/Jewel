@@ -1,0 +1,28 @@
+{
+  "name": "Knockback",
+  "icon": "minecraft:slime_ball",
+  "category": "jewelcharms:weapon_effects",
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(weapon)Knockback$() pushes enemies away from you when you strike them!$(br2)Each level increases the distance enemies are knocked back, giving you breathing room in combat."
+    },
+    {
+      "type": "spotlight",
+      "item": "minecraft:slime_ball",
+      "title": "Primary Material",
+      "text": "$(90EE90)Slime Ball$() grants $(weapon)Knockback +2$()$(br2)Bounce your enemies away!"
+    },
+    {
+      "type": "text",
+      "title": "Tactical Uses",
+      "text": "$(li)Create distance from melee mobs$(li)Knock enemies off cliffs$(li)Push mobs into traps$(li)Control mob positioning$(li)Prevent being surrounded$(br2)$(important)Double-edged sword$() - can make hitting mobs harder!"
+    },
+    {
+      "type": "text",
+      "title": "Pro Tips",
+      "text": "$(li)Great for PvP$(li)Useful in tight spaces$(li)Combine with $(weapon)Fire Aspect$() to keep burning mobs away$(li)Not ideal for boss fights$(li)$(o)Perfect for cliff-side battles!$()"
+    }
+  ]
+}

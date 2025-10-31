@@ -1,0 +1,28 @@
+{
+  "name": "Item Magnet",
+  "icon": "minecraft:iron_ingot",
+  "category": "jewelcharms:tool_effects",
+  "sortnum": 8,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(tool)Item Magnet$() pulls dropped items toward you while you're holding the jeweled tool!$(br2)Never worry about items falling into lava or despawning while mining."
+    },
+    {
+      "type": "spotlight",
+      "item": "minecraft:iron_ingot",
+      "title": "Primary Material",
+      "text": "$(D8D8D8)Iron Ingot$() grants $(tool)Item Magnet +2$()$(br2)Magnetic personality for your tools!"
+    },
+    {
+      "type": "text",
+      "title": "How It Works",
+      "text": "While holding a tool with Item Magnet:$(br2)$(li)Nearby items are pulled toward you$(li)Range increases with level$(li)Works even when not mining$(li)Helps collect mob drops too!$(br2)$(important)Level 2$() provides a decent range."
+    },
+    {
+      "type": "text",
+      "title": "Pro Tips",
+      "text": "$(li)Great for strip mining$(li)Prevents loss in lava$(li)Useful in The End$(li)Combine with $(tool)Vein Miner$() for auto-collection$(li)Stack for massive range!$(br2)$(o)All the loot, none of the chasing!$()"
+    }
+  ]
+}

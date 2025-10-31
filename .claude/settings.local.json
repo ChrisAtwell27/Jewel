@@ -21,7 +21,11 @@
       "Bash(powershell.exe -Command \"Test-Path ''D:\\_My Projects\\Jewel\\src\\main\\resources\\assets\\jewelcharms\\textures\\block\\polish_station.png''\")",
       "Bash(powershell.exe -Command \"Test-Path ''d:\\_My Projects\\Jewel\\src\\main\\resources\\assets\\jewelcharms\\textures\\block\\polish_station.png''\")",
       "Bash(powershell.exe:*)",
-      "Bash(python -c:*)"
+      "Bash(python -c:*)",
+      "Bash(timeout /t 45)",
+      "Bash(dir:*)",
+      "Bash(python:*)",
+      "Bash(del fix_patchouli_colors.py)"
     ],
     "deny": [],
     "ask": []

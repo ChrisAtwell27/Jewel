@@ -1,0 +1,22 @@
+{
+  "name": "Polish Station",
+  "icon": "jewelcharms:polish_station",
+  "category": "jewelcharms:getting_started",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "text",
+      "text": "The $(jewel)Polish Station$() is used to transform $(tool)Rough Jewels$() into finished jewels!$(br2)After creating a rough jewel at the $(l:getting_started/crafting_jewels#jewel_creation_station)Jewel Creation Station$(), bring it here to polish it into a beautiful gem ready to attach to your tools and weapons."
+    },
+    {
+      "type": "crafting",
+      "recipe": "jewelcharms:polish_station",
+      "text": "Craft the Polish Station to complete your jewel crafting setup."
+    },
+    {
+      "type": "text",
+      "title": "How to Use",
+      "text": "$(bold)Polishing Process:$()$(br2)1. Place a $(tool)Rough Jewel$() in the Polish Station$(br)2. The station will polish it into a finished jewel$(br)3. Take your shiny new jewel!$(br2)Now you can $(l:getting_started/attaching_jewels)attach it to your gear$() at a Smithing Table."
+    }
+  ]
+}

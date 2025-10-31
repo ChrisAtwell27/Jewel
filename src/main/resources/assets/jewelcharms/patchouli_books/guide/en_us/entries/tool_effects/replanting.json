@@ -1,0 +1,28 @@
+{
+  "name": "Auto-Replant",
+  "icon": "minecraft:wheat_seeds",
+  "category": "jewelcharms:tool_effects",
+  "sortnum": 6,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(tool)Auto-Replant$() automatically replants crops after you harvest them!$(br2)Works specifically with $(important)hoes$(), making farming incredibly efficient."
+    },
+    {
+      "type": "spotlight",
+      "item": "minecraft:wheat_seeds",
+      "title": "Primary Material",
+      "text": "$(9ACD32)Wheat Seeds$() grant $(tool)Auto-Replant +1$()$(br2)The seed of automation!"
+    },
+    {
+      "type": "text",
+      "title": "Compatible Crops",
+      "text": "Auto-Replant works with:$(li)Wheat$(li)Carrots$(li)Potatoes$(li)Beetroot$(li)Nether Wart$(li)Most modded crops$(br2)$(o)One click harvesting and planting!$()"
+    },
+    {
+      "type": "text",
+      "title": "How It Works",
+      "text": "When you break a fully grown crop with a jeweled hoe:$(br2)1. The crop drops its items$(br)2. One seed is consumed from drops$(br)3. The farmland is instantly replanted$(br2)$(important)Saves so much time$() on large farms!"
+    }
+  ]
+}
