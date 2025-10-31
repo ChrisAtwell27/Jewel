@@ -24,12 +24,12 @@
     {
       "type": "text",
       "title": "Material Examples",
-      "text": "$(li)$(5DADE2)Diamond$() → Mining Speed +2$(li)$(50C878)Emerald$() → Fortune +1$(li)$(E8E8E8)Quartz$() → Sharpness +2$(li)$(1E90FF)Lapis Lazuli$() → Looting +1$(li)$(FFD700)Gold Ingot$() → XP Boost +2$(br)Check the $(l:materials/all_materials)Materials Reference$() for a complete list!"
+      "text": "$(li)$(b)Diamond$() → Mining Speed +2$(li)$(a)Emerald$() → Fortune +1$(li)$(f)Quartz$() → Sharpness +2$(li)$(9)Lapis Lazuli$() → Looting +1$(li)$(6)Gold Ingot$() → XP Boost +2$(br)Check the $(l:materials/all_materials)Materials Reference$() for a complete list!"
     },
     {
       "type": "text",
       "title": "Multiple Effects",
-      "text": "Some powerful materials grant $(important)multiple effects$() at once!$(br2)For example, $(4A4A4A)Netherite Ingot$() provides:$(li)Durability +5$(li)Mining Speed +2$(li)Sharpness +2$(br2)This makes material choice strategic and rewarding!"
+      "text": "Some powerful materials grant $(important)multiple effects$() at once!$(br2)For example, $(7)Netherite Ingot$() provides:$(li)Durability +5$(li)Mining Speed +2$(li)Sharpness +2$(br2)This makes material choice strategic and rewarding!"
     }
   ]
 }

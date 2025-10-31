@@ -25,7 +25,13 @@
       "Bash(timeout /t 45)",
       "Bash(dir:*)",
       "Bash(python:*)",
-      "Bash(del fix_patchouli_colors.py)"
+      "Bash(del fix_patchouli_colors.py)",
+      "Bash(grep:*)",
+      "Bash(find:*)",
+      "Bash(del \"D:\\_My Projects\\Jewel\\clean_hex_codes.py\")",
+      "Bash(./gradlew compileJava:*)",
+      "Bash(cmd.exe /c gradlew.bat compileJava --console=plain)",
+      "Bash(del \"D:\\_My Projects\\Jewel\\src\\main\\java\\com\\jewelcharms\\compat\\jei\\JewelCharmsJEIPlugin.java\")"
     ],
     "deny": [],
     "ask": []

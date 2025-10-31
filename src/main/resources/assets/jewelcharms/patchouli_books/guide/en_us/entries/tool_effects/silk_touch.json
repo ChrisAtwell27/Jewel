@@ -12,7 +12,7 @@
       "type": "spotlight",
       "item": "minecraft:amethyst_shard",
       "title": "Primary Material",
-      "text": "$(9966CC)Amethyst Shard$() grants $(tool)Silk Touch +1$()$(br2)The delicate crystal for delicate mining!"
+      "text": "$(d)Amethyst Shard$() grants $(tool)Silk Touch +1$()$(br2)The delicate crystal for delicate mining!"
     },
     {
       "type": "text",

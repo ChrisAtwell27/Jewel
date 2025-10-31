@@ -12,7 +12,7 @@
       "type": "spotlight",
       "item": "minecraft:wither_skeleton_skull",
       "title": "Primary Material",
-      "text": "$(1A1A1A)Wither Skeleton Skull$() grants $(weapon)Execute +1$()$(br2)Death incarnate!"
+      "text": "$(0)Wither Skeleton Skull$() grants $(weapon)Execute +1$()$(br2)Death incarnate!"
     },
     {
       "type": "text",

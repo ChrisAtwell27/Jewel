@@ -12,7 +12,7 @@
       "type": "spotlight",
       "item": "minecraft:oak_sapling",
       "title": "Primary Material",
-      "text": "$(228B22)Oak Sapling$() grants $(tool)Tree Capitator +1$()$(br2)From small saplings, mighty lumber!"
+      "text": "$(2)Oak Sapling$() grants $(tool)Tree Capitator +1$()$(br2)From small saplings, mighty lumber!"
     },
     {
       "type": "text",

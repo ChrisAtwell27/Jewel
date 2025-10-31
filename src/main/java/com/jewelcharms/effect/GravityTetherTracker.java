@@ -29,7 +29,7 @@ public class GravityTetherTracker {
     }
 
     private static final Map<UUID, List<OrbitingItem>> playerOrbitingItems = new HashMap<>();
-    private static final double ORBIT_SPEED = 0.05; // Radians per tick
+    private static final double ORBIT_SPEED = 0.15; // Radians per tick - INCREASED for faster spinning
     private static final double BASE_RADIUS = 2.0; // Base orbit radius
     private static final int MAX_ORBITING_ITEMS = 64; // Maximum items per player
 
@@ -54,6 +54,8 @@ public class GravityTetherTracker {
 
         // Mark the item as not pickupable temporarily to prevent auto-pickup
         item.setPickUpDelay(10);
+        // Disable gravity for the item
+        item.setNoGravity(true);
     }
 
     /**
@@ -86,15 +88,16 @@ public class GravityTetherTracker {
                 orbitItem.angle -= 2 * Math.PI;
             }
 
-            // Calculate new position
+            // Calculate new position - items stay at fixed height relative to player
             double x = playerPos.x + Math.cos(orbitItem.angle) * orbitItem.radius;
             double y = playerPos.y + orbitItem.height + player.getEyeHeight() / 2;
             double z = playerPos.z + Math.sin(orbitItem.angle) * orbitItem.radius;
 
-            // Set position and velocity
+            // Set position and velocity - ZERO velocity to remove gravity effect
             orbitItem.entity.setPos(x, y, z);
-            orbitItem.entity.setDeltaMovement(Vec3.ZERO);
+            orbitItem.entity.setDeltaMovement(Vec3.ZERO); // No gravity or motion
             orbitItem.entity.setOnGround(false);
+            orbitItem.entity.setNoGravity(true); // Disable gravity completely
 
             // Reset pickup delay
             orbitItem.entity.setPickUpDelay(10);
@@ -127,6 +130,8 @@ public class GravityTetherTracker {
             if (orbitItem.entity.isAlive() && !orbitItem.entity.isRemoved()) {
                 // Reset pickup delay to allow immediate pickup
                 orbitItem.entity.setPickUpDelay(0);
+                // Restore gravity so item falls naturally
+                orbitItem.entity.setNoGravity(false);
                 // Move to player position
                 orbitItem.entity.setPos(player.getX(), player.getY(), player.getZ());
                 collected = true;

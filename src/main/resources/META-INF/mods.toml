@@ -39,3 +39,10 @@ displayURL="https://github.com/jewelcharms"
     versionRange="[11.1.118,)"
     ordering="AFTER"
     side="BOTH"
+
+[[dependencies.jewelcharms]]
+    modId="patchouli"
+    mandatory=true
+    versionRange="[1.20-81,)"
+    ordering="AFTER"
+    side="BOTH"

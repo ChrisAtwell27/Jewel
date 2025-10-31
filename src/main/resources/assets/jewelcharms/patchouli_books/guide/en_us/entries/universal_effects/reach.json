@@ -12,7 +12,7 @@
       "type": "spotlight",
       "item": "minecraft:ender_pearl",
       "title": "Primary Material",
-      "text": "$(008080)Ender Pearl$() grants $(bold)Extended Reach +2$()$(br2)Reach across dimensions!"
+      "text": "$(3)Ender Pearl$() grants $(bold)Extended Reach +2$()$(br2)Reach across dimensions!"
     },
     {
       "type": "text",

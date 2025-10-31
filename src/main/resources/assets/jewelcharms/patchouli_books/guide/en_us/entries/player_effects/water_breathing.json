@@ -12,7 +12,7 @@
       "type": "spotlight",
       "item": "minecraft:prismarine_shard",
       "title": "Primary Material",
-      "text": "$(7FDBDA)Prismarine Shard$() grants Aqua Affinity +1 $(important)and$() Swiftness +1!$(br2)Double ocean bonus!"
+      "text": "$(b)Prismarine Shard$() grants Aqua Affinity +1 $(important)and$() Swiftness +1!$(br2)Double ocean bonus!"
     },
     {
       "type": "text",

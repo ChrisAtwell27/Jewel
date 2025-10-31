@@ -2,12 +2,14 @@ package com.jewelcharms;
 
 import com.jewelcharms.client.screen.JewelCreationStationScreen;
 import com.jewelcharms.config.MaterialEffectConfig;
+import com.jewelcharms.config.ModConfig;
 import com.jewelcharms.config.RarityConfig;
 import com.jewelcharms.init.ModBlocks;
 import com.jewelcharms.init.ModItems;
 import com.jewelcharms.init.ModMenuTypes;
 import com.jewelcharms.init.ModRecipeTypes;
 import com.jewelcharms.init.ModCreativeTabs;
+import com.jewelcharms.init.ModSounds;
 import com.jewelcharms.network.ModNetwork;
 import com.jewelcharms.util.JewelCreationHelper;
 import com.mojang.logging.LogUtils;
@@ -15,9 +17,11 @@ import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig.Type;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.ModLoadingContext;
 import org.slf4j.Logger;
 
 @Mod(JewelCharms.MOD_ID)
@@ -28,6 +32,9 @@ public class JewelCharms {
     public JewelCharms() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
+        // Register config
+        ModLoadingContext.get().registerConfig(Type.COMMON, ModConfig.COMMON_SPEC);
+
         // Register deferred registers
         ModBlocks.BLOCKS.register(modEventBus);
         ModItems.ITEMS.register(modEventBus);
@@ -35,6 +42,7 @@ public class JewelCharms {
         ModRecipeTypes.RECIPE_TYPES.register(modEventBus);
         ModRecipeTypes.RECIPE_SERIALIZERS.register(modEventBus);
         ModCreativeTabs.CREATIVE_MODE_TABS.register(modEventBus);
+        ModSounds.SOUNDS.register(modEventBus);
 
         // Setup listeners
         modEventBus.addListener(this::commonSetup);

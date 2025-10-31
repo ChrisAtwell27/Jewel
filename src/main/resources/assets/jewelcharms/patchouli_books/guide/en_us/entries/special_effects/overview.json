@@ -11,7 +11,7 @@
     {
       "type": "text",
       "title": "Available Effects",
-      "text": "$(l:special_effects/void_touch)$(FF0000)Void Touch$()$() - Destroy blocks instantly$(br2)$(l:special_effects/absorption)Absorption$() - Bonus yellow hearts$(br2)$(l:special_effects/teleport_drops)Ender Pocket$() - Teleport drops to inventory$(br2)$(l:special_effects/soulbound)Soulbound$() - Keep item on death$(br2)$(l:special_effects/curse_binding)$(8B0000)Curse of Binding$()$() - Cannot remove"
+      "text": "$(l:special_effects/void_touch)$(c)Void Touch$()$() - Destroy blocks instantly$(br2)$(l:special_effects/absorption)Absorption$() - Bonus yellow hearts$(br2)$(l:special_effects/teleport_drops)Ender Pocket$() - Teleport drops to inventory$(br2)$(l:special_effects/soulbound)Soulbound$() - Keep item on death$(br2)$(l:special_effects/curse_binding)$(4)Curse of Binding$()$() - Cannot remove"
     },
     {
       "type": "text",

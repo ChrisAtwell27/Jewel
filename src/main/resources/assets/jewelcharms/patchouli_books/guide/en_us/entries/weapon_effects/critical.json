@@ -12,7 +12,7 @@
       "type": "spotlight",
       "item": "minecraft:ender_eye",
       "title": "Primary Material",
-      "text": "$(2E8B57)Eye of Ender$() grants $(weapon)Critical Strike +2$()$(br2)See through your enemies' defenses!"
+      "text": "$(2)Eye of Ender$() grants $(weapon)Critical Strike +2$()$(br2)See through your enemies' defenses!"
     },
     {
       "type": "text",

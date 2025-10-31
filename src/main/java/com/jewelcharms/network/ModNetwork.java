@@ -62,6 +62,18 @@ public class ModNetwork {
                 .consumerMainThread(GravityTetherCollectPacket::handle)
                 .add();
 
+        CHANNEL.messageBuilder(PuzzleStartRequestPacket.class, packetId++, NetworkDirection.PLAY_TO_SERVER)
+                .encoder(PuzzleStartRequestPacket::encode)
+                .decoder(PuzzleStartRequestPacket::decode)
+                .consumerMainThread(PuzzleStartRequestPacket::handle)
+                .add();
+
+        CHANNEL.messageBuilder(PuzzleStateUpdatePacket.class, packetId++, NetworkDirection.PLAY_TO_CLIENT)
+                .encoder(PuzzleStateUpdatePacket::encode)
+                .decoder(PuzzleStateUpdatePacket::decode)
+                .consumerMainThread(PuzzleStateUpdatePacket::handle)
+                .add();
+
         JewelCharms.LOGGER.info("Registered network packets");
     }
 

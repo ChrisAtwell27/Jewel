@@ -12,7 +12,7 @@
       "type": "spotlight",
       "item": "minecraft:glowstone_dust",
       "title": "Primary Material",
-      "text": "$(FFFF99)Glowstone Dust$() grants Night Vision +1$(br2)Light up your world!"
+      "text": "$(e)Glowstone Dust$() grants Night Vision +1$(br2)Light up your world!"
     },
     {
       "type": "text",

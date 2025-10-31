@@ -12,7 +12,7 @@
       "type": "spotlight",
       "item": "minecraft:spider_eye",
       "title": "Primary Material",
-      "text": "$(8B008B)Spider Eye$() grants $(weapon)Venomous +2$()$(br2)Inject venom with every strike!"
+      "text": "$(5)Spider Eye$() grants $(weapon)Venomous +2$()$(br2)Inject venom with every strike!"
     },
     {
       "type": "text",

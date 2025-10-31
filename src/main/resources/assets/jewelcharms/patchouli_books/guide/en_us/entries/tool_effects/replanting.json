@@ -12,7 +12,7 @@
       "type": "spotlight",
       "item": "minecraft:wheat_seeds",
       "title": "Primary Material",
-      "text": "$(9ACD32)Wheat Seeds$() grant $(tool)Auto-Replant +1$()$(br2)The seed of automation!"
+      "text": "$(a)Wheat Seeds$() grant $(tool)Auto-Replant +1$()$(br2)The seed of automation!"
     },
     {
       "type": "text",

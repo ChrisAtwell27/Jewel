@@ -12,7 +12,7 @@
       "type": "spotlight",
       "item": "minecraft:slime_ball",
       "title": "Primary Material",
-      "text": "$(90EE90)Slime Ball$() grants $(weapon)Knockback +2$()$(br2)Bounce your enemies away!"
+      "text": "$(a)Slime Ball$() grants $(weapon)Knockback +2$()$(br2)Bounce your enemies away!"
     },
     {
       "type": "text",

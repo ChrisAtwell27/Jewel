@@ -1,0 +1,201 @@
+{
+  "jewel_activate": {
+    "sounds": [
+      {
+        "name": "jewelcharms:jewel_activate",
+        "stream": false
+      }
+    ],
+    "subtitle": "subtitles.jewelcharms.jewel_activate"
+  },
+  "jewel_shimmer": {
+    "sounds": [
+      {
+        "name": "jewelcharms:jewel_shimmer",
+        "stream": false,
+        "volume": 0.3
+      }
+    ],
+    "subtitle": "subtitles.jewelcharms.jewel_shimmer"
+  },
+  "jewel_chime": {
+    "sounds": [
+      {
+        "name": "jewelcharms:jewel_chime",
+        "stream": false
+      }
+    ],
+    "subtitle": "subtitles.jewelcharms.jewel_chime"
+  },
+  "jewel_resonance": {
+    "sounds": [
+      {
+        "name": "jewelcharms:jewel_resonance",
+        "stream": false,
+        "volume": 0.7
+      }
+    ],
+    "subtitle": "subtitles.jewelcharms.jewel_resonance"
+  },
+  "fortune_trigger": {
+    "sounds": [
+      {
+        "name": "minecraft:entity.experience_orb.pickup",
+        "pitch": 1.2
+      }
+    ],
+    "subtitle": "subtitles.jewelcharms.fortune_trigger"
+  },
+  "vein_miner_trigger": {
+    "sounds": [
+      {
+        "name": "minecraft:entity.generic.explode",
+        "volume": 0.3,
+        "pitch": 2.0
+      }
+    ],
+    "subtitle": "subtitles.jewelcharms.vein_miner"
+  },
+  "lifesteal_trigger": {
+    "sounds": [
+      {
+        "name": "minecraft:entity.player.breath",
+        "pitch": 0.8
+      }
+    ],
+    "subtitle": "subtitles.jewelcharms.lifesteal"
+  },
+  "critical_hit_trigger": {
+    "sounds": [
+      {
+        "name": "minecraft:entity.player.attack.crit",
+        "pitch": 1.1
+      }
+    ],
+    "subtitle": "subtitles.jewelcharms.critical_hit"
+  },
+  "execute_trigger": {
+    "sounds": [
+      {
+        "name": "minecraft:entity.wither.hurt",
+        "volume": 0.5,
+        "pitch": 0.5
+      }
+    ],
+    "subtitle": "subtitles.jewelcharms.execute"
+  },
+  "magnetic_pulse": {
+    "sounds": [
+      {
+        "name": "minecraft:block.beacon.power_select",
+        "pitch": 1.5,
+        "volume": 0.4
+      }
+    ],
+    "subtitle": "subtitles.jewelcharms.magnetic"
+  },
+  "void_touch_trigger": {
+    "sounds": [
+      {
+        "name": "minecraft:entity.enderman.teleport",
+        "pitch": 0.5,
+        "volume": 0.6
+      }
+    ],
+    "subtitle": "subtitles.jewelcharms.void_touch"
+  },
+  "teleport_drops_trigger": {
+    "sounds": [
+      {
+        "name": "minecraft:entity.enderman.teleport",
+        "pitch": 2.0,
+        "volume": 0.3
+      }
+    ],
+    "subtitle": "subtitles.jewelcharms.teleport_drops"
+  },
+  "buff_apply": {
+    "sounds": [
+      {
+        "name": "minecraft:entity.player.levelup",
+        "pitch": 1.5,
+        "volume": 0.3
+      }
+    ],
+    "subtitle": "subtitles.jewelcharms.buff_apply"
+  },
+  "buff_expire": {
+    "sounds": [
+      {
+        "name": "minecraft:entity.generic.extinguish_fire",
+        "pitch": 0.8,
+        "volume": 0.2
+      }
+    ],
+    "subtitle": "subtitles.jewelcharms.buff_expire"
+  },
+  "jewel_create": {
+    "sounds": [
+      {
+        "name": "minecraft:block.anvil.use",
+        "pitch": 1.3
+      }
+    ],
+    "subtitle": "subtitles.jewelcharms.jewel_create"
+  },
+  "jewel_polish": {
+    "sounds": [
+      {
+        "name": "minecraft:block.grindstone.use",
+        "pitch": 1.2
+      }
+    ],
+    "subtitle": "subtitles.jewelcharms.jewel_polish"
+  },
+  "jewel_attach": {
+    "sounds": [
+      {
+        "name": "minecraft:block.smithing_table.use",
+        "pitch": 1.1
+      }
+    ],
+    "subtitle": "subtitles.jewelcharms.jewel_attach"
+  },
+  "jewel_remove": {
+    "sounds": [
+      {
+        "name": "minecraft:block.anvil.break",
+        "volume": 0.4,
+        "pitch": 1.5
+      }
+    ],
+    "subtitle": "subtitles.jewelcharms.jewel_remove"
+  },
+  "puzzle_click": {
+    "sounds": [
+      {
+        "name": "minecraft:block.stone_button.click_on",
+        "pitch": 1.5,
+        "volume": 0.5
+      }
+    ],
+    "subtitle": "subtitles.jewelcharms.puzzle_click"
+  },
+  "puzzle_complete": {
+    "sounds": [
+      {
+        "name": "minecraft:entity.player.levelup"
+      }
+    ],
+    "subtitle": "subtitles.jewelcharms.puzzle_complete"
+  },
+  "puzzle_fail": {
+    "sounds": [
+      {
+        "name": "minecraft:entity.villager.no",
+        "pitch": 0.8
+      }
+    ],
+    "subtitle": "subtitles.jewelcharms.puzzle_fail"
+  }
+}

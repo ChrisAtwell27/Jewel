@@ -21,8 +21,14 @@ public class MaterialEffectConfig {
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     private static final Path CONFIG_PATH = Paths.get("config", "jewelcharms", "material_effects.json");
 
+    private static MaterialEffectConfig instance;
+
     private List<MaterialMapping> materials = new ArrayList<>();
     private transient Map<String, MaterialMapping> materialMap = new HashMap<>();
+
+    public static MaterialEffectConfig getInstance() {
+        return instance;
+    }
 
     public static MaterialEffectConfig load() {
         try {
@@ -31,17 +37,21 @@ public class MaterialEffectConfig {
                     MaterialEffectConfig config = GSON.fromJson(reader, MaterialEffectConfig.class);
                     config.buildMap();
                     JewelCharms.LOGGER.info("Loaded material effects config with {} materials", config.materials.size());
+                    instance = config;
                     return config;
                 }
             } else {
                 JewelCharms.LOGGER.info("Creating default material effects config");
                 MaterialEffectConfig config = createDefault();
                 config.save();
+                instance = config;
                 return config;
             }
         } catch (Exception e) {
             JewelCharms.LOGGER.error("Failed to load material effects config, using defaults", e);
-            return createDefault();
+            MaterialEffectConfig config = createDefault();
+            instance = config;
+            return config;
         }
     }
 
@@ -58,19 +68,49 @@ public class MaterialEffectConfig {
     }
 
     private void buildMap() {
+        if (materialMap == null) {
+            materialMap = new HashMap<>();
+        }
         materialMap.clear();
+
+        if (materials == null) {
+            materials = new ArrayList<>();
+            JewelCharms.LOGGER.warn("Materials list was null during buildMap, initialized to empty list");
+            return;
+        }
+
         for (MaterialMapping mapping : materials) {
-            materialMap.put(mapping.getMaterialId(), mapping);
+            if (mapping != null && mapping.getMaterialId() != null) {
+                materialMap.put(mapping.getMaterialId(), mapping);
+            } else {
+                JewelCharms.LOGGER.warn("Skipped null or invalid material mapping during buildMap");
+            }
         }
     }
 
     public MaterialMapping getMapping(String materialId) {
-        return materialMap.get(materialId);
+        if (materialId == null) {
+            JewelCharms.LOGGER.warn("Attempted to get mapping for null material ID");
+            return null;
+        }
+        MaterialMapping mapping = materialMap.get(materialId);
+        if (mapping == null) {
+            JewelCharms.LOGGER.debug("No mapping found for material: {}", materialId);
+        }
+        return mapping;
     }
 
     public MaterialMapping getMapping(Item item) {
+        if (item == null) {
+            JewelCharms.LOGGER.warn("Attempted to get mapping for null item");
+            return null;
+        }
         ResourceLocation itemId = ForgeRegistries.ITEMS.getKey(item);
-        return itemId != null ? getMapping(itemId.toString()) : null;
+        if (itemId == null) {
+            JewelCharms.LOGGER.warn("Could not find registry key for item: {}", item);
+            return null;
+        }
+        return getMapping(itemId.toString());
     }
 
     public List<MaterialMapping> getAllMappings() {

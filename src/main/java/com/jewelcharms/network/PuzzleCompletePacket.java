@@ -62,14 +62,10 @@ public class PuzzleCompletePacket {
             if (player.containerMenu instanceof JewelCreationStationMenu menu) {
                 JewelCharms.LOGGER.info("Player is in JewelCreationStationMenu - processing puzzle completion");
                 if (packet.success) {
-                    // Verify puzzle solution on server side
-                    PuzzleState puzzleState = PuzzleState.deserialize(packet.puzzleStateData);
-                    JewelCharms.LOGGER.info("Puzzle solved status: {}", puzzleState.isSolved());
-
-                    if (puzzleState.isSolved()) {
-                        // Deserialize jewel data from packet
-                        JewelData jewelData = JewelData.deserialize(packet.jewelDataString);
-                        JewelCharms.LOGGER.info("Jewel data received: {}", jewelData != null ? "valid" : "null");
+                    // Use server-side puzzle tracker for validation
+                    if (com.jewelcharms.util.ServerPuzzleTracker.isPuzzleSolved(player)) {
+                        // Complete the puzzle and get jewel data from server tracker
+                        JewelData jewelData = com.jewelcharms.util.ServerPuzzleTracker.completePuzzle(player);
 
                         if (jewelData != null) {
                             JewelCharms.LOGGER.info("Creating rough jewel in output slot...");
@@ -78,21 +74,24 @@ public class PuzzleCompletePacket {
                             jewelData.saveToItemStack(roughJewel);
                             menu.setOutputJewel(roughJewel);
 
-                            // Consume the materials on server side
-                            menu.clearMaterialSlots();
+                            // Materials already cleared when puzzle started
 
                             JewelCharms.LOGGER.info("SUCCESS: Player {} completed puzzle and created rough jewel!",
                                 player.getName().getString());
                         } else {
-                            JewelCharms.LOGGER.error("ERROR: Could not deserialize JewelData from packet!");
+                            JewelCharms.LOGGER.error("ERROR: Could not get JewelData from server tracker!");
                         }
                     } else {
-                        JewelCharms.LOGGER.warn("Player {} claimed to solve puzzle but verification failed",
+                        JewelCharms.LOGGER.warn("Player {} claimed to solve puzzle but server validation failed",
                             player.getName().getString());
+                        // Cancel the puzzle
+                        com.jewelcharms.util.ServerPuzzleTracker.cancelPuzzle(player);
                     }
                 } else {
-                    JewelCharms.LOGGER.info("Player {} failed the puzzle", player.getName().getString());
-                    // Materials remain in slots, player can try again
+                    JewelCharms.LOGGER.info("Player {} failed/cancelled the puzzle", player.getName().getString());
+                    // Cancel the server-side puzzle
+                    com.jewelcharms.util.ServerPuzzleTracker.cancelPuzzle(player);
+                    // Materials were already consumed, might want to restore them?
                 }
             }
             // Handle Polish Station (polish minigame completion)

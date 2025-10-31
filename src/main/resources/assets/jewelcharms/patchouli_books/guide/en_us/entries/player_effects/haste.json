@@ -12,7 +12,7 @@
       "type": "spotlight",
       "item": "minecraft:redstone",
       "title": "Primary Material",
-      "text": "$(FF0000)Redstone$() grants Haste +1$(br2)Fast as lightning!"
+      "text": "$(c)Redstone$() grants Haste +1$(br2)Fast as lightning!"
     },
     {
       "type": "text",

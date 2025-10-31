@@ -6,13 +6,13 @@
   "pages": [
     {
       "type": "text",
-      "text": "$(FF0000)$(bold)Void Touch$()$() $(important)destroys blocks$() instead of dropping them!$(br2)$(FF0000)WARNING:$() This effect $(important)deletes blocks permanently$(). Use with extreme caution!"
+      "text": "$(c)$(bold)Void Touch$()$() $(important)destroys blocks$() instead of dropping them!$(br2)$(c)WARNING:$() This effect $(important)deletes blocks permanently$(). Use with extreme caution!"
     },
     {
       "type": "spotlight",
       "item": "minecraft:barrier",
       "title": "Primary Material",
-      "text": "$(FF0000)Barrier$() grants Void Touch +1$(br2)Requires creative mode or commands to obtain!"
+      "text": "$(c)Barrier$() grants Void Touch +1$(br2)Requires creative mode or commands to obtain!"
     },
     {
       "type": "text",
@@ -22,7 +22,7 @@
     {
       "type": "text",
       "title": "Safety Tips",
-      "text": "$(FF0000)DANGER ZONE$()$(br2)$(li)No drops = no items$(li)Cannot recover voided blocks$(li)Use dedicated void tools$(li)Keep separate from mining tools$(li)Label clearly!$(br2)$(o)With great power comes great regret!$()"
+      "text": "$(c)DANGER ZONE$()$(br2)$(li)No drops = no items$(li)Cannot recover voided blocks$(li)Use dedicated void tools$(li)Keep separate from mining tools$(li)Label clearly!$(br2)$(o)With great power comes great regret!$()"
     }
   ]
 }

@@ -12,7 +12,7 @@
       "type": "spotlight",
       "item": "minecraft:quartz",
       "title": "Primary Material",
-      "text": "$(E8E8E8)Quartz$() grants $(weapon)Sharpness +2$()$(br2)Sharp crystals for sharper blades!"
+      "text": "$(f)Quartz$() grants $(weapon)Sharpness +2$()$(br2)Sharp crystals for sharper blades!"
     },
     {
       "type": "text",

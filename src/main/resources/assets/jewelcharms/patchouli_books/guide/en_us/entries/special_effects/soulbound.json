@@ -12,7 +12,7 @@
       "type": "spotlight",
       "item": "minecraft:totem_of_undying",
       "title": "Primary Material",
-      "text": "$(FFD700)Totem of Undying$() grants Soulbound +1$(br2)Bound to your very soul!"
+      "text": "$(6)Totem of Undying$() grants Soulbound +1$(br2)Bound to your very soul!"
     },
     {
       "type": "text",

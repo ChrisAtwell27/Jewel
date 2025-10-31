@@ -12,7 +12,7 @@
       "type": "spotlight",
       "item": "minecraft:chorus_fruit",
       "title": "Primary Material",
-      "text": "$(9370DB)Chorus Fruit$() grants Ender Pocket +1$(br2)End-dimensional storage!"
+      "text": "$(d)Chorus Fruit$() grants Ender Pocket +1$(br2)End-dimensional storage!"
     },
     {
       "type": "text",

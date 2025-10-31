@@ -64,6 +64,9 @@ public class JewelCreationStationScreen extends AbstractContainerScreen<JewelCre
         this.renderBackground(guiGraphics);
         super.render(guiGraphics, mouseX, mouseY, partialTicks);
 
+        // Render jewel preview panel
+        JewelPreviewPanel.renderPreview(this, guiGraphics, mouseX, mouseY);
+
         // Custom tooltips for slots
         boolean customTooltipShown = false;
 
@@ -147,46 +150,49 @@ public class JewelCreationStationScreen extends AbstractContainerScreen<JewelCre
     }
 
     private void startPuzzle() {
-        // Get materials and create jewel data (but don't put it in output slot yet!)
-        List<ItemStack> materials = menu.getMaterialStacks();
-        ItemStack jewel = JewelCreationHelper.createJewel(materials);
+        // Send request to server to start puzzle
+        ModNetwork.sendToServer(new com.jewelcharms.network.PuzzleStartRequestPacket(menu.getBlockPos()));
 
-        if (!jewel.isEmpty()) {
-            // Get jewel data for puzzle
-            JewelData jewelData = JewelData.fromItemStack(jewel);
-            if (jewelData != null) {
-                // Store jewel data temporarily - we'll create the rough jewel after puzzle is solved
-                this.pendingJewelData = jewelData;
+        // Server will validate materials and send back the puzzle state
+        JewelCharms.LOGGER.info("Sent puzzle start request to server");
+    }
 
-                // Clear materials
-                menu.clearMaterialSlots();
+    /**
+     * Called when server sends puzzle state update
+     */
+    public void updatePuzzleFromServer(PuzzleState serverPuzzleState, JewelData jewelData, boolean startPuzzle, int serverMoveCount) {
+        if (startPuzzle) {
+            // Starting a new puzzle
+            this.puzzleState = serverPuzzleState;
+            this.pendingJewelData = jewelData;
 
-                // Initialize puzzle inline
-                int gridSize = jewelData.getRarity().getPuzzleGridSize();
-                int centerSize = jewelData.getRarity().getPuzzleCenterSize();
-                puzzleState = new PuzzleState(gridSize, centerSize, jewelData.getIndividualColors());
+            int gridSize = serverPuzzleState.getGridSize();
 
-                // Scramble puzzle
-                int scrambleCount = gridSize * gridSize * 3;
-                puzzleState.scramble(minecraft.level.random, scrambleCount);
+            // Calculate tile size and position - scale to fit screen better
+            int maxPuzzleHeight = height - 120; // Leave space for title, info, and skip button
+            int maxPuzzleWidth = width - 60; // Leave side margins
 
-                // Calculate tile size and position - scale to fit screen better
-                int maxPuzzleHeight = height - 120; // Leave space for title, info, and skip button
-                int maxPuzzleWidth = width - 60; // Leave side margins
+            // Calculate the largest tile size that fits
+            int maxTileSizeForHeight = maxPuzzleHeight / gridSize;
+            int maxTileSizeForWidth = maxPuzzleWidth / gridSize;
+            this.tileSize = Math.min(Math.min(maxTileSizeForHeight, maxTileSizeForWidth), 40); // Cap at 40px max
 
-                // Calculate the largest tile size that fits
-                int maxTileSizeForHeight = maxPuzzleHeight / gridSize;
-                int maxTileSizeForWidth = maxPuzzleWidth / gridSize;
-                this.tileSize = Math.min(Math.min(maxTileSizeForHeight, maxTileSizeForWidth), 40); // Cap at 40px max
+            int puzzleSize = gridSize * tileSize;
+            puzzleStartX = (width - puzzleSize) / 2;
+            puzzleStartY = (height - puzzleSize) / 2;
 
-                int puzzleSize = gridSize * tileSize;
-                puzzleStartX = (width - puzzleSize) / 2;
-                puzzleStartY = (height - puzzleSize) / 2;
+            puzzleActive = true;
+            moveCount = 0;
 
-                puzzleActive = true;
-                moveCount = 0;
+            JewelCharms.LOGGER.info("Started puzzle from server with gridSize={}, tileSize={}", gridSize, tileSize);
+        } else {
+            // Updating existing puzzle
+            this.puzzleState = serverPuzzleState;
+            this.moveCount = serverMoveCount;
 
-                JewelCharms.LOGGER.info("Started puzzle with gridSize={}, tileSize={}", gridSize, tileSize);
+            // Check if solved
+            if (puzzleState.isSolved()) {
+                onPuzzleComplete();
             }
         }
     }
@@ -245,23 +251,29 @@ public class JewelCreationStationScreen extends AbstractContainerScreen<JewelCre
                     }
                 }
 
-                // Handle tile clicks
+                // Handle tile clicks - send to server for validation
                 int col = (int)((mouseX - puzzleStartX) / tileSize);
                 int row = (int)((mouseY - puzzleStartY) / tileSize);
 
-                if (puzzleState.slide(row, col)) {
-                    moveCount++;
+                // Check if it's a valid click position
+                if (col >= 0 && col < puzzleState.getGridSize() &&
+                    row >= 0 && row < puzzleState.getGridSize()) {
 
-                    // Play click sound
-                    minecraft.player.playSound(
-                        net.minecraft.sounds.SoundEvents.STONE_BUTTON_CLICK_ON,
-                        0.5f, 1.5f
-                    );
+                    // Send click to server for validation
+                    boolean canSlide = puzzleState.canSlide(row, col);
+                    ModNetwork.sendToServer(new com.jewelcharms.network.MinigameClickPacket(
+                        menu.getBlockPos(), col, row, canSlide
+                    ));
 
-                    // Check if solved
-                    if (puzzleState.isSolved()) {
-                        onPuzzleComplete();
+                    // Play click sound locally for responsiveness
+                    if (canSlide) {
+                        minecraft.player.playSound(
+                            net.minecraft.sounds.SoundEvents.STONE_BUTTON_CLICK_ON,
+                            0.5f, 1.5f
+                        );
                     }
+
+                    // Server will send back updated puzzle state
                 }
             }
 

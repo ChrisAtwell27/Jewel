@@ -12,7 +12,7 @@
       "type": "spotlight",
       "item": "minecraft:diamond",
       "title": "Primary Material",
-      "text": "$(5DADE2)Diamond$() grants $(tool)Mining Speed +2$()$(br2)Create rough jewels with diamond at the Jewel Creation Station, then polish them at the Polish Station."
+      "text": "$(b)Diamond$() grants $(tool)Mining Speed +2$()$(br2)Create rough jewels with diamond at the Jewel Creation Station, then polish them at the Polish Station."
     },
     {
       "type": "text",

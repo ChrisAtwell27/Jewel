@@ -12,7 +12,7 @@
       "type": "spotlight",
       "item": "minecraft:blaze_powder",
       "title": "Primary Material",
-      "text": "$(FFA500)Blaze Powder$() grants $(tool)Auto-Smelt +1$()$(br2)Harness the power of the Nether!"
+      "text": "$(6)Blaze Powder$() grants $(tool)Auto-Smelt +1$()$(br2)Harness the power of the Nether!"
     },
     {
       "type": "text",

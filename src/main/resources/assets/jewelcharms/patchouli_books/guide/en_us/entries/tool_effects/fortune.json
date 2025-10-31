@@ -12,7 +12,7 @@
       "type": "spotlight",
       "item": "minecraft:emerald",
       "title": "Primary Material",
-      "text": "$(50C878)Emerald$() grants $(tool)Fortune +1$()$(br2)The classic material for wealth and prosperity!"
+      "text": "$(a)Emerald$() grants $(tool)Fortune +1$()$(br2)The classic material for wealth and prosperity!"
     },
     {
       "type": "text",

@@ -12,7 +12,7 @@
       "type": "spotlight",
       "item": "minecraft:blaze_rod",
       "title": "Primary Material",
-      "text": "$(FF4500)Blaze Rod$() grants $(weapon)Fire Aspect +2$()$(br2)Bring the heat of the Nether to battle!"
+      "text": "$(6)Blaze Rod$() grants $(weapon)Fire Aspect +2$()$(br2)Bring the heat of the Nether to battle!"
     },
     {
       "type": "text",

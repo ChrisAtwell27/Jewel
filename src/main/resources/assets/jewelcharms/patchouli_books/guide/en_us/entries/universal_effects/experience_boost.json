@@ -12,7 +12,7 @@
       "type": "spotlight",
       "item": "minecraft:gold_ingot",
       "title": "Primary Material",
-      "text": "$(FFD700)Gold Ingot$() grants $(bold)XP Boost +2$()$(br2)Golden fortune smiles upon you!"
+      "text": "$(6)Gold Ingot$() grants $(bold)XP Boost +2$()$(br2)Golden fortune smiles upon you!"
     },
     {
       "type": "text",

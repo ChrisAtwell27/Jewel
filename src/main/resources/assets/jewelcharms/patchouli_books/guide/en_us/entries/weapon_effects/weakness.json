@@ -12,7 +12,7 @@
       "type": "spotlight",
       "item": "minecraft:fermented_spider_eye",
       "title": "Primary Material",
-      "text": "$(4B0082)Fermented Spider Eye$() grants $(weapon)Enfeebling Strike +2$()$(br2)Sap their strength!"
+      "text": "$(5)Fermented Spider Eye$() grants $(weapon)Enfeebling Strike +2$()$(br2)Sap their strength!"
     },
     {
       "type": "text",

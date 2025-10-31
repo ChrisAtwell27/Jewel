@@ -12,7 +12,7 @@
       "type": "spotlight",
       "item": "minecraft:iron_ingot",
       "title": "Primary Material",
-      "text": "$(D8D8D8)Iron Ingot$() grants $(tool)Item Magnet +2$()$(br2)Magnetic personality for your tools!"
+      "text": "$(7)Iron Ingot$() grants $(tool)Item Magnet +2$()$(br2)Magnetic personality for your tools!"
     },
     {
       "type": "text",

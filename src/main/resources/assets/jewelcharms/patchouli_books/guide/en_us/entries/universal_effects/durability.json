@@ -12,7 +12,7 @@
       "type": "spotlight",
       "item": "minecraft:netherite_ingot",
       "title": "Primary Material",
-      "text": "$(4A4A4A)Netherite Ingot$() grants $(bold)Unbreaking +5$() (plus other effects!)$(br2)The ultimate durability material!"
+      "text": "$(7)Netherite Ingot$() grants $(bold)Unbreaking +5$() (plus other effects!)$(br2)The ultimate durability material!"
     },
     {
       "type": "text",

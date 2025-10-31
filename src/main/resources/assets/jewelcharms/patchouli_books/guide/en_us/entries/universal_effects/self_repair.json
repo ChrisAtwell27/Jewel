@@ -12,7 +12,7 @@
       "type": "spotlight",
       "item": "minecraft:ghast_tear",
       "title": "Primary Material",
-      "text": "$(F0F0F0)Ghast Tear$() grants $(bold)Mending +2$()$(br2)The tears of ghosts heal your tools!"
+      "text": "$(f)Ghast Tear$() grants $(bold)Mending +2$()$(br2)The tears of ghosts heal your tools!"
     },
     {
       "type": "text",

@@ -12,7 +12,7 @@
       "type": "spotlight",
       "item": "minecraft:zombie_head",
       "title": "Primary Material",
-      "text": "$(556B2F)Zombie Head$() grants $(weapon)Beheading +1$()$(br2)Ironic, isn't it?"
+      "text": "$(2)Zombie Head$() grants $(weapon)Beheading +1$()$(br2)Ironic, isn't it?"
     },
     {
       "type": "text",

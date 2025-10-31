@@ -12,7 +12,7 @@
       "type": "spotlight",
       "item": "minecraft:magma_cream",
       "title": "Primary Material",
-      "text": "$(FF6347)Magma Cream$() grants Fire Resistance +1$(br2)Born from fire!"
+      "text": "$(c)Magma Cream$() grants Fire Resistance +1$(br2)Born from fire!"
     },
     {
       "type": "text",

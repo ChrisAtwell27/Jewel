@@ -12,7 +12,7 @@
       "type": "spotlight",
       "item": "minecraft:lapis_lazuli",
       "title": "Primary Material",
-      "text": "$(1E90FF)Lapis Lazuli$() grants $(weapon)Looting +1$()$(br2)The treasure seeker's gemstone!"
+      "text": "$(9)Lapis Lazuli$() grants $(weapon)Looting +1$()$(br2)The treasure seeker's gemstone!"
     },
     {
       "type": "text",

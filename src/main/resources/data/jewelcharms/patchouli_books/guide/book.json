@@ -6,10 +6,10 @@
   "show_progress": false,
   "use_resource_pack": true,
   "macros": {
-    "$(jewel)": "$(5DADE2)$(bold)",
-    "$(tool)": "$(FFD700)$(bold)",
-    "$(weapon)": "$(FF6B6B)$(bold)",
-    "$(special)": "$(9370DB)$(bold)",
-    "$(important)": "$(FF4500)$(bold)"
+    "$(jewel)": "$(b)$(bold)",
+    "$(tool)": "$(6)$(bold)",
+    "$(weapon)": "$(c)$(bold)",
+    "$(special)": "$(d)$(bold)",
+    "$(important)": "$(6)$(bold)"
   }
 }

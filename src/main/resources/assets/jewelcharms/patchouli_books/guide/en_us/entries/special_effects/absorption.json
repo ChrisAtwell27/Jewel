@@ -12,7 +12,7 @@
       "type": "spotlight",
       "item": "minecraft:nether_star",
       "title": "Primary Material",
-      "text": "$(FFFFFF)Nether Star$() grants $(special)Absorption +3$()$(br2)The power of a Wither, harnessed!"
+      "text": "$(f)Nether Star$() grants $(special)Absorption +3$()$(br2)The power of a Wither, harnessed!"
     },
     {
       "type": "text",

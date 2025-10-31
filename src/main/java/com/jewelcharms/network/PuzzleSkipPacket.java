@@ -37,31 +37,36 @@ public class PuzzleSkipPacket {
             if (player == null) return;
 
             if (player.containerMenu instanceof JewelCreationStationMenu menu) {
-                ItemStack outputJewel = menu.getOutputSlot().getItem();
+                // Get active puzzle from server tracker
+                var activePuzzle = com.jewelcharms.util.ServerPuzzleTracker.getActivePuzzle(player);
 
-                if (!outputJewel.isEmpty() && outputJewel.getItem() == ModItems.JEWEL.get()) {
-                    JewelData jewelData = JewelData.fromItemStack(outputJewel);
-                    if (jewelData != null) {
-                        int xpCost = jewelData.getRarity().getSkipCost();
+                if (activePuzzle != null) {
+                    JewelData jewelData = activePuzzle.jewelData;
+                    int xpCost = jewelData.getRarity().getSkipCost();
 
-                        // Check if player has enough XP
-                        int playerXp = getPlayerTotalXp(player);
-                        if (playerXp >= xpCost) {
-                            // Deduct XP
-                            subtractXp(player, xpCost);
+                    // Check if player has enough XP
+                    int playerXp = getPlayerTotalXp(player);
+                    if (playerXp >= xpCost) {
+                        // Deduct XP
+                        subtractXp(player, xpCost);
 
-                            // Convert to rough jewel
-                            ItemStack roughJewel = new ItemStack(ModItems.ROUGH_JEWEL.get());
-                            jewelData.saveToItemStack(roughJewel);
-                            menu.setOutputJewel(roughJewel);
+                        // Complete the puzzle on server
+                        com.jewelcharms.util.ServerPuzzleTracker.completePuzzle(player);
 
-                            JewelCharms.LOGGER.info("Player {} skipped puzzle for {} XP",
-                                player.getName().getString(), xpCost);
-                        } else {
-                            JewelCharms.LOGGER.warn("Player {} tried to skip puzzle but doesn't have enough XP",
-                                player.getName().getString());
-                        }
+                        // Create rough jewel
+                        ItemStack roughJewel = new ItemStack(ModItems.ROUGH_JEWEL.get());
+                        jewelData.saveToItemStack(roughJewel);
+                        menu.setOutputJewel(roughJewel);
+
+                        JewelCharms.LOGGER.info("Player {} skipped puzzle for {} XP",
+                            player.getName().getString(), xpCost);
+                    } else {
+                        JewelCharms.LOGGER.warn("Player {} tried to skip puzzle but doesn't have enough XP",
+                            player.getName().getString());
                     }
+                } else {
+                    JewelCharms.LOGGER.error("Player {} tried to skip puzzle but has no active puzzle",
+                        player.getName().getString());
                 }
             }
         });

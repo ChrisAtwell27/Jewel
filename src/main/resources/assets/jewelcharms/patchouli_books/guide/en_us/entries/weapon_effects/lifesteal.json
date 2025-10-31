@@ -12,7 +12,7 @@
       "type": "spotlight",
       "item": "minecraft:glistering_melon_slice",
       "title": "Primary Material",
-      "text": "$(FF1493)Glistering Melon Slice$() grants $(weapon)Life Steal +2$()$(br2)Drink deep from your victories!"
+      "text": "$(d)Glistering Melon Slice$() grants $(weapon)Life Steal +2$()$(br2)Drink deep from your victories!"
     },
     {
       "type": "text",
