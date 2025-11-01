@@ -1,0 +1,28 @@
+{
+  "name": "Curse of Binding",
+  "icon": "minecraft:string",
+  "category": "jewelcharms:special_effects",
+  "sortnum": 5,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(4)$(bold)Curse of Binding$()$() prevents you from $(important)removing or dropping$() the item once held!$(br2)$(c)WARNING:$() This is a $(important)curse$(). Do NOT apply unless you're absolutely sure!"
+    },
+    {
+      "type": "spotlight",
+      "item": "minecraft:string",
+      "title": "A Curse",
+      "text": "This effect is $(c)intentionally difficult to obtain$().$(br2)You must specifically create it - it won't happen by accident."
+    },
+    {
+      "type": "text",
+      "title": "Effects",
+      "text": "$(li)Cannot drop the item$(li)Cannot remove from inventory$(li)Cannot place in chests$(li)Stays until death (without Soulbound)$(br2)$(important)This is permanent$() until you die or use special removal methods!"
+    },
+    {
+      "type": "text",
+      "title": "Why Would You...?",
+      "text": "Legitimate uses:$(li)Pranking friends (evil)$(li)Challenge runs$(li)Roleplay/adventure maps$(li)Preventing accidental drops$(br2)$(c)Think twice before cursing an item!$()$(br2)$(o)Some bindings cannot be broken...$()"
+    }
+  ]
+}

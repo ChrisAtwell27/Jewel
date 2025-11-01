@@ -1,0 +1,28 @@
+{
+  "name": "Unbreaking",
+  "icon": "minecraft:netherite_ingot",
+  "category": "jewelcharms:universal_effects",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(bold)Unbreaking$() (Durability) reduces the chance that your item takes durability damage!$(br2)Each level gives a chance to $(important)not consume durability$() when using the item."
+    },
+    {
+      "type": "spotlight",
+      "item": "minecraft:netherite_ingot",
+      "title": "Primary Material",
+      "text": "$(7)Netherite Ingot$() grants $(bold)Unbreaking +5$() (plus other effects!)$(br2)The ultimate durability material!"
+    },
+    {
+      "type": "text",
+      "title": "How It Works",
+      "text": "$(li)Level 1: 50% chance to not use durability$(li)Level 2: 66% chance$(li)Level 3: 75% chance$(li)Level 5: Even better!$(br2)Effectively multiplies your item's lifespan by 2-4x!"
+    },
+    {
+      "type": "text",
+      "title": "Essential For",
+      "text": "$(li)Expensive tool enchantments$(li)Diamond/Netherite gear$(li)Items with $(tool)Vein Miner$() or $(tool)Tree Capitator$()$(li)Any heavily-used tools$(li)Boss fight weapons$(br2)$(o)Make your tools last forever!$()"
+    }
+  ]
+}

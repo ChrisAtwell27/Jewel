@@ -1,0 +1,28 @@
+{
+  "name": "Execute",
+  "icon": "minecraft:wither_skeleton_skull",
+  "category": "jewelcharms:weapon_effects",
+  "sortnum": 7,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(weapon)Execute$() deals $(important)massive bonus damage$() to enemies below a certain health threshold!$(br2)Perfect for finishing off wounded foes with devastating final blows."
+    },
+    {
+      "type": "spotlight",
+      "item": "minecraft:wither_skeleton_skull",
+      "title": "Primary Material",
+      "text": "$(0)Wither Skeleton Skull$() grants $(weapon)Execute +1$()$(br2)Death incarnate!"
+    },
+    {
+      "type": "text",
+      "title": "How It Works",
+      "text": "When an enemy is below $(important)20% health$(), Execute activates and deals bonus damage based on level.$(br2)$(li)Level 1: +50% damage when low HP$(li)Higher levels: Even more bonus damage!$(br2)Great for finishing bosses and tanks."
+    },
+    {
+      "type": "text",
+      "title": "Synergies",
+      "text": "$(li)Pair with $(weapon)Sharpness$() to reach execute threshold faster$(li)Use with $(weapon)Critical Strike$() for explosive finishers$(li)Combine with $(weapon)Poison$() to whittle health down$(li)Essential for boss rushes$(br2)$(o)\"Finish him!\"$()"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "QQQ",
+    "SCS",
+    "SSS"
+  ],
+  "key": {
+    "Q": {
+      "item": "minecraft:quartz_block"
+    },
+    "S": {
+      "item": "minecraft:smooth_stone"
+    },
+    "C": {
+      "item": "jewelcharms:jewel_creation_station"
+    }
+  },
+  "result": {
+    "item": "jewelcharms:polish_station"
+  }
+}

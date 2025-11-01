@@ -1,0 +1,27 @@
+{
+  "name": "Introduction",
+  "icon": "jewelcharms:jewel",
+  "category": "jewelcharms:getting_started",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "text",
+      "text": "Welcome to $(jewel)Jewel Charms$(), an enchanting system that allows you to enhance your tools and weapons with powerful magical gems!$(br2)Unlike traditional enchantments, jewels are $(important)crafted from materials$() that determine their effects, and can be $(important)attached directly to your items$() for instant power."
+    },
+    {
+      "type": "text",
+      "title": "How It Works",
+      "text": "$(bold)1. Create Rough Jewel$()$(br)Use the $(l:getting_started/crafting_jewels)Jewel Creation Station$() to combine materials into a rough jewel.$(br2)$(bold)2. Polish It$()$(br)Polish the rough jewel at the $(l:getting_started/polish_station)Polish Station$() to create a finished jewel.$(br2)$(bold)3. Attach to Items$()$(br)Use a $(l:getting_started/attaching_jewels)Jewel Socket Template$() at a Smithing Table to attach jewels.$(br2)$(bold)4. Enjoy the Power$()$(br)Your item now has the jewel's effect!"
+    },
+    {
+      "type": "text",
+      "title": "Key Features",
+      "text": "$(li)$(jewel)42 unique effects$() across 5 categories$(li)$(tool)30+ materials$() to discover$(li)$(important)Stack multiple jewels$() on one item$(li)$(special)Visible jewel overlays$() show your power$(li)$(important)Fully configurable$() effects and materials"
+    },
+    {
+      "type": "text",
+      "title": "Categories",
+      "text": "$(l:tool_effects/overview)$(tool)Tool Effects$()$() - Mining, harvesting, utility$(br2)$(l:weapon_effects/overview)$(weapon)Weapon Effects$()$() - Combat prowess$(br2)$(l:universal_effects/overview)Universal Effects$() - Works on both$(br2)$(l:player_effects/overview)Player Effects$() - Passive bonuses$(br2)$(l:special_effects/overview)$(special)Special Effects$()$() - Unique powers"
+    }
+  ]
+}

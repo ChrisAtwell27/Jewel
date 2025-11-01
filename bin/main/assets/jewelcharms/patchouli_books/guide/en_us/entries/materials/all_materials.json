@@ -1,0 +1,22 @@
+{
+  "name": "Materials Encyclopedia",
+  "icon": "minecraft:diamond",
+  "category": "jewelcharms:materials",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "text",
+      "text": "This comprehensive reference lists $(important)every material$() that can be used to craft jewels, along with their effects and power levels.$(br2)$(o)Experiment with different materials to discover powerful combinations!$()"
+    },
+    {
+      "type": "text",
+      "title": "How to Use",
+      "text": "Each material entry shows:$(br)$(li)$(jewel)Material name$()$(li)$(tool)Effects granted$()$(li)Level/power of each effect$(li)Jewel color$(br2)Create rough jewels from materials at the $(l:getting_started/crafting_jewels)Jewel Creation Station$(), then polish them at the $(l:getting_started/polish_station)Polish Station$()!"
+    },
+    {
+      "type": "text",
+      "title": "Material Categories",
+      "text": "$(l:materials/tool_materials)$(tool)Tool Materials$()$() - Mining & utility$(br2)$(l:materials/weapon_materials)$(weapon)Weapon Materials$()$() - Combat power$(br2)$(l:materials/universal_materials)Universal Materials$() - Versatile effects$(br2)$(l:materials/player_materials)Player Buff Materials$() - Status effects$(br2)$(l:materials/special_materials)$(special)Special Materials$()$() - Unique powers"
+    }
+  ]
+}

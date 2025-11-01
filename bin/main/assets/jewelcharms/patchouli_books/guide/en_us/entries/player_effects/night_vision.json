@@ -1,0 +1,23 @@
+{
+  "name": "Night Vision",
+  "icon": "minecraft:glowstone_dust",
+  "category": "jewelcharms:player_effects",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(bold)Night Vision$() allows you to see perfectly in the dark while holding the jeweled item!$(br2)No more torches needed for navigation."
+    },
+    {
+      "type": "spotlight",
+      "item": "minecraft:glowstone_dust",
+      "title": "Primary Material",
+      "text": "$(e)Glowstone Dust$() grants Night Vision +1$(br2)Light up your world!"
+    },
+    {
+      "type": "text",
+      "title": "Perfect For",
+      "text": "$(li)Cave exploration$(li)Mining in dark areas$(li)Building without lighting$(li)Ocean diving$(li)Night time adventures$(br2)$(important)Pro tip:$() Put on your mining pickaxe for permanent cave vision!"
+    }
+  ]
+}

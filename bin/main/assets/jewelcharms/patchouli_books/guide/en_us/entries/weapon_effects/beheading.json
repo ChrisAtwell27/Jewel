@@ -1,0 +1,28 @@
+{
+  "name": "Beheading",
+  "icon": "minecraft:zombie_head",
+  "category": "jewelcharms:weapon_effects",
+  "sortnum": 11,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(weapon)Beheading$() gives you a chance to collect mob heads when you defeat enemies!$(br2)Each level increases the $(important)head drop chance$(), allowing you to build an impressive trophy collection."
+    },
+    {
+      "type": "spotlight",
+      "item": "minecraft:zombie_head",
+      "title": "Primary Material",
+      "text": "$(2)Zombie Head$() grants $(weapon)Beheading +1$()$(br2)Ironic, isn't it?"
+    },
+    {
+      "type": "text",
+      "title": "Drop Chances",
+      "text": "$(li)Level 1: ~5% head drop chance$(li)Level 2: ~10% head drop chance$(li)Level 3+: Even higher chances!$(br2)Works on most mobs that can drop heads, including some that normally don't!"
+    },
+    {
+      "type": "text",
+      "title": "Collectibles",
+      "text": "Collect heads from:$(li)Zombies, Skeletons, Creepers$(li)Wither Skeletons (easier!)$(li)Players in PvP$(li)Some modded mobs$(br2)$(o)Perfect for decoration and bragging rights!$()"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "name": "Player Effects",
+  "icon": "minecraft:golden_apple",
+  "category": "jewelcharms:player_effects",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(bold)Player Effects$() grant you $(important)passive status effects$() while you're holding the jeweled item!$(br2)These effects act like potions, but remain active as long as you hold the item."
+    },
+    {
+      "type": "text",
+      "title": "Available Effects",
+      "text": "$(li)Night Vision - See in the dark$(li)Aqua Affinity - Breathe underwater$(li)Swiftness - Move faster$(li)Haste - Mine/attack faster$(li)Resistance - Take less damage$(li)Regeneration - Heal over time$(li)Leaping - Jump higher$(li)Fire Resistance - Immune to fire"
+    },
+    {
+      "type": "text",
+      "title": "How They Work",
+      "text": "$(important)Hold the item$() in your main hand or off-hand to receive the effect!$(br2)Effects last as long as you hold the item. Switch items and the effect fades after a few seconds.$(br2)Higher levels = stronger effects!"
+    },
+    {
+      "type": "text",
+      "title": "Pro Tips",
+      "text": "$(li)Create specialized tools for different situations$(li)Keep a Night Vision pickaxe for cave mining$(li)Use Aqua Affinity for ocean monuments$(li)Carry a Fire Resistance tool for the Nether$(br2)$(o)Tools that buff you passively!$()"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "name": "Fire Resistance",
+  "icon": "minecraft:magma_cream",
+  "category": "jewelcharms:player_effects",
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(bold)Fire Resistance$() makes you immune to fire and lava damage while holding the jeweled item!$(br2)Essential for Nether exploration and lava diving."
+    },
+    {
+      "type": "spotlight",
+      "item": "minecraft:magma_cream",
+      "title": "Primary Material",
+      "text": "$(c)Magma Cream$() grants Fire Resistance +1$(br2)Born from fire!"
+    },
+    {
+      "type": "text",
+      "title": "Protection",
+      "text": "Protects from:$(li)Lava$(li)Fire$(li)Blaze fireballs$(li)Burning ground$(li)Magma blocks$(br2)$(important)Safety first$() in the Nether!"
+    },
+    {
+      "type": "text",
+      "title": "Perfect For",
+      "text": "$(li)Mining in the Nether$(li)Fighting Blazes$(li)Fortress exploration$(li)Lava lake navigation$(li)Accidental lava encounters$(br2)$(o)Swim in lava like it's water!$()"
+    }
+  ]
+}

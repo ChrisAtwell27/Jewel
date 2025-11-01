@@ -1,0 +1,21 @@
+{
+  "name": "Tool Effects Overview",
+  "icon": "minecraft:diamond_pickaxe",
+  "category": "jewelcharms:tool_effects",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(tool)Tool Effects$() enhance your mining, harvesting, and utility work. These effects only activate when using the appropriate tool for its intended purpose.$(br2)Most tool effects work on:$(li)Pickaxes$(li)Axes$(li)Shovels$(li)Hoes"
+    },
+    {
+      "type": "text",
+      "title": "Available Effects",
+      "text": "$(l:tool_effects/mining_speed)$(tool)Mining Speed$()$() - Break blocks faster$(br)$(l:tool_effects/fortune)$(tool)Fortune$()$() - More drops$(br)$(l:tool_effects/silk_touch)$(tool)Silk Touch$()$() - Delicate mining$(br)$(l:tool_effects/auto_smelt)$(tool)Auto-Smelt$()$() - Instant smelting$(br)$(l:tool_effects/aoe_mining)$(tool)Vein Miner$()$() - Mine connected blocks"
+    },
+    {
+      "type": "text",
+      "text": "$(l:tool_effects/replanting)$(tool)Auto-Replant$()$() - Auto-plant crops$(br)$(l:tool_effects/tree_felling)$(tool)Tree Capitator$()$() - Fell entire trees$(br)$(l:tool_effects/magnetic)$(tool)Item Magnet$()$() - Pull items to you$(br2)Each effect can be stacked multiple times for increased power!"
+    }
+  ]
+}

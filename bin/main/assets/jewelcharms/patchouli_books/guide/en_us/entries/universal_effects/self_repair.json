@@ -1,0 +1,28 @@
+{
+  "name": "Mending",
+  "icon": "minecraft:ghast_tear",
+  "category": "jewelcharms:universal_effects",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(bold)Mending$() (Self-Repair) repairs your item using $(important)experience orbs$() you collect!$(br2)Each XP orb restores durability, keeping your precious tools in perfect condition."
+    },
+    {
+      "type": "spotlight",
+      "item": "minecraft:ghast_tear",
+      "title": "Primary Material",
+      "text": "$(f)Ghast Tear$() grants $(bold)Mending +2$()$(br2)The tears of ghosts heal your tools!"
+    },
+    {
+      "type": "text",
+      "title": "How It Works",
+      "text": "When you collect XP while holding a jeweled item:$(br)$(li)XP orbs repair the item instead of going to your XP bar$(li)Higher levels repair more per orb$(li)Works automatically$(li)Prioritizes damaged items$(br2)$(important)Stacks with Unbreaking$() for near-immortal tools!"
+    },
+    {
+      "type": "text",
+      "title": "Perfect For",
+      "text": "$(li)Mob farming$(li)Mining with $(tool)XP Boost$()$(li)Boss farming$(li)Long expeditions$(li)Highly enchanted gear$(br2)$(o)Never visit an anvil again!$()"
+    }
+  ]
+}

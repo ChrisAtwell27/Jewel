@@ -1,0 +1,28 @@
+{
+  "name": "Fortune",
+  "icon": "minecraft:emerald",
+  "category": "jewelcharms:tool_effects",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(tool)Fortune$() increases the amount of items dropped from blocks that have variable drop counts.$(br2)Works identically to the vanilla Fortune enchantment, but can be stacked with it for even greater yields!"
+    },
+    {
+      "type": "spotlight",
+      "item": "minecraft:emerald",
+      "title": "Primary Material",
+      "text": "$(a)Emerald$() grants $(tool)Fortune +1$()$(br2)The classic material for wealth and prosperity!"
+    },
+    {
+      "type": "text",
+      "title": "Affected Blocks",
+      "text": "Fortune increases drops from:$(li)Coal, Diamond, Emerald, Lapis$(li)Redstone, Quartz$(li)Crops (Wheat, Carrots, Potatoes)$(li)Melon slices$(li)Nether Wart$(li)Glowstone dust"
+    },
+    {
+      "type": "text",
+      "title": "Stacking",
+      "text": "$(important)Fortune stacks with enchantments!$()$(br2)Fortune III enchanted pickaxe + Fortune II from jewels = Fortune V total$(br2)$(o)Watch those diamonds multiply!$()"
+    }
+  ]
+}

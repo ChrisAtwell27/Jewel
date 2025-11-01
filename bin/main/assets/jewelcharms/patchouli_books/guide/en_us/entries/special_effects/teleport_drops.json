@@ -1,0 +1,28 @@
+{
+  "name": "Ender Pocket",
+  "icon": "minecraft:chorus_fruit",
+  "category": "jewelcharms:special_effects",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(special)Ender Pocket$() (Teleport Drops) automatically $(important)teleports block drops directly into your inventory$()!$(br2)No more chasing items or losing them to lava!"
+    },
+    {
+      "type": "spotlight",
+      "item": "minecraft:chorus_fruit",
+      "title": "Primary Material",
+      "text": "$(d)Chorus Fruit$() grants Ender Pocket +1$(br2)End-dimensional storage!"
+    },
+    {
+      "type": "text",
+      "title": "How It Works",
+      "text": "When you break a block:$(br2)1. Block drops are generated$(br)2. Drops $(important)instantly teleport$() to your inventory$(br)3. No item entities spawn$(br)4. No items to lose!$(br2)Works with $(tool)Fortune$(), $(tool)Silk Touch$(), and all other drop-modifying effects!"
+    },
+    {
+      "type": "text",
+      "title": "Perfect For",
+      "text": "$(li)Mining over lava$(li)Strip mining$(li)Underwater mining$(li)Preventing despawning$(li)High-speed clearing$(li)Void mining in The End$(br2)$(o)Your personal Ender Chest!$()"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "name": "Silk Touch",
+  "icon": "minecraft:amethyst_shard",
+  "category": "jewelcharms:tool_effects",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(tool)Silk Touch$() allows you to mine blocks in their original form, without breaking them into drops.$(br2)$(important)Note:$() This effect requires only 1 level - additional levels provide no extra benefit."
+    },
+    {
+      "type": "spotlight",
+      "item": "minecraft:amethyst_shard",
+      "title": "Primary Material",
+      "text": "$(d)Amethyst Shard$() grants $(tool)Silk Touch +1$()$(br2)The delicate crystal for delicate mining!"
+    },
+    {
+      "type": "text",
+      "title": "What It Does",
+      "text": "Silk Touch allows you to collect:$(li)Grass blocks (not dirt)$(li)Stone (not cobblestone)$(li)Glass without breaking it$(li)Ore blocks themselves$(li)Ice, Packed Ice$(li)Mycelium, Podzol$(li)Spawners (depends on game rules)"
+    },
+    {
+      "type": "text",
+      "title": "Conflicts",
+      "text": "$(important)Silk Touch conflicts with Fortune!$()$(br2)If both effects are present, Silk Touch takes priority.$(br2)Use separate tools for Fortune and Silk Touch, or carry jewel-swapping tools!"
+    }
+  ]
+}

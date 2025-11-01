@@ -1,0 +1,28 @@
+{
+  "name": "Mining Speed",
+  "icon": "minecraft:diamond_pickaxe",
+  "category": "jewelcharms:tool_effects",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(tool)Mining Speed$() increases the speed at which you break blocks with your tool.$(br2)Each level provides a $(important)25% speed boost$(), making your mining and harvesting significantly faster!"
+    },
+    {
+      "type": "spotlight",
+      "item": "minecraft:diamond",
+      "title": "Primary Material",
+      "text": "$(b)Diamond$() grants $(tool)Mining Speed +2$()$(br2)Create rough jewels with diamond at the Jewel Creation Station, then polish them at the Polish Station."
+    },
+    {
+      "type": "text",
+      "title": "Effect Scaling",
+      "text": "$(li)Level 1: +25% speed$(li)Level 2: +50% speed (Diamond)$(li)Level 3: +75% speed$(li)Level 4: +100% speed (2x faster!)$(br2)Stack multiple jewels to reach incredible mining speeds!"
+    },
+    {
+      "type": "text",
+      "title": "Works On",
+      "text": "$(li)Pickaxes - Mine stone faster$(li)Axes - Chop wood faster$(li)Shovels - Dig dirt faster$(li)Hoes - Till soil faster$(br2)$(o)Perfect for strip mining or building projects!$()"
+    }
+  ]
+}

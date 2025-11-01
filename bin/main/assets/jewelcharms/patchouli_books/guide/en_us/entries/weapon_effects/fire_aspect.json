@@ -1,0 +1,28 @@
+{
+  "name": "Fire Aspect",
+  "icon": "minecraft:blaze_rod",
+  "category": "jewelcharms:weapon_effects",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(weapon)Fire Aspect$() sets your target on fire when you hit them!$(br2)Deals $(important)additional fire damage over time$() and cooks food-dropping mobs."
+    },
+    {
+      "type": "spotlight",
+      "item": "minecraft:blaze_rod",
+      "title": "Primary Material",
+      "text": "$(6)Blaze Rod$() grants $(weapon)Fire Aspect +2$()$(br2)Bring the heat of the Nether to battle!"
+    },
+    {
+      "type": "text",
+      "title": "Fire Duration",
+      "text": "$(li)Level 1: Burns for 4 seconds$(li)Level 2: Burns for 8 seconds (Blaze Rod)$(li)Level 3: Burns for 12 seconds$(li)Level 4+: Even longer burns!$(br2)Each level adds 4 seconds of fire. Damage continues even after you stop attacking."
+    },
+    {
+      "type": "text",
+      "title": "Special Features",
+      "text": "$(li)Cooks chicken, beef, pork automatically$(li)Great for food collection$(li)Damages most mobs$(li)$(important)Be careful$() - doesn't work on Nether mobs!$(li)Can make PvP harder to track$(br2)$(o)Some like it hot!$()"
+    }
+  ]
+}

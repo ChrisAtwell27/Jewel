@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " D ",
+    "JBJ",
+    " P "
+  ],
+  "key": {
+    "D": {
+      "item": "minecraft:diamond"
+    },
+    "J": {
+      "item": "jewelcharms:jewel"
+    },
+    "B": {
+      "item": "minecraft:book"
+    },
+    "P": {
+      "item": "minecraft:paper"
+    }
+  },
+  "result": {
+    "item": "jewelcharms:guidebook",
+    "count": 1
+  }
+}

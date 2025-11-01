@@ -1,0 +1,23 @@
+{
+  "name": "Aqua Affinity",
+  "icon": "minecraft:prismarine_shard",
+  "category": "jewelcharms:player_effects",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(bold)Aqua Affinity$() (Water Breathing) allows you to breathe underwater indefinitely while holding the jeweled item!$(br2)Explore ocean monuments and underwater caves without worry."
+    },
+    {
+      "type": "spotlight",
+      "item": "minecraft:prismarine_shard",
+      "title": "Primary Material",
+      "text": "$(b)Prismarine Shard$() grants Aqua Affinity +1 $(important)and$() Swiftness +1!$(br2)Double ocean bonus!"
+    },
+    {
+      "type": "text",
+      "title": "Ocean Exploration",
+      "text": "$(li)Infinite underwater breathing$(li)Explore shipwrecks safely$(li)Mine underwater without drowning$(li)Farm ocean monuments$(li)Search for buried treasure$(br2)$(o)Become Aquaman!$()"
+    }
+  ]
+}

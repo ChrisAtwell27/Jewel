@@ -1,0 +1,22 @@
+{
+  "name": "Universal Effects",
+  "icon": "minecraft:nether_star",
+  "category": "jewelcharms:universal_effects",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(bold)Universal Effects$() work on $(important)both tools and weapons$(), making them incredibly versatile!$(br2)These effects provide utility and enhancement regardless of how you use your item."
+    },
+    {
+      "type": "text",
+      "title": "Available Effects",
+      "text": "$(l:universal_effects/durability)Unbreaking$() - Reduces durability loss$(br2)$(l:universal_effects/self_repair)Mending$() - Repairs with XP$(br2)$(l:universal_effects/experience_boost)XP Boost$() - More experience orbs$(br2)$(l:universal_effects/reach)Extended Reach$() - Longer interaction range"
+    },
+    {
+      "type": "text",
+      "title": "Why They're Great",
+      "text": "$(li)Works on any item$(li)Combines tool and weapon benefits$(li)Essential for hybrid items like axes$(li)Stacks with category-specific effects$(br2)$(o)The foundation of any powerful item!$()"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "name": "Sweeping Edge",
+  "icon": "minecraft:iron_sword",
+  "category": "jewelcharms:weapon_effects",
+  "sortnum": 10,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(weapon)Sweeping Edge$() increases the damage of sweep attacks, allowing you to hit $(important)multiple enemies$() at once!$(br2)Only works with swords in Java Edition."
+    },
+    {
+      "type": "spotlight",
+      "item": "minecraft:iron_sword",
+      "title": "Sweep Attacks",
+      "text": "Sweep attacks occur automatically when you hit an enemy while other enemies are nearby.$(br2)They appear as a particle effect!"
+    },
+    {
+      "type": "text",
+      "title": "Damage Scaling",
+      "text": "$(li)No Sweeping: 1 damage to nearby enemies$(li)Level 1: 50% of main attack$(li)Level 2: 67% of main attack$(li)Level 3: 75% of main attack$(br2)Higher levels make sweeping almost as strong as direct hits!"
+    },
+    {
+      "type": "text",
+      "title": "Crowd Control",
+      "text": "$(li)Clear zombie hordes$(li)Fight multiple mobs efficiently$(li)Great for mob farms$(li)Essential for adventure maps$(li)Combine with $(weapon)Fire Aspect$() to burn groups!$(br2)$(o)One swing, many casualties!$()"
+    }
+  ]
+}

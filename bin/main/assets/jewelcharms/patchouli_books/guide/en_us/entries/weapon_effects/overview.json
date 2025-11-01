@@ -1,0 +1,21 @@
+{
+  "name": "Weapon Effects Overview",
+  "icon": "minecraft:diamond_sword",
+  "category": "jewelcharms:weapon_effects",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(weapon)Weapon Effects$() transform you into a combat powerhouse! These effects activate when attacking entities with swords or axes.$(br2)Dominate your enemies with devastating strikes and tactical advantages."
+    },
+    {
+      "type": "text",
+      "title": "Available Effects",
+      "text": "$(l:weapon_effects/sharpness)$(weapon)Sharpness$()$() - More damage$(br)$(l:weapon_effects/looting)$(weapon)Looting$()$() - Better mob drops$(br)$(l:weapon_effects/fire_aspect)$(weapon)Fire Aspect$()$() - Burning strikes$(br)$(l:weapon_effects/knockback)$(weapon)Knockback$()$() - Push enemies back$(br)$(l:weapon_effects/sweeping)$(weapon)Sweeping Edge$()$() - Hit multiple foes"
+    },
+    {
+      "type": "text",
+      "text": "$(l:weapon_effects/critical)$(weapon)Critical Strike$()$() - Bonus crit chance$(br)$(l:weapon_effects/lifesteal)$(weapon)Life Steal$()$() - Heal on hit$(br)$(l:weapon_effects/execute)$(weapon)Execute$()$() - Finish low HP enemies$(br)$(l:weapon_effects/poison)$(weapon)Venomous$()$() - Poison attacks$(br)$(l:weapon_effects/weakness)$(weapon)Enfeebling Strike$()$() - Weaken foes$(br)$(l:weapon_effects/beheading)$(weapon)Beheading$()$() - Collect heads"
+    }
+  ]
+}

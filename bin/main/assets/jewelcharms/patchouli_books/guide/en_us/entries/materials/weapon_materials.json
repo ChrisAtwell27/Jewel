@@ -1,0 +1,68 @@
+{
+  "name": "Weapon Materials",
+  "icon": "minecraft:diamond_sword",
+  "category": "jewelcharms:materials",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "text",
+      "title": "Weapon Materials",
+      "text": "These materials grant combat-focused effects that enhance your weapons."
+    },
+    {
+      "type": "text",
+      "title": "Quartz",
+      "text": "$(bold)Effect:$() Sharpness (Damage) +2$(br)$(bold)Color:$() White$(br)$(bold)Best For:$() Swords and axes$(br2)Increases attack damage by +1.0. The foundation of every warrior!"
+    },
+    {
+      "type": "text",
+      "title": "Lapis Lazuli",
+      "text": "$(bold)Effect:$() Looting +1$(br)$(bold)Color:$() Deep Blue$(br)$(bold)Best For:$() Mob farming swords$(br2)Increases mob drop quantities!"
+    },
+    {
+      "type": "text",
+      "title": "Blaze Rod",
+      "text": "$(bold)Effect:$() Fire Aspect +2$(br)$(bold)Color:$() Orange-Red$(br)$(bold)Best For:$() Combat weapons$(br2)Sets enemies on fire for 7 seconds!"
+    },
+    {
+      "type": "text",
+      "title": "Slime Ball",
+      "text": "$(bold)Effect:$() Knockback +2$(br)$(bold)Color:$() Light Green$(br)$(bold)Best For:$() Defensive weapons$(br2)Pushes enemies away from you!"
+    },
+    {
+      "type": "text",
+      "title": "Eye of Ender",
+      "text": "$(bold)Effect:$() Critical Strike +2$(br)$(bold)Color:$() Sea Green$(br)$(bold)Best For:$() High-damage weapons$(br2)Chance to deal critical damage!"
+    },
+    {
+      "type": "text",
+      "title": "Glistering Melon",
+      "text": "$(bold)Effect:$() Life Steal +2$(br)$(bold)Color:$() Deep Pink$(br)$(bold)Best For:$() Sustain weapons$(br2)Heals you for 10% of damage dealt!"
+    },
+    {
+      "type": "text",
+      "title": "Wither Skeleton Skull",
+      "text": "$(bold)Effect:$() Execute +1$(br)$(bold)Color:$() Black$(br)$(bold)Best For:$() Boss killers$(br2)Massive bonus damage to low-HP enemies!"
+    },
+    {
+      "type": "text",
+      "title": "Spider Eye",
+      "text": "$(bold)Effect:$() Venomous (Poison) +2$(br)$(bold)Color:$() Dark Magenta$(br)$(bold)Best For:$() DoT weapons$(br2)Inflicts Poison II for 5 seconds!"
+    },
+    {
+      "type": "text",
+      "title": "Fermented Spider Eye",
+      "text": "$(bold)Effect:$() Enfeebling Strike (Weakness) +2$(br)$(bold)Color:$() Indigo$(br)$(bold)Best For:$() Defensive weapons$(br2)Reduces enemy attack damage!"
+    },
+    {
+      "type": "text",
+      "title": "Zombie Head",
+      "text": "$(bold)Effect:$() Beheading +1$(br)$(bold)Color:$() Dark Olive$(br)$(bold)Best For:$() Trophy hunting$(br2)Chance to collect mob heads!"
+    },
+    {
+      "type": "text",
+      "title": "Lodestone",
+      "text": "$(bold)Effect:$() Gravity Tether +2$(br)$(bold)Color:$() Dark Gray$(br)$(bold)Best For:$() Crowd control weapons$(br2)Creates a gravitational pull that draws enemies and items toward you!"
+    }
+  ]
+}

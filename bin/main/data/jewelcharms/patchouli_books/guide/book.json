@@ -1,0 +1,15 @@
+{
+  "name": "Jewel Charms Guide",
+  "landing_text": "Welcome to the enchanting world of Jewel Charms! This comprehensive guide will teach you everything about crafting powerful jewels, attaching them to your tools and weapons, and mastering the art of material combinations. May your tools shine with brilliance!",
+  "version": "1",
+  "model": "patchouli:book_purple",
+  "show_progress": false,
+  "use_resource_pack": true,
+  "macros": {
+    "$(jewel)": "$(b)$(bold)",
+    "$(tool)": "$(6)$(bold)",
+    "$(weapon)": "$(c)$(bold)",
+    "$(special)": "$(d)$(bold)",
+    "$(important)": "$(6)$(bold)"
+  }
+}

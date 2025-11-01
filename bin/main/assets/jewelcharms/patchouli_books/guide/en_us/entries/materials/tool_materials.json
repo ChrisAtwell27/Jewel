@@ -1,0 +1,73 @@
+{
+  "name": "Tool Materials",
+  "icon": "minecraft:diamond_pickaxe",
+  "category": "jewelcharms:materials",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "text",
+      "title": "Tool Materials",
+      "text": "These materials grant effects that enhance mining, harvesting, and utility work."
+    },
+    {
+      "type": "text",
+      "title": "Diamond",
+      "text": "$(bold)Effect:$() Mining Speed +2$(br)$(bold)Color:$() Bright Blue$(br)$(bold)Best For:$() Any mining tool$(br2)Increases block breaking speed by 50%! Essential for efficient mining."
+    },
+    {
+      "type": "text",
+      "title": "Emerald",
+      "text": "$(bold)Effect:$() Fortune +1$(br)$(bold)Color:$() Emerald Green$(br)$(bold)Best For:$() Pickaxes$(br2)Increases ore and crop drops. The classic treasure material!"
+    },
+    {
+      "type": "text",
+      "title": "Amethyst Shard",
+      "text": "$(bold)Effect:$() Silk Touch +1$(br)$(bold)Color:$() Purple$(br)$(bold)Best For:$() Specialty tools$(br2)Mine blocks in their original form. Delicate and precise!"
+    },
+    {
+      "type": "text",
+      "title": "Blaze Powder",
+      "text": "$(bold)Effect:$() Auto-Smelt +1$(br)$(bold)Color:$() Orange$(br)$(bold)Best For:$() Mining pickaxes$(br2)Instantly smelts ores and blocks as you mine them!"
+    },
+    {
+      "type": "text",
+      "title": "Coal",
+      "text": "$(bold)Effect:$() Vein Miner (AOE Mining) +1$(br)$(bold)Color:$() Dark Gray$(br)$(bold)Best For:$() Any tool$(br2)Breaks all connected blocks of the same type!"
+    },
+    {
+      "type": "text",
+      "title": "Wheat Seeds",
+      "text": "$(bold)Effect:$() Auto-Replant +1$(br)$(bold)Color:$() Yellow-Green$(br)$(bold)Best For:$() Hoes$(br2)Automatically replants crops after harvesting!"
+    },
+    {
+      "type": "text",
+      "title": "Oak Sapling",
+      "text": "$(bold)Effect:$() Tree Capitator (Tree Felling) +1$(br)$(bold)Color:$() Forest Green$(br)$(bold)Best For:$() Axes$(br2)Chops down entire trees in one swing!"
+    },
+    {
+      "type": "text",
+      "title": "Iron Ingot",
+      "text": "$(bold)Effect:$() Item Magnet +2$(br)$(bold)Color:$() Silver$(br)$(bold)Best For:$() Any tool$(br2)Pulls dropped items toward you automatically!"
+    },
+    {
+      "type": "text",
+      "title": "Redstone",
+      "text": "$(bold)Effect:$() Haste +1$(br)$(bold)Color:$() Red$(br)$(bold)Best For:$() Tools and weapons$(br2)Grants the Haste status effect while held!"
+    },
+    {
+      "type": "text",
+      "title": "Echo Shard",
+      "text": "$(bold)Effect:$() Quantum Harvest +1$(br)$(bold)Color:$() Dark Cyan$(br)$(bold)Best For:$() All tools$(br2)Mysterious quantum effects that manipulate probability during harvesting!"
+    },
+    {
+      "type": "text",
+      "title": "Observer",
+      "text": "$(bold)Effect:$() Domino Effect +1$(br)$(bold)Color:$() Gray$(br)$(bold)Best For:$() Mining tools$(br2)Breaking one block triggers chain reactions on nearby similar blocks!"
+    },
+    {
+      "type": "text",
+      "title": "Bell",
+      "text": "$(bold)Effect:$() Sound Harvesting +1$(br)$(bold)Color:$() Golden$(br)$(bold)Best For:$() All tools$(br2)Harvest resources from sounds and vibrations in the world!"
+    }
+  ]
+}

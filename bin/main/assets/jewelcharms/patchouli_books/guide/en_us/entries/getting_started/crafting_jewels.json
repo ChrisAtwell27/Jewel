@@ -1,0 +1,35 @@
+{
+  "name": "Crafting Jewels",
+  "icon": "minecraft:diamond",
+  "category": "jewelcharms:getting_started",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "text",
+      "text": "Creating jewels is a $(important)two-step process$():$(br2)$(bold)Step 1:$() Use the $(l:getting_started/crafting_jewels#jewel_creation_station)Jewel Creation Station$() to combine materials into a $(tool)Rough Jewel$().$(br2)$(bold)Step 2:$() Polish the rough jewel at the $(l:getting_started/polish_station)Polish Station$() to create a finished jewel!"
+    },
+    {
+      "type": "spotlight",
+      "item": "jewelcharms:jewel_creation_station",
+      "title": "Jewel Creation Station",
+      "anchor": "jewel_creation_station",
+      "text": "Place your materials in the Jewel Creation Station to create rough jewels. Different materials grant different effects!"
+    },
+    {
+      "type": "spotlight",
+      "item": "jewelcharms:polish_station",
+      "title": "Polish Station",
+      "text": "Use the Polish Station to polish your rough jewels into finished gems ready to attach to your gear!"
+    },
+    {
+      "type": "text",
+      "title": "Material Examples",
+      "text": "$(li)$(b)Diamond$() → Mining Speed +2$(li)$(a)Emerald$() → Fortune +1$(li)$(f)Quartz$() → Sharpness +2$(li)$(9)Lapis Lazuli$() → Looting +1$(li)$(6)Gold Ingot$() → XP Boost +2$(br)Check the $(l:materials/all_materials)Materials Reference$() for a complete list!"
+    },
+    {
+      "type": "text",
+      "title": "Multiple Effects",
+      "text": "Some powerful materials grant $(important)multiple effects$() at once!$(br2)For example, $(7)Netherite Ingot$() provides:$(li)Durability +5$(li)Mining Speed +2$(li)Sharpness +2$(br2)This makes material choice strategic and rewarding!"
+    }
+  ]
+}

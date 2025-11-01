@@ -1,0 +1,28 @@
+{
+  "name": "Tree Capitator",
+  "icon": "minecraft:oak_sapling",
+  "category": "jewelcharms:tool_effects",
+  "sortnum": 7,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(tool)Tree Capitator$() (Tree Felling) chops down entire trees when you break the bottom log!$(br2)No more climbing or pillaring - fell the whole tree in one swing."
+    },
+    {
+      "type": "spotlight",
+      "item": "minecraft:oak_sapling",
+      "title": "Primary Material",
+      "text": "$(2)Oak Sapling$() grants $(tool)Tree Capitator +1$()$(br2)From small saplings, mighty lumber!"
+    },
+    {
+      "type": "text",
+      "title": "How It Works",
+      "text": "When you break a log with Tree Capitator:$(br2)1. The mod finds all connected logs$(br)2. The entire tree breaks at once$(br)3. Leaves decay naturally afterward$(br2)$(important)Uses durability$() for each log broken!"
+    },
+    {
+      "type": "text",
+      "title": "Best Uses",
+      "text": "$(li)Quickly harvest lumber$(li)Clear forests efficiently$(li)Build without tree climbing$(li)Works on huge jungle trees!$(li)Compatible with modded trees$(br2)$(o)Lumberjack approved!$()"
+    }
+  ]
+}

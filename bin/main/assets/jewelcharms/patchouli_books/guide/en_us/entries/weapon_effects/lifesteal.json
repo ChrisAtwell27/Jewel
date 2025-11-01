@@ -1,0 +1,28 @@
+{
+  "name": "Life Steal",
+  "icon": "minecraft:glistering_melon_slice",
+  "category": "jewelcharms:weapon_effects",
+  "sortnum": 6,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(weapon)Life Steal$() heals you for a percentage of the damage you deal!$(br2)Turn your enemies' health into your own, becoming nearly unkillable in sustained combat."
+    },
+    {
+      "type": "spotlight",
+      "item": "minecraft:glistering_melon_slice",
+      "title": "Primary Material",
+      "text": "$(d)Glistering Melon Slice$() grants $(weapon)Life Steal +2$()$(br2)Drink deep from your victories!"
+    },
+    {
+      "type": "text",
+      "title": "Healing Amount",
+      "text": "$(li)Level 1: Heal 5% of damage dealt$(li)Level 2: Heal 10% of damage dealt$(li)Level 4: Heal 20% of damage dealt!$(br2)Hit for 10 damage → Heal 1-2 hearts depending on level."
+    },
+    {
+      "type": "text",
+      "title": "Combat Strategy",
+      "text": "$(li)Sustain in long battles$(li)Reduce need for food$(li)Tank multiple enemies$(li)Combine with $(weapon)Sharpness$() for more healing$(li)Great for boss fights$(br2)$(o)The ultimate warrior's sustain!$()"
+    }
+  ]
+}

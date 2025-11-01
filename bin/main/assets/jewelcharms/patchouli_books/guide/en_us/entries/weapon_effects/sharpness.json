@@ -1,0 +1,28 @@
+{
+  "name": "Sharpness",
+  "icon": "minecraft:quartz",
+  "category": "jewelcharms:weapon_effects",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(weapon)Sharpness$() increases the damage dealt by your weapon!$(br2)Each level adds $(important)+1.25 attack damage$() (1 level = 0.625 hearts), making your strikes significantly more lethal."
+    },
+    {
+      "type": "spotlight",
+      "item": "minecraft:quartz",
+      "title": "Primary Material",
+      "text": "$(f)Quartz$() grants $(weapon)Sharpness +2$()$(br2)Sharp crystals for sharper blades!"
+    },
+    {
+      "type": "text",
+      "title": "Damage Scaling",
+      "text": "$(li)Level 1: +1.25 damage$(li)Level 2: +2.5 damage (Quartz)$(li)Level 4: +5.0 damage$(li)Level 8: +10.0 damage!$(br2)$(important)Stacks with enchantments!$() Sharpness V + Jewel Sharpness II = Sharpness VII!"
+    },
+    {
+      "type": "text",
+      "title": "Pro Tips",
+      "text": "$(li)Works on swords and axes$(li)Stacks with Strength potions$(li)Combine with $(weapon)Critical Strike$() for massive hits$(li)Essential for boss fights$(li)Works on all entities$(br2)$(o)The foundation of every warrior's arsenal!$()"
+    }
+  ]
+}

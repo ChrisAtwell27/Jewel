@@ -1,0 +1,28 @@
+{
+  "name": "Attaching Jewels",
+  "icon": "minecraft:diamond_pickaxe",
+  "category": "jewelcharms:getting_started",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "text",
+      "text": "Once you've crafted a jewel, it's time to attach it to your tool or weapon using a $(important)Smithing Table$()!$(br2)$(important)To attach a jewel:$()$(br)1. Open a Smithing Table$(br)2. Place a $(jewel)Jewel Socket Template$() in the template slot$(br)3. Place your tool/weapon in the equipment slot$(br)4. Place the jewel in the material slot$(br)5. Take your upgraded item!"
+    },
+    {
+      "type": "crafting",
+      "recipe": "jewelcharms:jewel_socket_template",
+      "title": "Jewel Socket Template",
+      "text": "Craft the Jewel Socket Template to attach jewels at a Smithing Table. You'll need this template for each jewel you want to attach!"
+    },
+    {
+      "type": "text",
+      "title": "Stacking Effects",
+      "text": "You can attach $(important)multiple jewels$() to the same item!$(br2)Effects of the same type will $(jewel)stack together$(), increasing their power. For example:$(br)$(li)Mining Speed +2$(li)Mining Speed +2$(br)= $(tool)Mining Speed +4$()"
+    },
+    {
+      "type": "text",
+      "title": "Visual Indicators",
+      "text": "Jeweled items display $(special)colorful overlay gems$() showing which effects are applied!$(br2)Each jewel is rendered as a small, glowing gem on your item. The more jewels, the more powerful your item appears!$(br2)$(o)Show off your blinged-out tools to your friends!$()"
+    }
+  ]
+}
